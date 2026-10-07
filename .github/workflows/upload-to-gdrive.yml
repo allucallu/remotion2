@@ -1,0 +1,44 @@
+name: Upload Rendered Motion Asset to Google Drive
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_name:
+        description: "Nama Artifact Zip yang akan di-upload"
+        required: true
+        default: "rendered-motion-asset"
+
+jobs:
+  upload-gdrive-oauth:
+    name: Upload Zip Artifact to Google Drive via OAuth 2.0
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download Latest Rendered Zip Artifact Across Workflows
+        run: |
+          mkdir -p ./downloaded-artifact
+          gh run download --name "${{ github.event.inputs.artifact_name }}" --dir ./downloaded-artifact
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify downloaded artifact
+        run: |
+          ls -la ./downloaded-artifact
+
+      - name: Install Rclone
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rclone
+
+      - name: Upload rendered files to Google Drive
+        run: |
+          rclone copy ./downloaded-artifact "gdrive:" -v
+        env:
+          RCLONE_CONFIG_GDRIVE_TYPE: drive
+          RCLONE_CONFIG_GDRIVE_CLIENT_ID: ${{ secrets.GDRIVE_CLIENT_ID }}
+          RCLONE_CONFIG_GDRIVE_CLIENT_SECRET: ${{ secrets.GDRIVE_CLIENT_SECRET }}
+          RCLONE_CONFIG_GDRIVE_ROOT_FOLDER_ID: ${{ secrets.GDRIVE_FOLDER_ID }}
+          RCLONE_CONFIG_GDRIVE_TOKEN: '{"access_token":"","token_type":"Bearer","refresh_token":"${{ secrets.GDRIVE_REFRESH_TOKEN }}","expiry":"0001-01-01T00:00:00Z"}'

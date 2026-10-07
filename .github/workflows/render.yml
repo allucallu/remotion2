@@ -1,0 +1,181 @@
+name: Validate and Render Motion Assets
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      composition:
+        description: Composition to render
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - LT-PlumStripe
+          - LT-MintFrame
+          - LT-CobaltNotch
+          - LT-CopperFold
+          - LT-AmberLeftDock
+          - LT-AquaRightBadge
+          - LT-SageCircleRail
+          - LT-CopperCornerDock
+          - LT-CrimsonBadgeRail
+          - LT-BurgundyBracket
+          - LT-SplitTicket
+          - LT-FoldedRibbon
+          - LT-OrbitBadge
+          - LT-EditorialCut
+      output_profile:
+        description: Output profile
+        required: true
+        default: preview-h264
+        type: choice
+        options:
+          - preview-h264
+          - master-prores
+          - alpha-prores
+
+permissions:
+  contents: read
+
+concurrency:
+  group: render-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint and typecheck
+        run: npm run lint
+      - name: Check formatting
+        run: npm run format:check
+      - name: Build Remotion bundle
+        run: npm run build
+      - name: List registered compositions
+        run: npm run compositions
+
+  select-compositions:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    outputs:
+      compositions: ${{ steps.select.outputs.compositions }}
+      profile: ${{ steps.select.outputs.profile }}
+    steps:
+      - name: Select render matrix
+        id: select
+        shell: bash
+        env:
+          REQUESTED_COMPOSITION: ${{ inputs.composition }}
+          REQUESTED_PROFILE: ${{ inputs.output_profile }}
+        run: |
+          all_compositions='["LT-PlumStripe","LT-MintFrame","LT-CobaltNotch","LT-CopperFold","LT-AmberLeftDock","LT-AquaRightBadge","LT-SageCircleRail","LT-CopperCornerDock","LT-CrimsonBadgeRail","LT-BurgundyBracket","LT-SplitTicket","LT-FoldedRibbon","LT-OrbitBadge","LT-EditorialCut"]'
+
+          if [[ "${GITHUB_EVENT_NAME}" == "push" || -z "${REQUESTED_COMPOSITION}" || "${REQUESTED_COMPOSITION}" == "all" ]]; then
+            echo "compositions=${all_compositions}" >> "$GITHUB_OUTPUT"
+          else
+            echo "compositions=[\"${REQUESTED_COMPOSITION}\"]" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "profile=${REQUESTED_PROFILE:-preview-h264}" >> "$GITHUB_OUTPUT"
+
+  render:
+    if: github.event_name != 'pull_request'
+    needs: [validate, select-compositions]
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        composition: ${{ fromJSON(needs.select-compositions.outputs.compositions) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Render composition
+        shell: bash
+        env:
+          COMPOSITION: ${{ matrix.composition }}
+          OUTPUT_PROFILE: ${{ needs.select-compositions.outputs.profile }}
+        run: |
+          mkdir -p out
+
+          case "$OUTPUT_PROFILE" in
+            preview-h264)
+              npm run render -- "$COMPOSITION" "out/${COMPOSITION}.mp4" \
+                --scale=2 \
+                --codec=h264 \
+                --crf=16 \
+                --pixel-format=yuv420p \
+                --muted
+              ;;
+            master-prores)
+              npm run render -- "$COMPOSITION" "out/${COMPOSITION}.mov" \
+                --scale=2 \
+                --codec=prores \
+                --prores-profile=422-hq \
+                --muted
+              ;;
+            alpha-prores)
+              npm run render -- "$COMPOSITION" "out/${COMPOSITION}-alpha.mov" \
+                --scale=2 \
+                --codec=prores \
+                --prores-profile=4444 \
+                --pixel-format=yuva444p10le \
+                --muted
+              ;;
+            *)
+              echo "Unknown output profile: $OUTPUT_PROFILE" >&2
+              exit 1
+              ;;
+          esac
+      - name: Upload render part
+        uses: actions/upload-artifact@v4
+        with:
+          name: render-part-${{ matrix.composition }}
+          path: out/
+          if-no-files-found: error
+          retention-days: 1
+
+  package:
+    if: github.event_name != 'pull_request'
+    needs: [select-compositions, render]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Download rendered compositions
+        uses: actions/download-artifact@v4
+        with:
+          pattern: render-part-*
+          path: out
+          merge-multiple: true
+      - name: Include Adobe Stock metadata
+        run: cp adobe-stock-metadata.csv out/adobe-stock-metadata.csv
+      - name: Verify package contents
+        run: ls -lah out
+      - name: Upload final render package
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-motion-asset
+          path: out/
+          if-no-files-found: error
+          retention-days: 14
