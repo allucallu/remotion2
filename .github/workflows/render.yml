@@ -5,6 +5,15 @@ on:
     branches: [main, master]
   pull_request:
   workflow_dispatch:
+    inputs:
+      codec:
+        description: "Video Codec"
+        required: false
+        default: "prores"
+        type: choice
+        options:
+          - prores
+          - h264
 
 permissions:
   contents: read
@@ -15,6 +24,7 @@ concurrency:
 
 jobs:
   validate:
+    name: Lint, Typecheck and Validate
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -34,7 +44,8 @@ jobs:
         run: npm run build
 
   render:
-    if: github.event_name == 'workflow_dispatch'
+    name: Render 4K ProRes Video
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[render]'))
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 60
@@ -43,69 +54,116 @@ jobs:
       max-parallel: 4
       matrix:
         include:
-          - composition: LT-VioletFrame
-            filename: LT-VioletFrame.mov
-          - composition: LT-LimeVector
-            filename: LT-LimeVector.mov
-          - composition: LT-CopperBracket
-            filename: LT-CopperBracket.mov
-          - composition: LT-CobaltRail
-            filename: LT-CobaltRail.mov
-          - composition: LT-CyanNotch
-            filename: LT-CyanNotch.mov
-          - composition: LT-CoralBracket
-            filename: LT-CoralBracket.mov
-          - composition: LT-GoldSlash
-            filename: LT-GoldSlash.mov
-          - composition: LT-SageWing
-            filename: LT-SageWing.mov
-          - composition: LT-SkyDock
-            filename: LT-SkyDock.mov
-          - composition: LT-AzureTerminal
-            filename: LT-AzureTerminal.mov
-          - composition: PixelFireLoop
-            filename: PixelFireLoop.mov
-          - composition: CatPawTrail
-            filename: CatPawTrail.mov
-          - composition: SneakerFootstepTrail
-            filename: SneakerFootstepTrail.mov
-          - composition: seztk01
-            filename: seztk01.mov
-          - composition: seztk01-CurvedTrail
-            filename: seztk01-CurvedTrail.mov
-          - composition: jejak-kucing
-            filename: jejak-kucing.mov
-          - composition: jejak-kucing-LoopArc
-            filename: jejak-kucing-LoopArc.mov
-          - composition: FootstepsVertical
-            filename: FootstepsVertical.mov
-          - composition: FootstepsCurve
-            filename: FootstepsCurve.mov
+          - composition: OrganicDoubleCircle
+            filename: OrganicDoubleCircle.mov
+          - composition: CurvedAttentionArrow
+            filename: CurvedAttentionArrow.mov
+          - composition: TripleScribbleUnderline
+            filename: TripleScribbleUnderline.mov
+          - composition: SurpriseAccentRays
+            filename: SurpriseAccentRays.mov
+          - composition: RoughSketchFocusBox
+            filename: RoughSketchFocusBox.mov
+          - composition: SpiralFocusCircle
+            filename: SpiralFocusCircle.mov
+          - composition: OpposingSketchBrackets
+            filename: OpposingSketchBrackets.mov
+          - composition: HandDrawnStarSpark
+            filename: HandDrawnStarSpark.mov
+          - composition: SketchCheckmark
+            filename: SketchCheckmark.mov
+          - composition: WavyDoodleEncirclement
+            filename: WavyDoodleEncirclement.mov
+          - composition: ProgressCapsule
+            filename: ProgressCapsule.mov
+          - composition: ElasticDots
+            filename: ElasticDots.mov
+          - composition: SegmentedRing
+            filename: SegmentedRing.mov
+          - composition: PixelAssembly
+            filename: PixelAssembly.mov
+          - composition: LayeredTagCallout
+            filename: LayeredTagCallout.mov
+          - composition: CurvedCapsuleCallout
+            filename: CurvedCapsuleCallout.mov
+          - composition: TechnicalOutlineCallout
+            filename: TechnicalOutlineCallout.mov
+          - composition: MinimalEditorialCallout
+            filename: MinimalEditorialCallout.mov
+          - composition: BracketFocusCallout
+            filename: BracketFocusCallout.mov
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+
       - name: Install dependencies
         run: npm ci
-      - name: Render 4K ProRes 4444 with alpha
+
+      - name: Create output directory
+        run: mkdir -p out
+
+      - name: Render 4K ProRes HQ (Solid Black Background)
         run: >-
-          npx remotion render "${{ matrix.composition }}" "out/${{ matrix.filename }}"
-          --scale=2
+          npx remotion render src/index.ts "${{ matrix.composition }}" "out/${{ matrix.filename }}"
           --codec=prores
-          --prores-profile=4444
-          --pixel-format=yuva444p10le
-          --image-format=png
+          --prores-profile=hq
+          --pixel-format=yuv422p10le
           --muted
           --concurrency=2
-      - name: Upload rendered asset
+
+      - name: Upload single rendered asset
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.composition }}-4K-alpha
+          name: asset-${{ matrix.composition }}
           path: out/${{ matrix.filename }}
           if-no-files-found: error
           compression-level: 0
-          retention-days: 7
+          retention-days: 1
+
+  package:
+    name: Package All Assets and Metadata into Zip
+    needs: render
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download all rendered assets
+        uses: actions/download-artifact@v4
+        with:
+          pattern: asset-*
+          merge-multiple: true
+          path: rendered-videos
+
+      - name: Package videos and metadata into Zip
+        run: |
+          mkdir -p release-bundle
+          # Copy Adobe Stock metadata CSV into videos directory
+          cp adobe-stock-metadata.csv rendered-videos/
+          # Create zip archive containing all 19 rendered .mov videos and metadata CSV
+          cd rendered-videos
+          zip -9 -r ../release-bundle/adobe-stock-4k-assets.zip *.mov adobe-stock-metadata.csv
+          cd ..
+          # Also place metadata CSV in release-bundle for direct access
+          cp adobe-stock-metadata.csv release-bundle/
+
+      - name: Verify Zip contents
+        run: |
+          echo "=== Zip Archive Contents ==="
+          unzip -l release-bundle/adobe-stock-4k-assets.zip
+          echo "=== Release Bundle Directory ==="
+          ls -lh release-bundle/
+
+      - name: Upload Bundled Package Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rendered-motion-asset
+          path: release-bundle/
+          if-no-files-found: error
+          retention-days: 14

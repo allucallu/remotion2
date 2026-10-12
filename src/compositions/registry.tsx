@@ -1,17 +1,23 @@
 import type { ReactNode } from "react";
-import { dogFootstepRegistrations } from "../DogFootstepTrail";
-import { editorialPackRegistrations } from "../LowerThirds/EditorialPack";
-import { pixelFireRegistration } from "../PixelFireLoop";
-import { sneakerTrailRegistration } from "../SneakerFootstepTrail";
-import {
-  catSvgLoopArcRegistration,
-  catSvgTrailRegistration,
-} from "../CatSvgFootstepTrail";
-import {
-  seztk01CurvedTrailRegistration,
-  seztk01TrailRegistration,
-} from "../Seztk01FootstepTrail";
-import { catPawTrailRegistration } from "../CatPawTrail";
+import { curvedAttentionArrowRegistration } from "../CurvedAttentionArrow";
+import { organicDoubleCircleRegistration } from "../OrganicDoubleCircle";
+import { tripleScribbleUnderlineRegistration } from "../TripleScribbleUnderline";
+import { surpriseAccentRaysRegistration } from "../SurpriseAccentRays";
+import { roughSketchFocusBoxRegistration } from "../RoughSketchFocusBox";
+import { spiralFocusCircleRegistration } from "../SpiralFocusCircle";
+import { opposingSketchBracketsRegistration } from "../OpposingSketchBrackets";
+import { handDrawnStarSparkRegistration } from "../HandDrawnStarSpark";
+import { sketchCheckmarkRegistration } from "../SketchCheckmark";
+import { wavyDoodleEncirclementRegistration } from "../WavyDoodleEncirclement";
+import { progressCapsuleRegistration } from "../ProgressCapsule";
+import { elasticDotsRegistration } from "../ElasticDots";
+import { segmentedRingRegistration } from "../SegmentedRing";
+import { pixelAssemblyRegistration } from "../PixelAssembly";
+import { layeredTagCalloutRegistration } from "../LayeredTagCallout";
+import { curvedCapsuleCalloutRegistration } from "../CurvedCapsuleCallout";
+import { technicalOutlineCalloutRegistration } from "../TechnicalOutlineCallout";
+import { minimalEditorialCalloutRegistration } from "../MinimalEditorialCallout";
+import { bracketFocusCalloutRegistration } from "../BracketFocusCallout";
 
 export interface AssetRegistration {
   /** Must match the Composition id rendered by render(). */
@@ -25,13 +31,23 @@ export interface AssetRegistration {
  * Add new registrations here; Root.tsx does not need to be edited.
  */
 export const assetRegistry: readonly AssetRegistration[] = [
-  ...editorialPackRegistrations,
-  pixelFireRegistration,
-  catPawTrailRegistration,
-  sneakerTrailRegistration,
-  seztk01TrailRegistration,
-  seztk01CurvedTrailRegistration,
-  catSvgTrailRegistration,
-  catSvgLoopArcRegistration,
-  ...dogFootstepRegistrations,
+  organicDoubleCircleRegistration,
+  curvedAttentionArrowRegistration,
+  tripleScribbleUnderlineRegistration,
+  surpriseAccentRaysRegistration,
+  roughSketchFocusBoxRegistration,
+  spiralFocusCircleRegistration,
+  opposingSketchBracketsRegistration,
+  handDrawnStarSparkRegistration,
+  sketchCheckmarkRegistration,
+  wavyDoodleEncirclementRegistration,
+  progressCapsuleRegistration,
+  elasticDotsRegistration,
+  segmentedRingRegistration,
+  pixelAssemblyRegistration,
+  layeredTagCalloutRegistration,
+  curvedCapsuleCalloutRegistration,
+  technicalOutlineCalloutRegistration,
+  minimalEditorialCalloutRegistration,
+  bracketFocusCalloutRegistration,
 ];
