@@ -5,15 +5,6 @@ on:
     branches: [main, master]
   pull_request:
   workflow_dispatch:
-    inputs:
-      codec:
-        description: "Video Codec"
-        required: false
-        default: "prores"
-        type: choice
-        options:
-          - prores
-          - h264
 
 permissions:
   contents: read
@@ -44,7 +35,7 @@ jobs:
         run: npm run build
 
   render:
-    name: Render 4K ProRes Video
+    name: Render 4K MP4 Video
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[render]'))
     needs: validate
     runs-on: ubuntu-latest
@@ -55,43 +46,43 @@ jobs:
       matrix:
         include:
           - composition: OrganicDoubleCircle
-            filename: OrganicDoubleCircle.mov
+            filename: OrganicDoubleCircle.mp4
           - composition: CurvedAttentionArrow
-            filename: CurvedAttentionArrow.mov
+            filename: CurvedAttentionArrow.mp4
           - composition: TripleScribbleUnderline
-            filename: TripleScribbleUnderline.mov
+            filename: TripleScribbleUnderline.mp4
           - composition: SurpriseAccentRays
-            filename: SurpriseAccentRays.mov
+            filename: SurpriseAccentRays.mp4
           - composition: RoughSketchFocusBox
-            filename: RoughSketchFocusBox.mov
+            filename: RoughSketchFocusBox.mp4
           - composition: SpiralFocusCircle
-            filename: SpiralFocusCircle.mov
+            filename: SpiralFocusCircle.mp4
           - composition: OpposingSketchBrackets
-            filename: OpposingSketchBrackets.mov
+            filename: OpposingSketchBrackets.mp4
           - composition: HandDrawnStarSpark
-            filename: HandDrawnStarSpark.mov
+            filename: HandDrawnStarSpark.mp4
           - composition: SketchCheckmark
-            filename: SketchCheckmark.mov
+            filename: SketchCheckmark.mp4
           - composition: WavyDoodleEncirclement
-            filename: WavyDoodleEncirclement.mov
+            filename: WavyDoodleEncirclement.mp4
           - composition: ProgressCapsule
-            filename: ProgressCapsule.mov
+            filename: ProgressCapsule.mp4
           - composition: ElasticDots
-            filename: ElasticDots.mov
+            filename: ElasticDots.mp4
           - composition: SegmentedRing
-            filename: SegmentedRing.mov
+            filename: SegmentedRing.mp4
           - composition: PixelAssembly
-            filename: PixelAssembly.mov
+            filename: PixelAssembly.mp4
           - composition: LayeredTagCallout
-            filename: LayeredTagCallout.mov
+            filename: LayeredTagCallout.mp4
           - composition: CurvedCapsuleCallout
-            filename: CurvedCapsuleCallout.mov
+            filename: CurvedCapsuleCallout.mp4
           - composition: TechnicalOutlineCallout
-            filename: TechnicalOutlineCallout.mov
+            filename: TechnicalOutlineCallout.mp4
           - composition: MinimalEditorialCallout
-            filename: MinimalEditorialCallout.mov
+            filename: MinimalEditorialCallout.mp4
           - composition: BracketFocusCallout
-            filename: BracketFocusCallout.mov
+            filename: BracketFocusCallout.mp4
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -108,12 +99,12 @@ jobs:
       - name: Create output directory
         run: mkdir -p out
 
-      - name: Render 4K ProRes HQ (Solid Black Background)
+      - name: Render 4K MP4 (Solid Black Background)
         run: >-
           npx remotion render src/index.ts "${{ matrix.composition }}" "out/${{ matrix.filename }}"
-          --codec=prores
-          --prores-profile=hq
-          --pixel-format=yuv422p10le
+          --codec=h264
+          --crf=16
+          --pixel-format=yuv420p
           --muted
           --concurrency=2
 
@@ -146,9 +137,9 @@ jobs:
           mkdir -p release-bundle
           # Copy Adobe Stock metadata CSV into videos directory
           cp adobe-stock-metadata.csv rendered-videos/
-          # Create zip archive containing all 19 rendered .mov videos and metadata CSV
+          # Create zip archive containing all 19 rendered .mp4 videos and metadata CSV
           cd rendered-videos
-          zip -9 -r ../release-bundle/adobe-stock-4k-assets.zip *.mov adobe-stock-metadata.csv
+          zip -9 -r ../release-bundle/adobe-stock-4k-assets.zip *.mp4 adobe-stock-metadata.csv
           cd ..
           # Also place metadata CSV in release-bundle for direct access
           cp adobe-stock-metadata.csv release-bundle/
