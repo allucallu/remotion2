@@ -1,47 +1,23 @@
-name: Render Adobe Stock Assets
+name: Render 4K MP4 Package
 
 on:
   push:
     branches: [main, master]
-  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: remotion-${{ github.workflow }}-${{ github.ref }}
+  group: remotion-render-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  validate:
-    name: Lint, Typecheck and Build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Lint and typecheck
-        run: npm run lint
-
-      - name: Build Remotion bundle
-        run: npm run build
-
   render:
-    name: Render 4K Adobe Stock package
-    needs: validate
-    if: github.event_name != 'pull_request'
+    name: Render 4K videos and create ZIP
     runs-on: ubuntu-latest
     timeout-minutes: 360
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -52,113 +28,78 @@ jobs:
           node-version: 20
           cache: npm
 
-      - name: Install video verification and packaging tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install --yes ffmpeg zip
-          ffprobe -version
-          zip --version
-
       - name: Install dependencies
         run: npm ci
 
-      - name: Validate render manifest from metadata
+      - name: Bundle Remotion project
+        run: npx remotion bundle src/index.ts build
+
+      - name: Create composition manifest
         shell: bash
         run: |
           python3 - <<'PY'
-          import csv
-          import sys
+          import re
           from pathlib import Path
 
-          metadata_path = Path("adobe_stock_metadata_revised.csv")
-          required_headers = ["Filename", "Title", "Keywords", "Category", "Releases"]
-
-          if not metadata_path.is_file():
-              sys.exit(f"Missing metadata file: {metadata_path}")
-
-          with metadata_path.open("r", encoding="utf-8-sig", newline="") as csv_file:
-              reader = csv.DictReader(csv_file)
-              if reader.fieldnames != required_headers:
-                  sys.exit(
-                      "Unexpected metadata header. Expected: "
-                      + ",".join(required_headers)
-                  )
-              rows = list(reader)
-
-          if not rows:
-              sys.exit("Metadata CSV does not contain any assets.")
-
-          filenames = set()
-          manifest_lines = []
-          for row in rows:
-              filename = row["Filename"]
-              composition_id = Path(filename).stem
-              if not filename or Path(filename).suffix.lower() != ".mp4":
-                  sys.exit(f"Filename must be a non-empty .mp4 file: {filename!r}")
-              if filename in filenames:
-                  sys.exit(f"Duplicate Filename in metadata CSV: {filename}")
-              filenames.add(filename)
-              if len(filename) > 30:
-                  print(
-                      f"::warning file={metadata_path}::Filename exceeds Adobe Stock's "
-                      f"30-character limit and needs review: {filename}"
-                  )
-              manifest_lines.append(f"{composition_id}\t{filename}")
-
-          Path("render-list.tsv").write_text("\n".join(manifest_lines) + "\n", encoding="utf-8")
-          print(f"Validated {len(rows)} render targets from {metadata_path}.")
+          registry = Path("src/compositions/registry.tsx").read_text(encoding="utf-8")
+          module_names = re.findall(r'from "\.\./([^"]+)"', registry)
+          composition_ids = []
+          for module_name in module_names:
+              registration_file = Path("src") / module_name / "index.tsx"
+              if not registration_file.is_file():
+                  raise SystemExit(f"Missing registration module: {registration_file}")
+              registration_source = registration_file.read_text(encoding="utf-8")
+              match = re.search(r'\bid:\s*"([^"]+)"', registration_source)
+              if match is None:
+                  raise SystemExit(f"No composition ID found in: {registration_file}")
+              composition_ids.append(match.group(1))
+          if not composition_ids:
+              raise SystemExit("No compositions were found in src/compositions/registry.tsx")
+          if len(composition_ids) != len(set(composition_ids)):
+              raise SystemExit("Duplicate composition IDs were found in the registry")
+          Path("render-list.txt").write_text("\n".join(composition_ids) + "\n", encoding="utf-8")
+          print(f"Prepared {len(composition_ids)} compositions for rendering.")
           PY
 
-      - name: Bundle Remotion project once
-        run: npx remotion bundle src/index.ts build
-
-      - name: Render every asset as 4K H.264 on black
+      - name: Render all compositions as opaque 4K MP4
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p release/videos
-          while IFS=$'\t' read -r composition_id filename; do
-            echo "Rendering ${composition_id} -> ${filename}"
-            npx remotion render build "${composition_id}" "release/videos/${filename}" \
+          while IFS= read -r composition_id; do
+            echo "Rendering ${composition_id}"
+            npx remotion render build "${composition_id}" "release/videos/${composition_id}.mp4" \
               --codec=h264 \
               --crf=18 \
               --pixel-format=yuv420p \
               --width=3840 \
               --height=2160 \
-              --concurrency=2 \
+              --concurrency=1 \
               --overwrite
-          done < render-list.tsv
+          done < render-list.txt
 
-      - name: Verify rendered video dimensions and opaque pixel format
+      - name: Create single ZIP package
         shell: bash
         run: |
-          set -euo pipefail
-          while IFS=$'\t' read -r _ filename; do
-            output="$(ffprobe -v error -select_streams v:0 \
-              -show_entries stream=width,height,pix_fmt \
-              -of csv=p=0 "release/videos/${filename}")"
-            if [[ "${output}" != "3840,2160,yuv420p" ]]; then
-              echo "Unexpected video stream for ${filename}: ${output}" >&2
-              exit 1
-            fi
-          done < render-list.tsv
+          python3 - <<'PY'
+          from pathlib import Path
+          from zipfile import ZIP_DEFLATED, ZipFile
 
-      - name: Create downloadable Adobe Stock ZIP package
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p release/package
-          cp adobe_stock_metadata_revised.csv release/package/
-          cp release/videos/*.mp4 release/package/
-          (
-            cd release/package
-            zip -9 ../adobe-stock-4k-renders.zip ./*.mp4 adobe_stock_metadata_revised.csv
-          )
+          videos = sorted(Path("release/videos").glob("*.mp4"))
+          if not videos:
+              raise SystemExit("No rendered MP4 files were found")
 
-      - name: Upload 4K render package
+          archive = Path("release/remotion-4k-renders.zip")
+          with ZipFile(archive, "w", compression=ZIP_DEFLATED, compresslevel=9) as zip_file:
+              for video in videos:
+                  zip_file.write(video, arcname=video.name)
+          print(f"Created {archive} with {len(videos)} 4K MP4 files.")
+          PY
+
+      - name: Upload ZIP package
         uses: actions/upload-artifact@v4
         with:
-          name: adobe-stock-4k-renders
-          path: release/adobe-stock-4k-renders.zip
+          name: remotion-4k-renders
+          path: release/remotion-4k-renders.zip
           if-no-files-found: error
           retention-days: 14
