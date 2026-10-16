@@ -15,74 +15,36 @@ concurrency:
 
 jobs:
   validate:
-    name: Lint, Typecheck and Validate
+    name: Lint, Typecheck and Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+
       - name: Install dependencies
         run: npm ci
+
       - name: Lint and typecheck
         run: npm run lint
+
       - name: Check formatting
         run: npm run format:check
+
       - name: Build Remotion bundle
         run: npm run build
 
   render:
-    name: Render 4K MP4 Video
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && contains(github.event.head_commit.message, '[render]'))
+    name: Render 4K Adobe Stock package
     needs: validate
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    timeout-minutes: 60
-    strategy:
-      fail-fast: false
-      max-parallel: 4
-      matrix:
-        include:
-          - composition: OrganicDoubleCircle
-            filename: OrganicDoubleCircle.mp4
-          - composition: CurvedAttentionArrow
-            filename: CurvedAttentionArrow.mp4
-          - composition: TripleScribbleUnderline
-            filename: TripleScribbleUnderline.mp4
-          - composition: SurpriseAccentRays
-            filename: SurpriseAccentRays.mp4
-          - composition: RoughSketchFocusBox
-            filename: RoughSketchFocusBox.mp4
-          - composition: SpiralFocusCircle
-            filename: SpiralFocusCircle.mp4
-          - composition: OpposingSketchBrackets
-            filename: OpposingSketchBrackets.mp4
-          - composition: HandDrawnStarSpark
-            filename: HandDrawnStarSpark.mp4
-          - composition: SketchCheckmark
-            filename: SketchCheckmark.mp4
-          - composition: WavyDoodleEncirclement
-            filename: WavyDoodleEncirclement.mp4
-          - composition: ProgressCapsule
-            filename: ProgressCapsule.mp4
-          - composition: ElasticDots
-            filename: ElasticDots.mp4
-          - composition: SegmentedRing
-            filename: SegmentedRing.mp4
-          - composition: PixelAssembly
-            filename: PixelAssembly.mp4
-          - composition: LayeredTagCallout
-            filename: LayeredTagCallout.mp4
-          - composition: CurvedCapsuleCallout
-            filename: CurvedCapsuleCallout.mp4
-          - composition: TechnicalOutlineCallout
-            filename: TechnicalOutlineCallout.mp4
-          - composition: MinimalEditorialCallout
-            filename: MinimalEditorialCallout.mp4
-          - composition: BracketFocusCallout
-            filename: BracketFocusCallout.mp4
+    timeout-minutes: 360
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -96,65 +58,103 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Create output directory
-        run: mkdir -p out
+      - name: Validate render manifest from metadata
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import csv
+          import sys
+          from pathlib import Path
 
-      - name: Render 4K MP4 (Solid Black Background)
-        run: >-
-          npx remotion render src/index.ts "${{ matrix.composition }}" "out/${{ matrix.filename }}"
-          --codec=h264
-          --crf=16
-          --pixel-format=yuv420p
-          --muted
-          --concurrency=2
+          metadata_path = Path("adobe_stock_metadata_revised.csv")
+          required_headers = ["Filename", "Title", "Keywords", "Category", "Releases"]
 
-      - name: Upload single rendered asset
+          if not metadata_path.is_file():
+              sys.exit(f"Missing metadata file: {metadata_path}")
+
+          with metadata_path.open("r", encoding="utf-8-sig", newline="") as csv_file:
+              reader = csv.DictReader(csv_file)
+              if reader.fieldnames != required_headers:
+                  sys.exit(
+                      "Unexpected metadata header. Expected: "
+                      + ",".join(required_headers)
+                  )
+              rows = list(reader)
+
+          if not rows:
+              sys.exit("Metadata CSV does not contain any assets.")
+
+          filenames = set()
+          manifest_lines = []
+          for row in rows:
+              filename = row["Filename"]
+              composition_id = Path(filename).stem
+              if not filename or Path(filename).suffix.lower() != ".mp4":
+                  sys.exit(f"Filename must be a non-empty .mp4 file: {filename!r}")
+              if filename in filenames:
+                  sys.exit(f"Duplicate Filename in metadata CSV: {filename}")
+              filenames.add(filename)
+              if len(filename) > 30:
+                  print(
+                      f"::warning file={metadata_path}::Filename exceeds Adobe Stock's "
+                      f"30-character limit and needs review: {filename}"
+                  )
+              manifest_lines.append(f"{composition_id}\t{filename}")
+
+          Path("render-list.tsv").write_text("\n".join(manifest_lines) + "\n", encoding="utf-8")
+          print(f"Validated {len(rows)} render targets from {metadata_path}.")
+          PY
+
+      - name: Bundle Remotion project once
+        run: npx remotion bundle src/index.ts build
+
+      - name: Render every asset as 4K H.264 on black
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release/videos
+          while IFS=$'\t' read -r composition_id filename; do
+            echo "Rendering ${composition_id} -> ${filename}"
+            npx remotion render build "${composition_id}" "release/videos/${filename}" \
+              --codec=h264 \
+              --crf=18 \
+              --pixel-format=yuv420p \
+              --width=3840 \
+              --height=2160 \
+              --concurrency=2 \
+              --overwrite
+          done < render-list.tsv
+
+      - name: Verify rendered video dimensions and opaque pixel format
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS=$'\t' read -r _ filename; do
+            output="$(ffprobe -v error -select_streams v:0 \
+              -show_entries stream=width,height,pix_fmt \
+              -of csv=p=0 "release/videos/${filename}")"
+            if [[ "${output}" != "3840,2160,yuv420p" ]]; then
+              echo "Unexpected video stream for ${filename}: ${output}" >&2
+              exit 1
+            fi
+          done < render-list.tsv
+
+      - name: Create downloadable Adobe Stock ZIP package
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release/package
+          cp adobe_stock_metadata_revised.csv release/package/
+          cp release/videos/*.mp4 release/package/
+          (
+            cd release/package
+            zip -9 ../adobe-stock-4k-renders.zip ./*.mp4 adobe_stock_metadata_revised.csv
+          )
+
+      - name: Upload 4K render package
         uses: actions/upload-artifact@v4
         with:
-          name: asset-${{ matrix.composition }}
-          path: out/${{ matrix.filename }}
-          if-no-files-found: error
-          compression-level: 0
-          retention-days: 1
-
-  package:
-    name: Package All Assets and Metadata into Zip
-    needs: render
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Download all rendered assets
-        uses: actions/download-artifact@v4
-        with:
-          pattern: asset-*
-          merge-multiple: true
-          path: rendered-videos
-
-      - name: Package videos and metadata into Zip
-        run: |
-          mkdir -p release-bundle
-          # Copy Adobe Stock metadata CSV into videos directory
-          cp adobe-stock-metadata.csv rendered-videos/
-          # Create zip archive containing all 19 rendered .mp4 videos and metadata CSV
-          cd rendered-videos
-          zip -9 -r ../release-bundle/adobe-stock-4k-assets.zip *.mp4 adobe-stock-metadata.csv
-          cd ..
-          # Also place metadata CSV in release-bundle for direct access
-          cp adobe-stock-metadata.csv release-bundle/
-
-      - name: Verify Zip contents
-        run: |
-          echo "=== Zip Archive Contents ==="
-          unzip -l release-bundle/adobe-stock-4k-assets.zip
-          echo "=== Release Bundle Directory ==="
-          ls -lh release-bundle/
-
-      - name: Upload Bundled Package Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: rendered-motion-asset
-          path: release-bundle/
+          name: adobe-stock-4k-renders
+          path: release/adobe-stock-4k-renders.zip
           if-no-files-found: error
           retention-days: 14

@@ -1,23 +1,35 @@
 import type { ReactNode } from "react";
-import { curvedAttentionArrowRegistration } from "../CurvedAttentionArrow";
-import { organicDoubleCircleRegistration } from "../OrganicDoubleCircle";
-import { tripleScribbleUnderlineRegistration } from "../TripleScribbleUnderline";
-import { surpriseAccentRaysRegistration } from "../SurpriseAccentRays";
-import { roughSketchFocusBoxRegistration } from "../RoughSketchFocusBox";
-import { spiralFocusCircleRegistration } from "../SpiralFocusCircle";
-import { opposingSketchBracketsRegistration } from "../OpposingSketchBrackets";
-import { handDrawnStarSparkRegistration } from "../HandDrawnStarSpark";
-import { sketchCheckmarkRegistration } from "../SketchCheckmark";
-import { wavyDoodleEncirclementRegistration } from "../WavyDoodleEncirclement";
-import { progressCapsuleRegistration } from "../ProgressCapsule";
-import { elasticDotsRegistration } from "../ElasticDots";
-import { segmentedRingRegistration } from "../SegmentedRing";
-import { pixelAssemblyRegistration } from "../PixelAssembly";
-import { layeredTagCalloutRegistration } from "../LayeredTagCallout";
-import { curvedCapsuleCalloutRegistration } from "../CurvedCapsuleCallout";
-import { technicalOutlineCalloutRegistration } from "../TechnicalOutlineCallout";
-import { minimalEditorialCalloutRegistration } from "../MinimalEditorialCallout";
-import { bracketFocusCalloutRegistration } from "../BracketFocusCallout";
+import { halloweenBatSwarmRegistration } from "../HalloweenBatSwarm";
+import { halloweenBlackCatRegistration } from "../HalloweenBlackCat";
+import { halloweenCandleRegistration } from "../HalloweenCandle";
+import { halloweenFlyingBroomRegistration } from "../HalloweenFlyingBroom";
+import { halloweenFloatingGhostsRegistration } from "../HalloweenFloatingGhosts";
+import { halloweenHauntedBranchesRegistration } from "../HalloweenHauntedBranches";
+import { halloweenPumpkinPopRegistration } from "../HalloweenPumpkinPop";
+import { halloweenSkullPopRegistration } from "../HalloweenSkullPop";
+import { halloweenSpiderwebFrameRegistration } from "../HalloweenSpiderwebFrame";
+import { halloweenTombstoneRevealRegistration } from "../HalloweenTombstoneReveal";
+import { blackFridayHangingTagRegistration } from "../BlackFridayHangingTag";
+import { editorialInterviewPlateRegistration } from "../EditorialInterviewPlate";
+import { editorialSerifIdentifierRegistration } from "../EditorialSerifIdentifier";
+import { editorialProfileGridRegistration } from "../EditorialProfileGrid";
+import { editorialLocationBracketRegistration } from "../EditorialLocationBracket";
+import { editorialArchivalLabelRegistration } from "../EditorialArchivalLabel";
+import { documentaryDossierTabsRegistration } from "../DocumentaryDossierTabs";
+import { documentaryArchiveSleeveRegistration } from "../DocumentaryArchiveSleeve";
+import { documentaryChapterFrameworkRegistration } from "../DocumentaryChapterFramework";
+import { documentaryFieldNotesRegistration } from "../DocumentaryFieldNotes";
+import { documentaryIndexedPanelRegistration } from "../DocumentaryIndexedPanel";
+import { neoBrutalismPunchCardRegistration } from "../NeoBrutalismPunchCard";
+import { neoBrutalismAcidTabStackRegistration } from "../NeoBrutalismAcidTabStack";
+import { neoBrutalismModularStickerRegistration } from "../NeoBrutalismModularSticker";
+import { neoBrutalismCheckeredEdgeRegistration } from "../NeoBrutalismCheckeredEdge";
+import { neoBrutalismZigzagSpineRegistration } from "../NeoBrutalismZigzagSpine";
+import { neoBrutalismPerforatedRailRegistration } from "../NeoBrutalismPerforatedRail";
+import { neoBrutalismCrossedRibbonRegistration } from "../NeoBrutalismCrossedRibbon";
+import { neoBrutalismSerratedTicketRegistration } from "../NeoBrutalismSerratedTicket";
+import { neoBrutalismHalfDiscAnchorRegistration } from "../NeoBrutalismHalfDiscAnchor";
+import { neoBrutalismSplitLevelCardRegistration } from "../NeoBrutalismSplitLevelCard";
 
 export interface AssetRegistration {
   /** Must match the Composition id rendered by render(). */
@@ -31,23 +43,35 @@ export interface AssetRegistration {
  * Add new registrations here; Root.tsx does not need to be edited.
  */
 export const assetRegistry: readonly AssetRegistration[] = [
-  organicDoubleCircleRegistration,
-  curvedAttentionArrowRegistration,
-  tripleScribbleUnderlineRegistration,
-  surpriseAccentRaysRegistration,
-  roughSketchFocusBoxRegistration,
-  spiralFocusCircleRegistration,
-  opposingSketchBracketsRegistration,
-  handDrawnStarSparkRegistration,
-  sketchCheckmarkRegistration,
-  wavyDoodleEncirclementRegistration,
-  progressCapsuleRegistration,
-  elasticDotsRegistration,
-  segmentedRingRegistration,
-  pixelAssemblyRegistration,
-  layeredTagCalloutRegistration,
-  curvedCapsuleCalloutRegistration,
-  technicalOutlineCalloutRegistration,
-  minimalEditorialCalloutRegistration,
-  bracketFocusCalloutRegistration,
+  halloweenSpiderwebFrameRegistration,
+  halloweenCandleRegistration,
+  halloweenFlyingBroomRegistration,
+  halloweenBlackCatRegistration,
+  halloweenBatSwarmRegistration,
+  halloweenFloatingGhostsRegistration,
+  halloweenPumpkinPopRegistration,
+  halloweenSkullPopRegistration,
+  halloweenHauntedBranchesRegistration,
+  halloweenTombstoneRevealRegistration,
+  blackFridayHangingTagRegistration,
+  editorialInterviewPlateRegistration,
+  editorialSerifIdentifierRegistration,
+  editorialProfileGridRegistration,
+  editorialLocationBracketRegistration,
+  editorialArchivalLabelRegistration,
+  documentaryDossierTabsRegistration,
+  documentaryArchiveSleeveRegistration,
+  documentaryChapterFrameworkRegistration,
+  documentaryFieldNotesRegistration,
+  documentaryIndexedPanelRegistration,
+  neoBrutalismPunchCardRegistration,
+  neoBrutalismAcidTabStackRegistration,
+  neoBrutalismModularStickerRegistration,
+  neoBrutalismCheckeredEdgeRegistration,
+  neoBrutalismZigzagSpineRegistration,
+  neoBrutalismPerforatedRailRegistration,
+  neoBrutalismCrossedRibbonRegistration,
+  neoBrutalismSerratedTicketRegistration,
+  neoBrutalismHalfDiscAnchorRegistration,
+  neoBrutalismSplitLevelCardRegistration,
 ];
