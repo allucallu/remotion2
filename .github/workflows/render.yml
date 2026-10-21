@@ -4,6 +4,15 @@ on:
   push:
     branches: [main, master]
   workflow_dispatch:
+    inputs:
+      composition:
+        description: "Composition ID to render (leave empty to render all)"
+        required: false
+        default: ""
+      crf:
+        description: "CRF value for H.264 video quality (default: 18)"
+        required: false
+        default: "18"
 
 permissions:
   contents: read
@@ -36,16 +45,20 @@ jobs:
 
       - name: Create composition manifest
         shell: bash
+        env:
+          SELECTED_COMPOSITION: ${{ github.event.inputs.composition }}
         run: |
           python3 - <<'PY'
+          import os
           import re
           from pathlib import Path
 
           registry = Path("src/compositions/registry.tsx").read_text(encoding="utf-8")
-          module_names = re.findall(r'from "\.\./([^"]+)"', registry)
+          matches = re.findall(r'from "(\.\.?/[^"]+)"', registry)
           composition_ids = []
-          for module_name in module_names:
-              registration_file = Path("src") / module_name / "index.tsx"
+          for rel_path in matches:
+              target_dir = (Path("src/compositions") / rel_path).resolve()
+              registration_file = target_dir / "index.tsx" if target_dir.is_dir() else Path(f"{target_dir}.tsx")
               if not registration_file.is_file():
                   raise SystemExit(f"Missing registration module: {registration_file}")
               registration_source = registration_file.read_text(encoding="utf-8")
@@ -53,47 +66,89 @@ jobs:
               if match is None:
                   raise SystemExit(f"No composition ID found in: {registration_file}")
               composition_ids.append(match.group(1))
+
           if not composition_ids:
               raise SystemExit("No compositions were found in src/compositions/registry.tsx")
           if len(composition_ids) != len(set(composition_ids)):
               raise SystemExit("Duplicate composition IDs were found in the registry")
-          Path("render-list.txt").write_text("\n".join(composition_ids) + "\n", encoding="utf-8")
-          print(f"Prepared {len(composition_ids)} compositions for rendering.")
+
+          selected = os.environ.get("SELECTED_COMPOSITION", "").strip()
+          if selected:
+              if selected not in composition_ids:
+                  raise SystemExit(f"Selected composition '{selected}' not found in registry. Available: {composition_ids}")
+              render_ids = [selected]
+          else:
+              render_ids = composition_ids
+
+          Path("render-list.txt").write_text("\n".join(render_ids) + "\n", encoding="utf-8")
+          print(f"Prepared {len(render_ids)} composition(s) for rendering: {render_ids}")
           PY
 
-      - name: Render all compositions as opaque 4K MP4
+      - name: Render compositions as opaque 4K MP4
         shell: bash
+        env:
+          CRF_VALUE: ${{ github.event.inputs.crf || '18' }}
         run: |
           set -euo pipefail
           mkdir -p release/videos
           while IFS= read -r composition_id; do
-            echo "Rendering ${composition_id}"
+            [ -z "$composition_id" ] && continue
+            echo "::group::Rendering ${composition_id}"
             npx remotion render build "${composition_id}" "release/videos/${composition_id}.mp4" \
               --codec=h264 \
-              --crf=18 \
+              --crf="${CRF_VALUE}" \
               --pixel-format=yuv420p \
               --width=3840 \
               --height=2160 \
               --concurrency=1 \
               --overwrite
+            echo "::endgroup::"
           done < render-list.txt
 
-      - name: Create single ZIP package
+      - name: Package videos and metadata CSV into ZIP
         shell: bash
         run: |
           python3 - <<'PY'
+          import sys
           from pathlib import Path
           from zipfile import ZIP_DEFLATED, ZipFile
 
           videos = sorted(Path("release/videos").glob("*.mp4"))
           if not videos:
-              raise SystemExit("No rendered MP4 files were found")
+              raise SystemExit("Error: No rendered MP4 files were found in release/videos/")
 
-          archive = Path("release/remotion-4k-renders.zip")
+          # Find metadata CSV files (prioritizing adobe_stock_metadata.csv)
+          csv_candidates = [
+              Path("adobe_stock_metadata.csv"),
+              Path("metadata.csv"),
+          ] + sorted(Path(".").glob("*.csv"))
+
+          csv_files = []
+          seen_names = set()
+          for p in csv_candidates:
+              if p.is_file() and p.name not in seen_names:
+                  csv_files.append(p)
+                  seen_names.add(p.name)
+
+          if not csv_files:
+              print("Warning: No metadata CSV file was found in workspace root!", file=sys.stderr)
+
+          archive_dir = Path("release")
+          archive_dir.mkdir(parents=True, exist_ok=True)
+          archive = archive_dir / "remotion-4k-renders.zip"
+
           with ZipFile(archive, "w", compression=ZIP_DEFLATED, compresslevel=9) as zip_file:
+              # Add all rendered MP4 videos
               for video in videos:
                   zip_file.write(video, arcname=video.name)
-          print(f"Created {archive} with {len(videos)} 4K MP4 files.")
+                  print(f"  + Added video: {video.name}")
+
+              # Add metadata CSV file(s)
+              for csv_file in csv_files:
+                  zip_file.write(csv_file, arcname=csv_file.name)
+                  print(f"  + Added metadata CSV: {csv_file.name}")
+
+          print(f"\nSuccessfully created {archive} containing {len(videos)} video(s) and {len(csv_files)} CSV file(s).")
           PY
 
       - name: Upload ZIP package
