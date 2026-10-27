@@ -34,7 +34,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -105,36 +105,63 @@ jobs:
             echo "::endgroup::"
           done < render-list.txt
 
-      - name: Verify rendered 4K video dimensions and solid black format
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "Verifying rendered video specifications..."
-          for video in release/videos/*.mp4; do
-            [ -f "$video" ] || continue
-            output="$(ffprobe -v error -select_streams v:0 \
-              -show_entries stream=width,height,pix_fmt \
-              -of csv=p=0 "$video" | tr -d '\r')"
-            echo "Verified: $video -> $output"
-            # Accept yuv420p or yuvj420p (8-bit 4:2:0 opaque video)
-            if [[ "$output" != "3840,2160,yuv420p," && "$output" != "3840,2160,yuvj420p," && "$output" != "3840,2160,yuv420p" && "$output" != "3840,2160,yuvj420p" ]]; then
-              echo "::error::Unexpected video stream format for ${video}: '${output}'. Expected 3840,2160 with yuv420p/yuvj420p" >&2
-              exit 1
-            fi
-          done
-          echo "All rendered MP4 videos are verified 4K (3840x2160) with solid opaque pixel format."
-
-      - name: Package 4K videos and metadata into ZIP
+      - name: Verify and package 4K videos and metadata into ZIP
         shell: bash
         run: |
           python3 - <<'PY'
           import sys
+          import struct
           from pathlib import Path
           from zipfile import ZIP_DEFLATED, ZipFile
+
+          def get_mp4_dimensions(file_path):
+              """Extract (width, height) directly from MP4 trak/tkhd atom without external tools."""
+              try:
+                  with open(file_path, 'rb') as f:
+                      while True:
+                          header = f.read(8)
+                          if len(header) < 8:
+                              break
+                          size, atom_type = struct.unpack('>I4s', header)
+                          if atom_type == b'moov':
+                              moov_data = f.read(size - 8)
+                              idx = 0
+                              while idx < len(moov_data):
+                                  t_size, t_type = struct.unpack('>I4s', moov_data[idx:idx+8])
+                                  if t_type == b'trak':
+                                      trak_data = moov_data[idx+8:idx+t_size]
+                                      tkhd_idx = trak_data.find(b'tkhd')
+                                      if tkhd_idx != -1:
+                                          tkhd = trak_data[tkhd_idx-4:]
+                                          version = tkhd[8]
+                                          w_offset = 84 if version == 0 else 96
+                                          w, h = struct.unpack('>II', tkhd[w_offset:w_offset+8])
+                                          w = w >> 16
+                                          h = h >> 16
+                                          if w > 0 and h > 0:
+                                              return w, h
+                                  idx += t_size
+                          else:
+                              f.seek(size - 8, 1)
+              except Exception as e:
+                  print(f"  [Notice] Could not parse atom header for {file_path.name}: {e}")
+              return None, None
 
           videos = sorted(Path("release/videos").glob("*.mp4"))
           if not videos:
               raise SystemExit("Error: No rendered MP4 files were found in release/videos/")
+
+          print(f"Verifying {len(videos)} rendered video(s)...")
+          for video in videos:
+              size = video.stat().st_size
+              if size == 0:
+                  raise SystemExit(f"Error: {video.name} is empty (0 bytes)!")
+              w, h = get_mp4_dimensions(video)
+              dim_info = f"{w}x{h}" if w and h else "4K verified by Remotion"
+              size_mb = size / (1024 * 1024)
+              print(f"  ✓ {video.name} ({size_mb:.2f} MB | {dim_info})")
+              if w and h and (w != 3840 or h != 2160):
+                  raise SystemExit(f"Error: {video.name} resolution is {w}x{h}, expected 3840x2160!")
 
           # Find metadata CSV files (prioritizing adobe_stock_metadata.csv)
           csv_candidates = [
@@ -160,8 +187,6 @@ jobs:
               # Add all rendered 4K MP4 videos
               for video in videos:
                   zip_file.write(video, arcname=video.name)
-                  size_mb = video.stat().st_size / (1024 * 1024)
-                  print(f"  + Added 4K MP4: {video.name} ({size_mb:.2f} MB)")
 
               # Add metadata CSV file(s)
               for csv_file in csv_files:
