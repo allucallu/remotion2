@@ -4,3 +4,4 @@ import { Config } from "@remotion/cli/config";
 // This allows H.264 previews, ProRes masters, transparent ProRes 4444, and
 // image sequences without changing project code.
 Config.setOverwriteOutput(true);
+Config.setChromiumDarkMode(true);

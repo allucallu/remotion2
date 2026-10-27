@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   render:
-    name: Render 4K videos and create ZIP
+    name: Render 4K videos (solid black background) and create ZIP
     runs-on: ubuntu-latest
     timeout-minutes: 360
 
@@ -84,7 +84,7 @@ jobs:
           print(f"Prepared {len(render_ids)} composition(s) for rendering: {render_ids}")
           PY
 
-      - name: Render compositions as opaque 4K MP4
+      - name: Render compositions as 4K MP4 with solid black background
         shell: bash
         env:
           CRF_VALUE: ${{ github.event.inputs.crf || '18' }}
@@ -93,7 +93,7 @@ jobs:
           mkdir -p release/videos
           while IFS= read -r composition_id; do
             [ -z "$composition_id" ] && continue
-            echo "::group::Rendering ${composition_id}"
+            echo "::group::Rendering ${composition_id} (4K 3840x2160, H.264, solid black background)"
             npx remotion render build "${composition_id}" "release/videos/${composition_id}.mp4" \
               --codec=h264 \
               --crf="${CRF_VALUE}" \
@@ -105,7 +105,26 @@ jobs:
             echo "::endgroup::"
           done < render-list.txt
 
-      - name: Package videos and metadata CSV into ZIP
+      - name: Verify rendered 4K video dimensions and solid black format
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Verifying rendered video specifications..."
+          for video in release/videos/*.mp4; do
+            [ -f "$video" ] || continue
+            output="$(ffprobe -v error -select_streams v:0 \
+              -show_entries stream=width,height,pix_fmt \
+              -of csv=p=0 "$video" | tr -d '\r')"
+            echo "Verified: $video -> $output"
+            # Accept yuv420p or yuvj420p (8-bit 4:2:0 opaque video)
+            if [[ "$output" != "3840,2160,yuv420p," && "$output" != "3840,2160,yuvj420p," && "$output" != "3840,2160,yuv420p" && "$output" != "3840,2160,yuvj420p" ]]; then
+              echo "::error::Unexpected video stream format for ${video}: '${output}'. Expected 3840,2160 with yuv420p/yuvj420p" >&2
+              exit 1
+            fi
+          done
+          echo "All rendered MP4 videos are verified 4K (3840x2160) with solid opaque pixel format."
+
+      - name: Package 4K videos and metadata into ZIP
         shell: bash
         run: |
           python3 - <<'PY'
@@ -138,20 +157,22 @@ jobs:
           archive = archive_dir / "remotion-4k-renders.zip"
 
           with ZipFile(archive, "w", compression=ZIP_DEFLATED, compresslevel=9) as zip_file:
-              # Add all rendered MP4 videos
+              # Add all rendered 4K MP4 videos
               for video in videos:
                   zip_file.write(video, arcname=video.name)
-                  print(f"  + Added video: {video.name}")
+                  size_mb = video.stat().st_size / (1024 * 1024)
+                  print(f"  + Added 4K MP4: {video.name} ({size_mb:.2f} MB)")
 
               # Add metadata CSV file(s)
               for csv_file in csv_files:
                   zip_file.write(csv_file, arcname=csv_file.name)
                   print(f"  + Added metadata CSV: {csv_file.name}")
 
-          print(f"\nSuccessfully created {archive} containing {len(videos)} video(s) and {len(csv_files)} CSV file(s).")
+          archive_size_mb = archive.stat().st_size / (1024 * 1024)
+          print(f"\nSuccessfully created {archive} ({archive_size_mb:.2f} MB) containing {len(videos)} 4K video(s) and {len(csv_files)} CSV file(s).")
           PY
 
-      - name: Upload ZIP package
+      - name: Upload 4K ZIP package
         uses: actions/upload-artifact@v4
         with:
           name: remotion-4k-renders
