@@ -44,6 +44,7 @@ jobs:
         run: npx remotion bundle src/index.ts build
 
       - name: Create composition manifest
+        id: manifest
         shell: bash
         env:
           SELECTED_COMPOSITION: ${{ github.event.inputs.composition }}
@@ -58,9 +59,6 @@ jobs:
           seen = set()
           composition_ids = [x for x in ids if not (x in seen or seen.add(x))]
 
-          if not composition_ids:
-              raise SystemExit("No compositions were found in src/compositions/registry.tsx")
-
           selected = os.environ.get("SELECTED_COMPOSITION", "").strip()
           if selected:
               if selected not in composition_ids:
@@ -70,10 +68,15 @@ jobs:
               render_ids = composition_ids
 
           Path("render-list.txt").write_text("\n".join(render_ids) + "\n", encoding="utf-8")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+              output.write(f"has_compositions={'true' if render_ids else 'false'}\n")
+          if not render_ids:
+              print("Registry is empty. Ready for new compositions; rendering skipped.")
           print(f"Prepared {len(render_ids)} composition(s) for rendering: {render_ids}")
           PY
 
       - name: Render compositions as 4K MP4 with solid black background
+        if: steps.manifest.outputs.has_compositions == 'true'
         shell: bash
         env:
           CRF_VALUE: ${{ github.event.inputs.crf || '18' }}
@@ -83,7 +86,13 @@ jobs:
           while IFS= read -r composition_id; do
             [ -z "$composition_id" ] && continue
             echo "::group::Rendering ${composition_id} (4K 3840x2160, H.264, solid black background)"
-            npx remotion render build "${composition_id}" "release/videos/${composition_id}.mp4" \
+            output_filename="${composition_id}.mp4"
+            case "$composition_id" in
+              SculptedContourTerracottaBasin) output_filename="TerracottaContourBasin.mp4" ;;
+              ImpossibleConveyorSphereToCube) output_filename="ConveyorSphereToCube.mp4" ;;
+              LivingEngravingBreathingSun) output_filename="EngravedBreathingSun.mp4" ;;
+            esac
+            npx remotion render build "${composition_id}" "release/videos/${output_filename}" \
               --codec=h264 \
               --crf="${CRF_VALUE}" \
               --pixel-format=yuv420p \
@@ -95,6 +104,7 @@ jobs:
           done < render-list.txt
 
       - name: Verify and package 4K videos and metadata into ZIP
+        if: steps.manifest.outputs.has_compositions == 'true'
         shell: bash
         run: |
           python3 - <<'PY'
@@ -187,6 +197,7 @@ jobs:
           PY
 
       - name: Upload 4K ZIP package
+        if: steps.manifest.outputs.has_compositions == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: remotion-4k-renders

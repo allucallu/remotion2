@@ -1,295 +1,206 @@
 import type { ReactNode } from "react";
 import { Composition } from "remotion";
-import { BNBurgundyEditorialNews } from "./BNBurgundyEditorialNews";
-import { BNCobaltDoubleDeck } from "./BNCobaltDoubleDeck";
-import { BNNavyAngleReport } from "./BNNavyAngleReport";
-import { BNRedSegmentNews } from "./BNRedSegmentNews";
-import { BNTealLiveDesk } from "./BNTealLiveDesk";
-import { ITDistributedSystemMap } from "./ITDistributedSystemMap";
-import { ITLayeredDataBus } from "./ITLayeredDataBus";
-import { ITNetworkPacketFlow } from "./ITNetworkPacketFlow";
-import { ITServerActivityGrid } from "./ITServerActivityGrid";
-import { ITTerminalProcessStream } from "./ITTerminalProcessStream";
-import { LTAmberBracket } from "./LTAmberBracket";
-import { LTBurgundyInset } from "./LTBurgundyInset";
-import { LTCopperSplit } from "./LTCopperSplit";
-import { LTCobaltCornerCut } from "./LTCobaltCornerCut";
-import { LTMidnightCapsule } from "./LTMidnightCapsule";
-import { LTOliveStepped } from "./LTOliveStepped";
-import { LTSageSplitPanel } from "./LTSageSplitPanel";
-import { LTSlateSuspended } from "./LTSlateSuspended";
-import { LTTerracottaOffset } from "./LTTerracottaOffset";
-import { LTTealSideRail } from "./LTTealSideRail";
-
+import { LivingEngravingWatchfulEye } from "./LivingEngravingWatchfulEye";
+import { LivingEngravingBreathingSun } from "./LivingEngravingBreathingSun";
+import { ImpossibleConveyorSphereToCube } from "./ImpossibleConveyorSphereToCube";
+import { SculptedContourWaves } from "./SculptedContourWaves";
+import { SculptedContourTerracottaBasin } from "./SculptedContourTerracottaBasin";
+import { SatinLineCurrents } from "./SatinLineCurrents";
+import { AdaptiveMesh } from "./AdaptiveMesh";
+import {
+  RecursiveBotanicalGrowth,
+  botanicalGrowthSchema,
+} from "./RecursiveBotanicalGrowth";
+import {
+  SculpturalBotanicalGrowth,
+  sculpturalBotanicalSchema,
+} from "./SculpturalBotanicalGrowth";
+import { SculpturalFlowerBloom } from "./SculpturalFlowerBloom";
+import { LilyNocturneBloom } from "./LilyNocturneBloom";
+import { CaptionRailSlide, captionRailSlideSchema } from "./CaptionRailSlide";
+import {
+  CaptionCenterUnfold,
+  captionCenterUnfoldSchema,
+} from "./CaptionCenterUnfold";
 export interface AssetRegistration {
-  /** Must match the Composition id rendered by render(). */
   id: string;
-  /** Return one Remotion <Composition /> registration. */
   render: () => ReactNode;
 }
-
-/**
- * Single source of truth for assets shown in Remotion Studio.
- * Register new compositions here as they are created.
- */
 export const assetRegistry: readonly AssetRegistration[] = [
   {
-    id: "ITNetworkPacketFlow",
+    id: "CaptionCenterUnfold",
     render: () => (
       <Composition
-        id="ITNetworkPacketFlow"
-        component={ITNetworkPacketFlow}
+        id="CaptionCenterUnfold"
+        component={CaptionCenterUnfold}
+        width={3840}
+        height={2160}
+        fps={30}
+        durationInFrames={300}
+        schema={captionCenterUnfoldSchema}
+        defaultProps={{ transparentBackground: false }}
+      />
+    ),
+  },
+  {
+    id: "CaptionRailSlide",
+    render: () => (
+      <Composition
+        id="CaptionRailSlide"
+        component={CaptionRailSlide}
+        width={3840}
+        height={2160}
+        fps={30}
+        durationInFrames={300}
+        schema={captionRailSlideSchema}
+        defaultProps={{ transparentBackground: false }}
+      />
+    ),
+  },
+  {
+    id: "LilyNocturneBloom",
+    render: () => (
+      <Composition
+        id="LilyNocturneBloom"
+        component={LilyNocturneBloom}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
       />
     ),
   },
   {
-    id: "ITLayeredDataBus",
+    id: "SculpturalFlowerBloom",
     render: () => (
       <Composition
-        id="ITLayeredDataBus"
-        component={ITLayeredDataBus}
+        id="SculpturalFlowerBloom"
+        component={SculpturalFlowerBloom}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
       />
     ),
   },
   {
-    id: "ITServerActivityGrid",
+    id: "SculpturalBotanicalGrowth",
     render: () => (
       <Composition
-        id="ITServerActivityGrid"
-        component={ITServerActivityGrid}
+        id="SculpturalBotanicalGrowth"
+        component={SculpturalBotanicalGrowth}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
+        schema={sculpturalBotanicalSchema}
+        defaultProps={{ quality: "production" }}
       />
     ),
   },
   {
-    id: "ITTerminalProcessStream",
+    id: "RecursiveBotanicalGrowth",
     render: () => (
       <Composition
-        id="ITTerminalProcessStream"
-        component={ITTerminalProcessStream}
+        id="RecursiveBotanicalGrowth"
+        component={RecursiveBotanicalGrowth}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
+        schema={botanicalGrowthSchema}
+        defaultProps={{ quality: "production" }}
       />
     ),
   },
   {
-    id: "ITDistributedSystemMap",
+    id: "AdaptiveMesh",
     render: () => (
       <Composition
-        id="ITDistributedSystemMap"
-        component={ITDistributedSystemMap}
+        id="AdaptiveMesh"
+        component={AdaptiveMesh}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
       />
     ),
   },
   {
-    id: "BNNavyAngleReport",
+    id: "SatinLineCurrents",
     render: () => (
       <Composition
-        id="BNNavyAngleReport"
-        component={BNNavyAngleReport}
+        id="SatinLineCurrents"
+        component={SatinLineCurrents}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
       />
     ),
   },
   {
-    id: "BNRedSegmentNews",
+    id: "SculptedContourTerracottaBasin",
     render: () => (
       <Composition
-        id="BNRedSegmentNews"
-        component={BNRedSegmentNews}
+        id="SculptedContourTerracottaBasin"
+        component={SculptedContourTerracottaBasin}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
       />
     ),
   },
   {
-    id: "BNCobaltDoubleDeck",
+    id: "SculptedContourWaves",
     render: () => (
       <Composition
-        id="BNCobaltDoubleDeck"
-        component={BNCobaltDoubleDeck}
+        id="SculptedContourWaves"
+        component={SculptedContourWaves}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
       />
     ),
   },
   {
-    id: "BNBurgundyEditorialNews",
+    id: "ImpossibleConveyorSphereToCube",
     render: () => (
       <Composition
-        id="BNBurgundyEditorialNews"
-        component={BNBurgundyEditorialNews}
+        id="ImpossibleConveyorSphereToCube"
+        component={ImpossibleConveyorSphereToCube}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
       />
     ),
   },
   {
-    id: "BNTealLiveDesk",
+    id: "LivingEngravingBreathingSun",
     render: () => (
       <Composition
-        id="BNTealLiveDesk"
-        component={BNTealLiveDesk}
+        id="LivingEngravingBreathingSun"
+        component={LivingEngravingBreathingSun}
+        width={3840}
+        height={2160}
+        fps={30}
         durationInFrames={360}
-        fps={30}
-        width={3840}
-        height={2160}
       />
     ),
   },
   {
-    id: "LT-SlateSuspended",
+    id: "LivingEngravingWatchfulEye",
     render: () => (
       <Composition
-        id="LT-SlateSuspended"
-        component={LTSlateSuspended}
-        durationInFrames={12 * 30}
-        fps={30}
+        id="LivingEngravingWatchfulEye"
+        component={LivingEngravingWatchfulEye}
         width={3840}
         height={2160}
-      />
-    ),
-  },
-  {
-    id: "LT-CopperSplit",
-    render: () => (
-      <Composition
-        id="LT-CopperSplit"
-        component={LTCopperSplit}
-        durationInFrames={12 * 30}
         fps={30}
-        width={3840}
-        height={2160}
-      />
-    ),
-  },
-  {
-    id: "LT-MidnightCapsule",
-    render: () => (
-      <Composition
-        id="LT-MidnightCapsule"
-        component={LTMidnightCapsule}
-        durationInFrames={12 * 30}
-        fps={30}
-        width={3840}
-        height={2160}
-      />
-    ),
-  },
-  {
-    id: "LT-BurgundyInset",
-    render: () => (
-      <Composition
-        id="LT-BurgundyInset"
-        component={LTBurgundyInset}
-        durationInFrames={12 * 30}
-        fps={30}
-        width={3840}
-        height={2160}
-      />
-    ),
-  },
-  {
-    id: "LT-OliveStepped",
-    render: () => (
-      <Composition
-        id="LT-OliveStepped"
-        component={LTOliveStepped}
-        durationInFrames={12 * 30}
-        fps={30}
-        width={3840}
-        height={2160}
-      />
-    ),
-  },
-  {
-    id: "LT-AmberBracket",
-    render: () => (
-      <Composition
-        id="LT-AmberBracket"
-        component={LTAmberBracket}
-        durationInFrames={12 * 30}
-        fps={30}
-        width={3840}
-        height={2160}
-      />
-    ),
-  },
-  {
-    id: "LT-SageSplitPanel",
-    render: () => (
-      <Composition
-        id="LT-SageSplitPanel"
-        component={LTSageSplitPanel}
-        durationInFrames={12 * 30}
-        fps={30}
-        width={3840}
-        height={2160}
-      />
-    ),
-  },
-  {
-    id: "LT-CobaltCornerCut",
-    render: () => (
-      <Composition
-        id="LT-CobaltCornerCut"
-        component={LTCobaltCornerCut}
-        durationInFrames={12 * 30}
-        fps={30}
-        width={3840}
-        height={2160}
-      />
-    ),
-  },
-  {
-    id: "LT-TerracottaOffset",
-    render: () => (
-      <Composition
-        id="LT-TerracottaOffset"
-        component={LTTerracottaOffset}
-        durationInFrames={12 * 30}
-        fps={30}
-        width={3840}
-        height={2160}
-      />
-    ),
-  },
-  {
-    id: "LT-TealSideRail",
-    render: () => (
-      <Composition
-        id="LT-TealSideRail"
-        component={LTTealSideRail}
-        durationInFrames={12 * 30}
-        fps={30}
-        width={3840}
-        height={2160}
+        durationInFrames={360}
       />
     ),
   },

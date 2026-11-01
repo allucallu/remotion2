@@ -1,4 +1,4 @@
-# Flexible Remotion Asset Studio
+﻿# Flexible Remotion Asset Studio
 
 Workspace Remotion untuk membuat aset motion graphics tanpa mengunci proyek ke
 satu resolusi, durasi, frame rate, background, atau codec tertentu.
@@ -10,8 +10,26 @@ npm install
 npm run dev
 ```
 
-Registry composition saat ini sengaja kosong. Tambahkan aset baru ke
-`src/compositions/`, lalu daftarkan hanya di `src/compositions/registry.tsx`.
+Composition aktif: **LivingEngravingWatchfulEye**, ilustrasi mata SVG prosedural,
+3840 x 2160, 30 fps, 360 frame (12 detik). Background hitam solid, tanpa audio.
+
+```bash
+npm run dev
+npm run render -- LivingEngravingWatchfulEye out/LivingEngravingWatchfulEye-4K.mp4 --codec=h264 --crf=15
+npm run render -- LivingEngravingWatchfulEye out/LivingEngravingWatchfulEye-preview.mp4 --scale=0.5 --codec=h264 --crf=16
+node scripts/verify-eye.cjs
+```
+
+Geometri SVG ada di `src/compositions/LivingEngravingWatchfulEye.tsx`.
+Timing, arah tatapan, kedipan, pupil, dan deformasi kulit ada di
+`src/compositions/watchful-eye/animation.ts`. Variasi guratan menggunakan seed tetap.
+Kedipan dimulai frame 99, tertutup pada 103-104, dan terbuka kembali pada 111.
+Frame virtual 360 identik dengan frame 0; output hanya frame 0-359.
+
+Tambahkan aset berikutnya ke `src/compositions/`, lalu daftarkan di
+`src/compositions/registry.tsx`.
+Simpan gambar, footage, audio, dan font baru di `public/`, lalu akses melalui
+`staticFile()`. Folder `out/` digunakan untuk hasil render dan tidak disimpan di Git.
 
 ## Struktur
 
@@ -25,6 +43,7 @@ src/
     video-formats.ts         # preset landscape, portrait, square, HD, 4K
   utils/                     # background, easing, random, dan timing
   Root.tsx                   # merender registry; biasanya tidak perlu diedit
+public/                      # aset sumber untuk composition baru
 ```
 
 ## Menambahkan aset
@@ -40,6 +59,11 @@ import { Composition } from "remotion";
 import { resolveAssetMetadata } from "../config/metadata";
 import { assetSettingsSchema } from "../config/schema";
 import { NamaAsset } from "./NamaAsset";
+
+export interface AssetRegistration {
+  id: string;
+  render: () => React.ReactNode;
+}
 
 export const assetRegistry: readonly AssetRegistration[] = [
   {
