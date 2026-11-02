@@ -6,12 +6,12 @@ on:
   workflow_dispatch:
     inputs:
       composition:
-        description: "Composition ID to render (leave empty to render all)"
+        description: "Composition ID to render (select 'all' to render all)"
         required: false
-        default: ""
+        default: "all"
         type: choice
         options:
-          - ""
+          - all
           - AttentionMarksFivePack
           - AttentionMarksSculptedPack
           - BrushCaptionFivePack
@@ -92,7 +92,7 @@ jobs:
         id: manifest
         shell: bash
         env:
-          SELECTED_COMPOSITION: ${{ github.event.inputs.composition }}
+          SELECTED_COMPOSITION: ${{ github.event.inputs.composition == 'all' && '' || github.event.inputs.composition }}
         run: npm run metadata:manifest
 
       - name: Bundle Remotion project
