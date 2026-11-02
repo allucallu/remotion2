@@ -9,6 +9,49 @@ on:
         description: "Composition ID to render (leave empty to render all)"
         required: false
         default: ""
+        type: choice
+        options:
+          - ""
+          - AttentionMarksFivePack
+          - AttentionMarksSculptedPack
+          - BrushCaptionFivePack
+          - CaptionCapsuleTrack
+          - CaptionEnamelBuckle
+          - CaptionFoldedTicket
+          - CaptionFrostedPrism
+          - CaptionOffsetSleeve
+          - CaptionOpenFrame
+          - CaptionOrigamiWing
+          - CaptionRibbonEnds
+          - CaptionSideClamps
+          - CaptionSpineDrawer
+          - CaptionSplitBridge
+          - CaptionStackedSlats
+          - CaptionSteppedEdge
+          - CaptionTornCollage
+          - CaptionWovenBorder
+          - CircleHighlightExpressivePack
+          - CircleHighlightFivePack
+          - DirectionalArrowFivePack
+          - DirectionalArrowSculptedPack
+          - FocusBoldBevel
+          - FocusChevronSteps
+          - FocusCutCorner
+          - FocusDottedTrace
+          - FocusFoldedFan
+          - FocusInkTrace
+          - FocusInterlockTabs
+          - FocusOffsetLayers
+          - FocusPivotNodes
+          - FocusPixelAssembly
+          - FocusPrecisionRail
+          - FocusRibbonCurl
+          - FocusSoftSnap
+          - FocusTripleArc
+          - FocusWovenCorner
+          - ImpactAccentFivePack
+          - ImpactAccentGraphicPack
+          - NaturalBrushCaptionPack
       crf:
         description: "CRF value for H.264 video quality (default: 18)"
         required: false
@@ -23,7 +66,7 @@ concurrency:
 
 jobs:
   render:
-    name: Render 4K videos (solid black background) and create ZIP
+    name: Render 4K videos and create ZIP
     runs-on: ubuntu-latest
     timeout-minutes: 360
 
@@ -40,42 +83,23 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Bundle Remotion project
-        run: npx remotion bundle src/index.ts build
+      - name: Validate source and Adobe Stock metadata
+        run: |
+          npm run lint
+          npm run metadata:check
 
       - name: Create composition manifest
         id: manifest
         shell: bash
         env:
           SELECTED_COMPOSITION: ${{ github.event.inputs.composition }}
-        run: |
-          python3 - <<'PY'
-          import os
-          import re
-          from pathlib import Path
+        run: npm run metadata:manifest
 
-          registry = Path("src/compositions/registry.tsx").read_text(encoding="utf-8")
-          ids = re.findall(r'id:\s*"([^"]+)"', registry)
-          seen = set()
-          composition_ids = [x for x in ids if not (x in seen or seen.add(x))]
+      - name: Bundle Remotion project
+        if: steps.manifest.outputs.has_compositions == 'true'
+        run: npx remotion bundle src/index.ts build
 
-          selected = os.environ.get("SELECTED_COMPOSITION", "").strip()
-          if selected:
-              if selected not in composition_ids:
-                  raise SystemExit(f"Selected composition '{selected}' not found in registry. Available: {composition_ids}")
-              render_ids = [selected]
-          else:
-              render_ids = composition_ids
-
-          Path("render-list.txt").write_text("\n".join(render_ids) + "\n", encoding="utf-8")
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
-              output.write(f"has_compositions={'true' if render_ids else 'false'}\n")
-          if not render_ids:
-              print("Registry is empty. Ready for new compositions; rendering skipped.")
-          print(f"Prepared {len(render_ids)} composition(s) for rendering: {render_ids}")
-          PY
-
-      - name: Render compositions as 4K MP4 with solid black background
+      - name: Render compositions as 4K MP4
         if: steps.manifest.outputs.has_compositions == 'true'
         shell: bash
         env:
@@ -83,15 +107,9 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p release/videos
-          while IFS= read -r composition_id; do
+          while IFS=$'\t' read -r composition_id output_filename; do
             [ -z "$composition_id" ] && continue
-            echo "::group::Rendering ${composition_id} (4K 3840x2160, H.264, solid black background)"
-            output_filename="${composition_id}.mp4"
-            case "$composition_id" in
-              SculptedContourTerracottaBasin) output_filename="TerracottaContourBasin.mp4" ;;
-              ImpossibleConveyorSphereToCube) output_filename="ConveyorSphereToCube.mp4" ;;
-              LivingEngravingBreathingSun) output_filename="EngravedBreathingSun.mp4" ;;
-            esac
+            echo "::group::Rendering ${composition_id} (4K 3840x2160, H.264)"
             npx remotion render build "${composition_id}" "release/videos/${output_filename}" \
               --codec=h264 \
               --crf="${CRF_VALUE}" \
@@ -101,14 +119,17 @@ jobs:
               --concurrency=1 \
               --overwrite
             echo "::endgroup::"
-          done < render-list.txt
+          done < render-list.tsv
+
+      - name: Verify rendered filenames against Adobe Stock CSV
+        if: steps.manifest.outputs.has_compositions == 'true'
+        run: npm run metadata:verify-rendered
 
       - name: Verify and package 4K videos and metadata into ZIP
         if: steps.manifest.outputs.has_compositions == 'true'
         shell: bash
         run: |
           python3 - <<'PY'
-          import sys
           import struct
           from pathlib import Path
           from zipfile import ZIP_DEFLATED, ZipFile
@@ -162,21 +183,10 @@ jobs:
               if w and h and (w != 3840 or h != 2160):
                   raise SystemExit(f"Error: {video.name} resolution is {w}x{h}, expected 3840x2160!")
 
-          # Find metadata CSV files (prioritizing adobe_stock_metadata.csv)
-          csv_candidates = [
-              Path("adobe_stock_metadata.csv"),
-              Path("metadata.csv"),
-          ] + sorted(Path(".").glob("*.csv"))
-
-          csv_files = []
-          seen_names = set()
-          for p in csv_candidates:
-              if p.is_file() and p.name not in seen_names:
-                  csv_files.append(p)
-                  seen_names.add(p.name)
-
-          if not csv_files:
-              print("Warning: No metadata CSV file was found in workspace root!", file=sys.stderr)
+          # Generated for this exact render selection, including shortened filenames.
+          csv_files = [Path("release/metadata/adobe_stock_metadata.csv")]
+          if not all(p.is_file() for p in csv_files):
+              raise SystemExit("Error: Generated Adobe Stock CSV is missing")
 
           archive_dir = Path("release")
           archive_dir.mkdir(parents=True, exist_ok=True)
@@ -202,5 +212,14 @@ jobs:
         with:
           name: remotion-4k-renders
           path: release/remotion-4k-renders.zip
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload Adobe Stock CSV
+        if: steps.manifest.outputs.has_compositions == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: adobe-stock-metadata
+          path: release/metadata/adobe_stock_metadata.csv
           if-no-files-found: error
           retention-days: 14
