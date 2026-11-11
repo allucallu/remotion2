@@ -59,7 +59,8 @@ export const Intro: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
+        paddingTop: 160,
         pointerEvents: "none",
         opacity: exitOpacity,
       }}

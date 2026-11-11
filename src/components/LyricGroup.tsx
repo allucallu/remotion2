@@ -209,6 +209,9 @@ export const LyricGroup: React.FC<LyricGroupProps> = ({
     }
 
     // Default: Center
+    // Khusus grup 1 (Oh-oh-oh di intro), posisikan di area bawah tengah agar tidak bertabrakan dengan Judul & Artis di atas
+    const isIntroVocal = group.groupId === 1;
+
     return (
       <div
         style={{
@@ -217,8 +220,9 @@ export const LyricGroup: React.FC<LyricGroupProps> = ({
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          padding: "0 100px",
+          justifyContent: isIntroVocal ? "flex-end" : "center",
+          paddingBottom: isIntroVocal ? 220 : 0,
+          padding: isIntroVocal ? "0 100px 220px 100px" : "0 100px",
           textAlign: "center",
           transform: `translateY(${groupDriftY}px)`,
         }}

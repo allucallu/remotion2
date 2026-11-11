@@ -3,7 +3,7 @@ import { staticFile } from "remotion";
 export const mvConfig = {
   // Metadata
   title: "Krisis Hati dan Ekonomi",
-  artist: "sardonictop40881",
+  artist: "suno.ai",
   audioFileName: "Krisis Hati dan Ekonomi.mp3",
   get audioSrc() {
     return staticFile(this.audioFileName);

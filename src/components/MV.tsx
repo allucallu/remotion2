@@ -9,6 +9,8 @@ import { LineBoilFilter } from "./LineBoilFilter";
 import { Intro } from "./Intro";
 import { LyricGroup } from "./LyricGroup";
 import { Doodles } from "./Doodles";
+import { InstrumentalBreak } from "./InstrumentalBreak";
+import { Outro } from "./Outro";
 
 // Muat font pilihan Gaegu
 const { fontFamily } = loadGaegu("normal", {
@@ -49,6 +51,17 @@ export const MV: React.FC = () => {
         <Intro />
       </Sequence>
 
+      {/* 4b. Visual Sketsa Jeda Musik (Instrumental Break setelah Intro: 14.5s - 25.8s) */}
+      <Sequence
+        from={Math.round(14.5 * fps)}
+        durationInFrames={Math.round((25.8 - 14.5) * fps)}
+        name="InstrumentalBreak"
+      >
+        <InstrumentalBreak
+          durationInFrames={Math.round((25.8 - 14.5) * fps)}
+        />
+      </Sequence>
+
       {/* 5. Sequence Berdasarkan Kelompok Tata Letak Lirik (src/layout.ts) */}
       {groups.map((group) => {
         const from = Math.round(group.start * fps);
@@ -75,6 +88,19 @@ export const MV: React.FC = () => {
           </Sequence>
         );
       })}
+
+      {/* 6. Visual Outro / Penutup (setelah lirik terakhir: 213s - selesai) */}
+      <Sequence
+        from={Math.round(213.0 * fps)}
+        durationInFrames={Math.round((mvConfig.durationInSeconds - 213.0) * fps)}
+        name="Outro"
+      >
+        <Outro
+          durationInFrames={Math.round(
+            (mvConfig.durationInSeconds - 213.0) * fps
+          )}
+        />
+      </Sequence>
     </div>
   );
 };

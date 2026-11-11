@@ -23,7 +23,7 @@ export interface LineLayoutConfig {
 
 export const lyricLayoutMap: Record<number, LineLayoutConfig> = {
   // --- INTRO ---
-  1: { lineIndex: 1, group: 1, layout: "center", size: "compact" }, // (Oh-oh-oh...)
+  1: { lineIndex: 1, group: 1, layout: "center", size: "compact" }, // (Oh-oh-oh...) diturunkan ke bawah agar serasi dengan judul di atas
   2: { lineIndex: 2, group: 2, layout: "left-block", size: "regular" }, // Hidup makin sulit... // UBAH: layout
   3: { lineIndex: 3, group: 2, layout: "left-block", size: "large", emphasis: "MEMIKIRKANMU" }, // Tapi entah mengapa... // UBAH: emphasis
 
