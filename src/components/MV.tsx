@@ -9,6 +9,7 @@ import { LineBoilFilter } from "./LineBoilFilter";
 import { Intro } from "./Intro";
 import { LyricGroup } from "./LyricGroup";
 import { Doodles } from "./Doodles";
+import { SceneIllustration, getIllustrationForGroup } from "./SceneIllustration";
 import { InstrumentalBreak } from "./InstrumentalBreak";
 import { Outro } from "./Outro";
 
@@ -77,7 +78,20 @@ export const MV: React.FC = () => {
             durationInFrames={durationInFrames}
             name={`Group-${group.groupId}-${group.layout}`}
           >
-            {/* Hiasan sketsa tangan yang mengisi negative space */}
+            {/* Ilustrasi Sketsa Bertema Lirik Lagu (mengisi ruang kosong) */}
+            {(() => {
+              const illType = getIllustrationForGroup(group.groupId);
+              if (!illType) return null;
+              return (
+                <SceneIllustration
+                  type={illType}
+                  layout={group.layout}
+                  groupId={group.groupId}
+                />
+              );
+            })()}
+
+            {/* Hiasan sketsa tangan yang mengitari teks & gambar */}
             {mvConfig.doodles.enabled && (
               <Doodles layout={group.layout} groupId={group.groupId} />
             )}

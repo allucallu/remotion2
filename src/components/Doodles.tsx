@@ -139,73 +139,73 @@ export const Doodles: React.FC<DoodlesProps> = ({ layout, groupId }) => {
   const baseSeed = `grp-${groupId}`;
 
   if (layout === "left-block") {
-    // Teks di sisi kiri (x: 120 - 750) -> Doodle mengisi sisi kanan yang lapang (x: 1050 - 1700)
+    // Teks di sisi kiri (x: 120 - 750) -> Doodle mengitari ilustrasi di kanan
     doodleSlots.push(
       {
         shape: "flower",
-        x: 1350 + (random(`${baseSeed}-1x`) - 0.5) * 80,
-        y: 420 + (random(`${baseSeed}-1y`) - 0.5) * 60,
-        size: 130,
+        x: 1580 + (random(`${baseSeed}-1x`) - 0.5) * 60,
+        y: 330 + (random(`${baseSeed}-1y`) - 0.5) * 50,
+        size: 90,
         color: mvConfig.doodles.color,
         delay: 6,
       },
       {
         shape: "heart",
-        x: 1560 + (random(`${baseSeed}-2x`) - 0.5) * 60,
-        y: 310 + (random(`${baseSeed}-2y`) - 0.5) * 50,
-        size: 85,
+        x: 1240 + (random(`${baseSeed}-2x`) - 0.5) * 50,
+        y: 640 + (random(`${baseSeed}-2y`) - 0.5) * 40,
+        size: 75,
         color: mvConfig.doodles.accentColor,
         delay: 14,
       },
       {
         shape: "sparkle",
-        x: 1220 + (random(`${baseSeed}-3x`) - 0.5) * 50,
-        y: 580 + (random(`${baseSeed}-3y`) - 0.5) * 40,
-        size: 70,
+        x: 1560 + (random(`${baseSeed}-3x`) - 0.5) * 40,
+        y: 660 + (random(`${baseSeed}-3y`) - 0.5) * 40,
+        size: 65,
         color: mvConfig.doodles.color,
         delay: 20,
       },
       {
         shape: "spiral",
-        x: 1480 + (random(`${baseSeed}-4x`) - 0.5) * 60,
-        y: 650 + (random(`${baseSeed}-4y`) - 0.5) * 50,
-        size: 95,
+        x: 1220 + (random(`${baseSeed}-4x`) - 0.5) * 50,
+        y: 340 + (random(`${baseSeed}-4y`) - 0.5) * 40,
+        size: 80,
         color: mvConfig.doodles.color,
         delay: 24,
       }
     );
   } else if (layout === "right-block") {
-    // Teks di sisi kanan (x: 1050 - 1800) -> Doodle mengisi sisi kiri yang lapang (x: 200 - 800)
+    // Teks di sisi kanan (x: 1050 - 1800) -> Doodle mengitari ilustrasi di kiri
     doodleSlots.push(
       {
         shape: "star",
-        x: 480 + (random(`${baseSeed}-1x`) - 0.5) * 70,
-        y: 380 + (random(`${baseSeed}-1y`) - 0.5) * 60,
-        size: 120,
+        x: 360 + (random(`${baseSeed}-1x`) - 0.5) * 50,
+        y: 340 + (random(`${baseSeed}-1y`) - 0.5) * 40,
+        size: 85,
         color: mvConfig.doodles.color,
         delay: 6,
       },
       {
         shape: "flower",
-        x: 680 + (random(`${baseSeed}-2x`) - 0.5) * 60,
-        y: 540 + (random(`${baseSeed}-2y`) - 0.5) * 50,
-        size: 110,
+        x: 720 + (random(`${baseSeed}-2x`) - 0.5) * 50,
+        y: 620 + (random(`${baseSeed}-2y`) - 0.5) * 40,
+        size: 80,
         color: mvConfig.doodles.accentColor,
         delay: 14,
       },
       {
         shape: "sparkle",
-        x: 320 + (random(`${baseSeed}-3x`) - 0.5) * 40,
-        y: 510 + (random(`${baseSeed}-3y`) - 0.5) * 40,
-        size: 65,
+        x: 340 + (random(`${baseSeed}-3x`) - 0.5) * 40,
+        y: 640 + (random(`${baseSeed}-3y`) - 0.5) * 40,
+        size: 60,
         color: mvConfig.doodles.color,
         delay: 18,
       },
       {
         shape: "spiral",
-        x: 520 + (random(`${baseSeed}-4x`) - 0.5) * 50,
-        y: 680 + (random(`${baseSeed}-4y`) - 0.5) * 40,
-        size: 90,
+        x: 720 + (random(`${baseSeed}-4x`) - 0.5) * 40,
+        y: 350 + (random(`${baseSeed}-4y`) - 0.5) * 40,
+        size: 75,
         color: mvConfig.doodles.color,
         delay: 22,
       }
