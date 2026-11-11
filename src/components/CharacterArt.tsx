@@ -79,15 +79,11 @@ export const CharacterArt: React.FC<CharacterArtProps> = ({
       }}
     >
       <Img
-        src={staticFile(`art/${artId}.jpg`)}
+        src={staticFile(`art/${artId}.png`)}
         style={{
           width: "100%",
           height: "100%",
           objectFit: "contain",
-          // mix-blend-mode multiply menghilangkan latar belakang putih sehingga menyatu alami di atas kertas krem
-          mixBlendMode: "multiply",
-          // Filter sepia + saturasi + kontras untuk menyelaraskan tinta hitam/abu menjadi warna tinta sketsa cokelat tua hangat
-          filter: "sepia(0.65) saturate(1.8) brightness(0.92) contrast(1.15)",
         }}
       />
     </div>
