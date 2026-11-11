@@ -10,7 +10,7 @@ import { Intro } from "./Intro";
 import { LyricGroup } from "./LyricGroup";
 import { Doodles } from "./Doodles";
 import { SceneIllustration, getIllustrationForGroup } from "./SceneIllustration";
-import { GirlSketch, getGirlPoseForGroup } from "./GirlSketch";
+import { CharacterArt, getCharacterArtForGroup } from "./CharacterArt";
 import { InstrumentalBreak } from "./InstrumentalBreak";
 import { Outro } from "./Outro";
 
@@ -79,13 +79,13 @@ export const MV: React.FC = () => {
             durationInFrames={durationInFrames}
             name={`Group-${group.groupId}-${group.layout}`}
           >
-            {/* 1. Visual Sketsa Karakter Perempuan (Nona) di bait-bait relevan */}
+            {/* 1. Visual Gambar Karakter Asli dari folder calon (1.jpg - 4.jpg) */}
             {(() => {
-              const girlPose = getGirlPoseForGroup(group.groupId);
-              if (girlPose) {
+              const artId = getCharacterArtForGroup(group.groupId);
+              if (artId) {
                 return (
-                  <GirlSketch
-                    pose={girlPose}
+                  <CharacterArt
+                    artId={artId}
                     layout={group.layout}
                     groupId={group.groupId}
                   />
