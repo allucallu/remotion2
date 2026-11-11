@@ -10,6 +10,7 @@ import { Intro } from "./Intro";
 import { LyricGroup } from "./LyricGroup";
 import { Doodles } from "./Doodles";
 import { SceneIllustration, getIllustrationForGroup } from "./SceneIllustration";
+import { GirlSketch, getGirlPoseForGroup } from "./GirlSketch";
 import { InstrumentalBreak } from "./InstrumentalBreak";
 import { Outro } from "./Outro";
 
@@ -78,17 +79,30 @@ export const MV: React.FC = () => {
             durationInFrames={durationInFrames}
             name={`Group-${group.groupId}-${group.layout}`}
           >
-            {/* Ilustrasi Sketsa Bertema Lirik Lagu (mengisi ruang kosong) */}
+            {/* 1. Visual Sketsa Karakter Perempuan (Nona) di bait-bait relevan */}
             {(() => {
+              const girlPose = getGirlPoseForGroup(group.groupId);
+              if (girlPose) {
+                return (
+                  <GirlSketch
+                    pose={girlPose}
+                    layout={group.layout}
+                    groupId={group.groupId}
+                  />
+                );
+              }
+              // 2. Jika bukan bait karakter, tampilkan ilustrasi objek tema (tagihan, kopi, dompet, dll)
               const illType = getIllustrationForGroup(group.groupId);
-              if (!illType) return null;
-              return (
-                <SceneIllustration
-                  type={illType}
-                  layout={group.layout}
-                  groupId={group.groupId}
-                />
-              );
+              if (illType) {
+                return (
+                  <SceneIllustration
+                    type={illType}
+                    layout={group.layout}
+                    groupId={group.groupId}
+                  />
+                );
+              }
+              return null;
             })()}
 
             {/* Hiasan sketsa tangan yang mengitari teks & gambar */}
