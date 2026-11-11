@@ -43,7 +43,6 @@ export const MV: React.FC = () => {
 
       {/* 4. Intro Judul & Artis Lagu */}
       <Sequence
-        from={0}
         durationInFrames={mvConfig.intro.durationInFrames}
         name="Intro"
       >
