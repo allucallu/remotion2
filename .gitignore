@@ -9,3 +9,14 @@ render-list.tsv
 *.mp4
 *.mov
 *.webm
+
+# Large binary / AI models & tools
+whisper-models/
+whisper.cpp/
+whisper_help.txt
+tools/
+notes/
+calon/
+data/
+public/lagu-16k.wav
+ghost-pack-4k.html
