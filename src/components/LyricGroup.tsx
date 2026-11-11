@@ -68,10 +68,17 @@ export const LyricGroup: React.FC<LyricGroupProps> = ({
     const enterWindow = Math.max(1, lineDurationFrames * 0.65);
     const stagger = totalWords > 1 ? enterWindow / (totalWords - 1) : 0;
 
-    // Tentukan ukuran font berdasarkan preset
+    // Tentukan ukuran font berdasarkan preset & dinamika Chorus (Poin 1)
     let fontSize: number = mvConfig.lyricFontSize;
     if (line.size === "large") fontSize = 66;
     if (line.size === "compact") fontSize = 44;
+    if (group.isChorus) fontSize += 8;
+
+    // Warna tinta: Chorus baris utama memakai aksen terakota hangat
+    const lineColor =
+      group.isChorus && lineLocalIdx === 0
+        ? mvConfig.ink.highlight
+        : mvConfig.ink.primary;
 
     return (
       <div
@@ -120,8 +127,8 @@ export const LyricGroup: React.FC<LyricGroupProps> = ({
               style={{
                 fontFamily: gaegu.fontFamily,
                 fontSize,
-                fontWeight: line.size === "large" ? 700 : 400,
-                color: mvConfig.ink.primary,
+                fontWeight: line.size === "large" || group.isChorus ? 700 : 400,
+                color: lineColor,
                 letterSpacing: mvConfig.lyricLetterSpacing,
                 lineHeight: mvConfig.lyricLineHeight,
                 clipPath: `inset(0% ${(1 - wipeProgress) * 100}% 0% 0%)`,
@@ -186,7 +193,30 @@ export const LyricGroup: React.FC<LyricGroupProps> = ({
             textAlign: "left",
           }}
         >
-          {group.lines.map((l, idx) => renderLineWords(l, idx))}
+          {group.lines.map((l, idx) => (
+            <React.Fragment key={`lblock-wrap-${l.lineIndex}`}>
+              {renderLineWords(l, idx)}
+              {/* Garis Sketsa Pembatas saat baris kedua muncul (Poin 2) */}
+              {idx === 0 && group.lines.length > 1 && frame >= (group.lines[1].start - group.start) * fps && (
+                <svg width="240" height="12" style={{ margin: "4px 0 10px 0", overflow: "visible" }}>
+                  <path
+                    d="M 4 6 Q 120 10 236 4"
+                    fill="none"
+                    stroke={mvConfig.ink.secondary}
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeDasharray="250"
+                    strokeDashoffset={interpolate(
+                      frame - (group.lines[1].start - group.start) * fps,
+                      [0, 15],
+                      [250, 0],
+                      { extrapolateRight: "clamp" }
+                    )}
+                  />
+                </svg>
+              )}
+            </React.Fragment>
+          ))}
         </div>
       );
     }
@@ -203,7 +233,32 @@ export const LyricGroup: React.FC<LyricGroupProps> = ({
             textAlign: "right",
           }}
         >
-          {group.lines.map((l, idx) => renderLineWords(l, idx))}
+          {group.lines.map((l, idx) => (
+            <React.Fragment key={`rblock-wrap-${l.lineIndex}`}>
+              {renderLineWords(l, idx)}
+              {/* Garis Sketsa Pembatas saat baris kedua muncul (Poin 2) */}
+              {idx === 0 && group.lines.length > 1 && frame >= (group.lines[1].start - group.start) * fps && (
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <svg width="240" height="12" style={{ margin: "4px 0 10px 0", overflow: "visible" }}>
+                    <path
+                      d="M 4 6 Q 120 2 236 6"
+                      fill="none"
+                      stroke={mvConfig.ink.secondary}
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeDasharray="250"
+                      strokeDashoffset={interpolate(
+                        frame - (group.lines[1].start - group.start) * fps,
+                        [0, 15],
+                        [250, 0],
+                        { extrapolateRight: "clamp" }
+                      )}
+                    />
+                  </svg>
+                </div>
+              )}
+            </React.Fragment>
+          ))}
         </div>
       );
     }

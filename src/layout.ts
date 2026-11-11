@@ -136,6 +136,7 @@ export interface PreparedGroup {
   end: number;
   layout: LayoutPreset;
   emphasis?: string;
+  isChorus?: boolean;
   lines: Array<{
     lineIndex: number;
     text: string;
@@ -160,12 +161,14 @@ export function getLyricGroups(
     const groupId = config.group;
 
     if (!groupsMap.has(groupId)) {
+      const isChorus = [9, 10, 19, 20, 27, 28].includes(groupId);
       groupsMap.set(groupId, {
         groupId,
         start: line.start,
         end: line.end,
         layout: config.layout,
         emphasis: config.emphasis,
+        isChorus,
         lines: [],
       });
     }
