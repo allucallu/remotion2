@@ -8,9 +8,9 @@ on:
         required: false
         default: "18"
       concurrency:
-        description: "Number of rendering threads (default: 4)"
+        description: "Number of rendering threads or percentage (default: 100%)"
         required: false
-        default: "4"
+        default: "100%"
 
 jobs:
   render-mv:
@@ -39,7 +39,7 @@ jobs:
           mkdir -p out
           npx remotion render MV out/Krisis_Hati_dan_Ekonomi_MV.mp4 \
             --crf=${{ github.event.inputs.crf || '18' }} \
-            --concurrency=${{ github.event.inputs.concurrency || '4' }} \
+            --concurrency=${{ github.event.inputs.concurrency || '100%' }} \
             --gl=angle
 
       - name: Upload Rendered Video Artifact
