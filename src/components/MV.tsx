@@ -86,15 +86,15 @@ export const MV: React.FC = () => {
         );
       })}
 
-      {/* 5. Outro Kartu Penutup Lagu (Detik 228 s/d Selesai 232.1s) */}
+      {/* 5. Outro Kartu Penutup Lagu (Detik 233.0 s/d 246.4 saat vokal lirik sudah selesai) */}
       <Sequence
-        from={Math.round(227.5 * fps)}
-        durationInFrames={Math.round((mvConfig.durationInSeconds - 227.5) * fps)}
+        from={Math.round(233.0 * fps)}
+        durationInFrames={Math.round((mvConfig.durationInSeconds - 233.0) * fps)}
         name="SongOutro"
       >
         <SongOutro
           durationInFrames={Math.round(
-            (mvConfig.durationInSeconds - 227.5) * fps
+            (mvConfig.durationInSeconds - 233.0) * fps
           )}
         />
       </Sequence>

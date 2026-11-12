@@ -9,12 +9,12 @@ export const mvConfig = {
     return staticFile(this.audioFileName);
   },
 
-  // Video & Timeline (Durasi lagu: 232.08 detik -> 6963 frames @ 30fps)
+  // Video & Timeline (Durasi lagu penuh: 246.4 detik -> 7392 frames @ 30fps)
   width: 1920,
   height: 1080,
   fps: 30,
-  durationInSeconds: 232.1,
-  durationInFrames: 6963,
+  durationInSeconds: 246.4,
+  durationInFrames: 7392,
 
   // Palet Warna: Warm Midnight Loft / Late-Night Bedroom Acoustic
   theme: {
