@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useCurrentFrame } from "remotion";
 
 export const HAND_FILTER_ID = "hand-drawn-boil";
@@ -14,35 +14,30 @@ interface HandFilterProps {
 
 /**
  * Filter SVG untuk memberikan tekstur garis tulisan tangan yang hidup ("line boil").
- * Mengubah seed turbulence setiap 4 frame sehingga garis doodle tampak bergetar lembut.
+ * Mengubah seed turbulence setiap 4 frame dengan area filter dibatasi (filterUnits objectBoundingBox).
  */
-export const HandFilter: React.FC<HandFilterProps> = ({
-  frame: propFrame,
-  id = HAND_FILTER_ID,
-  scale = 2.5,
-}) => {
-  const hookFrame = useCurrentFrame();
-  const currentFrame = propFrame ?? hookFrame;
+export const HandFilter: React.FC<HandFilterProps> = React.memo(
+  ({ frame: propFrame, id = HAND_FILTER_ID, scale = 2.5 }) => {
+    const hookFrame = useCurrentFrame();
+    const currentFrame = propFrame ?? hookFrame;
 
-  // Ganti seed setiap 4 frame untuk efek animasi frame-by-frame manual (line boil)
-  const seed = Math.floor(currentFrame / 4);
+    // Ganti seed setiap 4 frame untuk efek animasi frame-by-frame manual (line boil)
+    const seed = Math.floor(currentFrame / 4);
 
-  return (
-    <svg
-      style={{
-        position: "absolute",
-        width: 0,
-        height: 0,
-        pointerEvents: "none",
-      }}
-      aria-hidden="true"
-    >
-      <defs>
-        <filter id={id} x="-10%" y="-10%" width="120%" height="120%">
+    const filterElement = useMemo(
+      () => (
+        <filter
+          id={id}
+          filterUnits="objectBoundingBox"
+          x="-6%"
+          y="-6%"
+          width="112%"
+          height="112%"
+        >
           <feTurbulence
             type="fractalNoise"
             baseFrequency="0.025"
-            numOctaves={2}
+            numOctaves={1}
             seed={seed}
             result="noise"
           />
@@ -54,8 +49,22 @@ export const HandFilter: React.FC<HandFilterProps> = ({
             yChannelSelector="G"
           />
         </filter>
-      </defs>
-    </svg>
-  );
-};
+      ),
+      [id, scale, seed]
+    );
 
+    return (
+      <svg
+        style={{
+          position: "absolute",
+          width: 0,
+          height: 0,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+      >
+        <defs>{filterElement}</defs>
+      </svg>
+    );
+  }
+);

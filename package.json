@@ -33,7 +33,7 @@
     "dev": "remotion studio src/index.ts",
     "build": "remotion bundle src/index.ts",
     "compositions": "remotion compositions src/index.ts",
-    "render": "remotion render src/index.ts",
+    "render": "remotion render MV out/mv.mp4 --codec=h264",
     "upgrade": "remotion upgrade",
     "typecheck": "tsc",
     "metadata:generate": "node scripts/stock-metadata.mjs generate",

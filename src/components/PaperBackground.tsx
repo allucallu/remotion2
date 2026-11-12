@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { mvConfig } from "../config";
 
 export type PaperMode = "day" | "night" | "golden";
@@ -10,8 +10,9 @@ interface PaperBackgroundProps {
 /**
  * Latar kertas buku tulis bergaris bergaya catatan harian.
  * Mendukung mode siang (day), malam (night untuk Bridge), dan senja hangat (golden untuk Final Chorus).
+ * Dioptimalkan dengan React.memo & useMemo agar grain noise statis tidak dirender ulang per frame.
  */
-export const PaperBackground: React.FC<PaperBackgroundProps> = ({
+export const PaperBackground: React.FC<PaperBackgroundProps> = React.memo(({
   mode = "day",
 }) => {
   const isNight = mode === "night";
@@ -31,6 +32,34 @@ export const PaperBackground: React.FC<PaperBackgroundProps> = ({
 
   // Jarak antar garis buku tulis (px)
   const lineSpacing = 54;
+
+  const grainSvg = useMemo(
+    () => (
+      <svg
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          opacity: isNight ? 0.05 : 0.04,
+          pointerEvents: "none",
+        }}
+        aria-hidden="true"
+      >
+        <filter id={`paper-grain-${mode}`}>
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.85"
+            numOctaves={2}
+            stitchTiles="stitch"
+          />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter={`url(#paper-grain-${mode})`} />
+      </svg>
+    ),
+    [isNight, mode]
+  );
 
   return (
     <div
@@ -134,29 +163,8 @@ export const PaperBackground: React.FC<PaperBackgroundProps> = ({
         />
       )}
 
-      {/* 6. Tekstur Grain Kertas Halus (SVG FractalNoise Overlay) */}
-      <svg
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          opacity: isNight ? 0.05 : 0.04,
-          pointerEvents: "none",
-        }}
-        aria-hidden="true"
-      >
-        <filter id="paper-grain-filter">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.85"
-            numOctaves={3}
-            stitchTiles="stitch"
-          />
-          <feColorMatrix type="saturate" values="0" />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#paper-grain-filter)" />
-      </svg>
+      {/* 6. Tekstur Grain Kertas Halus (SVG FractalNoise Overlay di-cache pakai useMemo) */}
+      {grainSvg}
 
       {/* 7. Vignette Tepi Kertas Lembut */}
       <div
@@ -171,5 +179,5 @@ export const PaperBackground: React.FC<PaperBackgroundProps> = ({
       />
     </div>
   );
-};
+});
 

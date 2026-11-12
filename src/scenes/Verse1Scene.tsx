@@ -62,12 +62,12 @@ export const Verse1Scene: React.FC<Verse1SceneProps> = ({ section }) => {
       <HandFilter frame={frame} scale={2.5} />
       <PaperBackground mode="day" />
 
-      {/* Label Bab Buku Harian di Pojok Kiri Atas */}
+      {/* Label Bab Buku Harian di Pojok Kiri Atas (safe-area 96px) */}
       <div
         style={{
           position: "absolute",
-          top: 32,
-          left: 148,
+          top: 96,
+          left: 150,
           display: "flex",
           alignItems: "center",
           gap: 12,
@@ -90,11 +90,11 @@ export const Verse1Scene: React.FC<Verse1SceneProps> = ({ section }) => {
 
       {/* Render 4 Sub-Scene secara Berurutan */}
       {groups.map((grp, gIdx) => {
+        const isLastSub = gIdx === groups.length - 1;
         const from = Math.max(0, Math.round((grp.startSec - section.start) * fps));
-        const durationInFrames = Math.max(
-          1,
-          Math.round((grp.endSec - grp.startSec) * fps)
-        );
+        const durationInFrames =
+          Math.max(1, Math.round((grp.endSec - grp.startSec) * fps)) +
+          (isLastSub ? 12 : 0);
         const isLyricLeft = grp.lyricAlign === "left";
 
         return (
@@ -107,16 +107,17 @@ export const Verse1Scene: React.FC<Verse1SceneProps> = ({ section }) => {
             <SubSceneTransition
               durationInFrames={durationInFrames}
               direction={isLyricLeft ? "right" : "left"}
+              disableExit={isLastSub}
             >
-              {/* Blok Lirik */}
+              {/* Blok Lirik (safe-area 96px) */}
               <div
                 style={{
                   position: "absolute",
-                  top: "48%",
+                  top: "52%",
                   transform: "translateY(-50%)",
-                  left: isLyricLeft ? 155 : undefined,
-                  right: isLyricLeft ? undefined : 90,
-                  width: 820,
+                  left: isLyricLeft ? 150 : undefined,
+                  right: isLyricLeft ? undefined : 96,
+                  width: 780,
                   zIndex: 5,
                 }}
               >
@@ -125,7 +126,7 @@ export const Verse1Scene: React.FC<Verse1SceneProps> = ({ section }) => {
                   align={grp.lyricAlign}
                   sectionStart={grp.startSec}
                   mode="day"
-                  fontSize={72}
+                  fontSize={70}
                 />
               </div>
 
@@ -133,11 +134,11 @@ export const Verse1Scene: React.FC<Verse1SceneProps> = ({ section }) => {
               <div
                 style={{
                   position: "absolute",
-                  top: "50%",
+                  top: "52%",
                   transform: "translateY(-50%)",
-                  right: isLyricLeft ? 110 : undefined,
-                  left: isLyricLeft ? undefined : 160,
-                  width: 720,
+                  right: isLyricLeft ? 96 : undefined,
+                  left: isLyricLeft ? undefined : 150,
+                  width: 740,
                   height: 600,
                   display: "flex",
                   alignItems: "center",

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { loadFont as loadGaegu } from "@remotion/google-fonts/Gaegu";
 import { mvConfig } from "../config";
 import type { Section } from "../data/buildTimeline";
 import { HandFilter, HAND_FILTER_ID } from "../components/HandFilter";
 import { PaperBackground } from "../components/PaperBackground";
 import { DrawPath } from "../components/DrawPath";
 import { Guitar, MusicNote, Star, StickyNote, WashiTape } from "../components/Doodles";
+import { mvFonts } from "../utils/fonts";
 
-const { fontFamily: gaeguFont } = loadGaegu();
+const gaeguFont = mvFonts.gaegu;
 
 interface IntroSceneProps {
   section: Section;
@@ -19,22 +19,9 @@ interface IntroSceneProps {
  * Kertas kosong, judul "Hei, Nona" ditulis bertahap dengan pena biru (DrawPath),
  * gitar akustik digambar perlahan, dan not musik melayang naik mengikuti picking gitar.
  */
-export const IntroScene: React.FC<IntroSceneProps> = ({ section }) => {
+export const IntroScene: React.FC<IntroSceneProps> = () => {
   const frame = useCurrentFrame();
-  const { fps, width, height } = useVideoConfig();
-
-  const durationInFrames = Math.max(
-    1,
-    Math.round((section.end - section.start) * fps)
-  );
-
-  // Transisi keluar ±12 frame menuju Verse 1
-  const exitOpacity = interpolate(
-    frame,
-    [Math.max(1, durationInFrames - 12), durationInFrames],
-    [1, 0],
-    { extrapolateLeft: "clamp", extrapolateRight: "clamp" }
-  );
+  const { width, height } = useVideoConfig();
 
   // Animasi subtitel masuk lembut
   const subtitleOpacity = interpolate(frame, [105, 130], [0, 0.85], {
@@ -42,13 +29,16 @@ export const IntroScene: React.FC<IntroSceneProps> = ({ section }) => {
     extrapolateRight: "clamp",
   });
 
-  // 4 not musik melayang naik mengikuti petikan gitar (dimulai setelah gitar terbentuk)
-  const notes = [
-    { startFrame: 140, baseX: 1180, speed: 1.6, swayAmp: 18, variant: "single" as const },
-    { startFrame: 195, baseX: 1320, speed: 1.9, swayAmp: 22, variant: "double" as const },
-    { startFrame: 255, baseX: 1240, speed: 1.5, swayAmp: 16, variant: "single" as const },
-    { startFrame: 315, baseX: 1360, speed: 1.8, swayAmp: 20, variant: "double" as const },
-  ];
+  // 4 not musik melayang naik mengikuti petikan gitar (di-memo dengan useMemo)
+  const notes = useMemo(
+    () => [
+      { startFrame: 140, baseX: 1180, speed: 1.6, swayAmp: 18, variant: "single" as const },
+      { startFrame: 195, baseX: 1320, speed: 1.9, swayAmp: 22, variant: "double" as const },
+      { startFrame: 255, baseX: 1240, speed: 1.5, swayAmp: 16, variant: "single" as const },
+      { startFrame: 315, baseX: 1360, speed: 1.8, swayAmp: 20, variant: "double" as const },
+    ],
+    []
+  );
 
   return (
     <div
@@ -57,23 +47,22 @@ export const IntroScene: React.FC<IntroSceneProps> = ({ section }) => {
         width,
         height,
         overflow: "hidden",
-        opacity: exitOpacity,
       }}
     >
       <HandFilter frame={frame} scale={2.5} />
       <PaperBackground mode="day" />
 
-      {/* Dekorasi Washi Tape di Sudut Kiri Atas */}
-      <div style={{ position: "absolute", top: 38, left: 160, zIndex: 2 }}>
+      {/* Dekorasi Washi Tape di Sudut Kiri Atas (safe-area 96px) */}
+      <div style={{ position: "absolute", top: 96, left: 155, zIndex: 2 }}>
         <WashiTape width={160} start={8} color={mvConfig.palette.mint} rotate={-6} />
       </div>
 
-      {/* Catatan Kecil / Sticky Note di Kanan Atas */}
+      {/* Catatan Kecil / Sticky Note di Kanan Atas (safe-area 96px) */}
       <div
         style={{
           position: "absolute",
-          top: 70,
-          right: 120,
+          top: 96,
+          right: 96,
           zIndex: 2,
           fontFamily: `${gaeguFont}, cursive`,
         }}

@@ -1,5 +1,5 @@
 // Auto-generated from calon/lirik.txt and calon/whisper-raw.json
-import type { Section } from "./buildTimeline";
+import type { Section } from './buildTimeline';
 
 export const timeline: Section[] = [
   {
@@ -403,12 +403,12 @@ export const timeline: Section[] = [
       {
         "text": "Hei, Nona, apa kabarmu?",
         "start": 62.9,
-        "end": 65.66999999999999,
+        "end": 66.6,
         "words": [
           {
             "text": "Hei,",
             "start": 62.9,
-            "end": 63.25
+            "end": 63.82
           },
           {
             "text": "Nona,",
@@ -423,7 +423,7 @@ export const timeline: Section[] = [
           {
             "text": "kabarmu?",
             "start": 65.32,
-            "end": 65.66999999999999
+            "end": 66.6
           }
         ]
       },
@@ -536,7 +536,7 @@ export const timeline: Section[] = [
           {
             "text": "Hei,",
             "start": 78.44,
-            "end": 78.78999999999999
+            "end": 79.42
           },
           {
             "text": "Nona,",
@@ -1052,7 +1052,7 @@ export const timeline: Section[] = [
           {
             "text": "Hei,",
             "start": 143.18,
-            "end": 143.53
+            "end": 144.22
           },
           {
             "text": "Nona,",
@@ -1180,7 +1180,7 @@ export const timeline: Section[] = [
           {
             "text": "Hei,",
             "start": 158.78,
-            "end": 159.13
+            "end": 159.94
           },
           {
             "text": "Nona,",
@@ -1454,7 +1454,7 @@ export const timeline: Section[] = [
           {
             "text": "kita",
             "start": 193.44,
-            "end": 193.79
+            "end": 194.04
           },
           {
             "text": "bicara",
@@ -1485,8 +1485,8 @@ export const timeline: Section[] = [
           },
           {
             "text": "hal",
-            "start": 196.6,
-            "end": 196.95
+            "start": 197.38,
+            "end": 197.82
           },
           {
             "text": "sederhana",
@@ -1575,7 +1575,7 @@ export const timeline: Section[] = [
           {
             "text": "Hei,",
             "start": 208.72,
-            "end": 209.07
+            "end": 209.42
           },
           {
             "text": "Nona,",
@@ -1693,7 +1693,7 @@ export const timeline: Section[] = [
           {
             "text": "Hei,",
             "start": 224.71,
-            "end": 225.06
+            "end": 225.34
           },
           {
             "text": "Nona,",
