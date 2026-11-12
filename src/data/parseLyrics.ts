@@ -66,3 +66,4 @@ export function parseLyricsFile(content: string): ParsedRawSection[] {
 
   return sections;
 }
+

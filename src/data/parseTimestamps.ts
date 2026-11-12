@@ -149,3 +149,4 @@ export function parseTimestampData(jsonInput: unknown): RawTimestampLine[] {
     return { text, start, end, words };
   });
 }
+

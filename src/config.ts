@@ -36,7 +36,7 @@ export const mvConfig = {
 
   // Tipografi (PRD Bagian 4.3)
   fonts: {
-    lyric: "Caveat",                 // Alternatif: Patrick Hand
+    lyric: "Patrick Hand",           // Font utama tulisan tangan
     sectionLabel: "Gaegu",           // Label seksi/judul kecil
     sfx: "Indie Flower",             // SFX/doodle text
   },
