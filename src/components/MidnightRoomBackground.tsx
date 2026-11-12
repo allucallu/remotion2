@@ -1,6 +1,7 @@
 import React from "react";
 import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
 import { mvConfig } from "../config";
+import { AbstractWallArt } from "./AbstractWallArt";
 
 export const MidnightRoomBackground: React.FC = () => {
   const frame = useCurrentFrame();
@@ -48,30 +49,8 @@ export const MidnightRoomBackground: React.FC = () => {
         }}
       />
 
-      {/* 2. Siluet Jendela Kamar Malam Halus di Latar Belakang (Late-Night Window Slats) */}
-      <div
-        style={{
-          position: "absolute",
-          left: "5%",
-          top: "10%",
-          width: "360px",
-          height: "520px",
-          borderRadius: "16px",
-          background: "linear-gradient(135deg, rgba(45, 58, 86, 0.25) 0%, rgba(20, 26, 40, 0.1) 100%)",
-          border: "1px solid rgba(255, 255, 255, 0.04)",
-          boxShadow: "0 0 50px rgba(35, 48, 75, 0.15)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-          padding: "20px",
-          opacity: 0.45,
-          pointerEvents: "none",
-        }}
-      >
-        <div style={{ height: "2px", backgroundColor: "rgba(255, 255, 255, 0.05)" }} />
-        <div style={{ height: "2px", backgroundColor: "rgba(255, 255, 255, 0.05)" }} />
-        <div style={{ height: "2px", backgroundColor: "rgba(255, 255, 255, 0.05)" }} />
-      </div>
+      {/* 2. Ornamen Lukisan Tangan Abstrak di Dinding Kamar & Doodles (Abstract Wall Art Gallery) */}
+      <AbstractWallArt />
 
       {/* 3. Pendaran Lampu Meja Tidur Hangat (Warm Tungsten Glow di samping karakter) */}
       <div

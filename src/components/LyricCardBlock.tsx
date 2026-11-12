@@ -144,32 +144,6 @@ export const LyricCardBlock: React.FC<LyricCardBlockProps> = ({
           </div>
         );
       })}
-
-      {/* Emphasis Tag / Keyword Badge di Bawah Bait */}
-      {group.emphasis && frame >= (group.lines[group.lines.length - 1].start - group.start) * fps && (
-        <div
-          style={{
-            marginTop: 10,
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 10,
-            padding: "8px 18px",
-            backgroundColor: "rgba(243, 179, 83, 0.12)",
-            border: "1px solid rgba(243, 179, 83, 0.35)",
-            borderRadius: 30,
-            color: mvConfig.theme.accentAmber,
-            fontSize: 20,
-            fontWeight: 700,
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            boxShadow: "0 4px 20px rgba(0, 0, 0, 0.4)",
-          }}
-        >
-          <span style={{ fontSize: 16 }}>✦</span>
-          <span>{group.emphasis}</span>
-          <span style={{ fontSize: 16 }}>✦</span>
-        </div>
-      )}
     </div>
   );
 };
