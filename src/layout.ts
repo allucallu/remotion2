@@ -97,6 +97,7 @@ export interface PreparedGroup {
   emphasis?: string;
   isChorus?: boolean;
   poseId?: CharacterPoseId;
+  accentType?: "wallet-coins" | "ktp-alarm" | "story-ring" | "coffee-steam";
   lines: Array<{
     lineIndex: number;
     text: string;
@@ -120,6 +121,15 @@ export function getLyricGroups(
     const groupId = config.group;
 
     if (!groupsMap.has(groupId)) {
+      // Tentukan ikon aksen tipis untuk grup yang tidak memiliki kartu karakter
+      let accentType: PreparedGroup["accentType"] = undefined;
+      if (!config.poseId) {
+        if (groupId === 1 || groupId === 23) accentType = "wallet-coins"; // Dompet menipis
+        else if (groupId === 3 || groupId === 4) accentType = "ktp-alarm"; // KTP & pensiun dini
+        else if (groupId === 5) accentType = "story-ring"; // Lingkaran story IG
+        else if (groupId === 2 || groupId === 15) accentType = "coffee-steam"; // Kopi hangat
+      }
+
       groupsMap.set(groupId, {
         groupId,
         start: line.start,
@@ -128,6 +138,7 @@ export function getLyricGroups(
         emphasis: config.emphasis,
         isChorus: config.isChorus,
         poseId: config.poseId,
+        accentType,
         lines: [],
       });
     }

@@ -5,8 +5,10 @@ import { lyrics } from "../lyrics";
 import { getLyricGroups } from "../layout";
 import { MidnightRoomBackground } from "./MidnightRoomBackground";
 import { FloatingCharacterCard } from "./FloatingCharacterCard";
+import { SceneAccents } from "./SceneAccents";
 import { LyricCardBlock } from "./LyricCardBlock";
 import { SongIntro } from "./SongIntro";
+import { SongOutro } from "./SongOutro";
 
 export const MV: React.FC = () => {
   const { fps } = useVideoConfig();
@@ -67,6 +69,14 @@ export const MV: React.FC = () => {
               />
             )}
 
+            {/* Aksen Ikon Tipis di Ruang Seberang Lirik (untuk bait tanpa kartu karakter) */}
+            {!group.poseId && group.accentType && (
+              <SceneAccents
+                type={group.accentType}
+                layout={group.layout === "left-block" ? "right-accent" : "left-accent"}
+              />
+            )}
+
             {/* Blok Tipografi Teks Lirik */}
             <LyricCardBlock
               group={group}
@@ -75,6 +85,19 @@ export const MV: React.FC = () => {
           </Sequence>
         );
       })}
+
+      {/* 5. Outro Kartu Penutup Lagu (Detik 228 s/d Selesai 232.1s) */}
+      <Sequence
+        from={Math.round(227.5 * fps)}
+        durationInFrames={Math.round((mvConfig.durationInSeconds - 227.5) * fps)}
+        name="SongOutro"
+      >
+        <SongOutro
+          durationInFrames={Math.round(
+            (mvConfig.durationInSeconds - 227.5) * fps
+          )}
+        />
+      </Sequence>
     </div>
   );
 };
