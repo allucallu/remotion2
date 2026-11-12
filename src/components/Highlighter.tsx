@@ -61,3 +61,4 @@ export const Highlighter: React.FC<HighlighterProps> = ({
     />
   );
 };
+

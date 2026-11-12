@@ -104,3 +104,4 @@ export const StickyNote: React.FC<StickyNoteProps> = ({
     </div>
   );
 };
+

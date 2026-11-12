@@ -221,3 +221,4 @@ export const LyricBlock: React.FC<LyricBlockProps> = ({
     </div>
   );
 };
+

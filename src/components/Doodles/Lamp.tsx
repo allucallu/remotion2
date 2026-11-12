@@ -79,3 +79,4 @@ export const Lamp: React.FC<LampProps> = ({
     </svg>
   );
 };
+

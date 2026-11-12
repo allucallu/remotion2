@@ -2,6 +2,9 @@ import React from "react";
 import { Audio, Sequence, useCurrentFrame, useVideoConfig } from "remotion";
 import { mvConfig } from "./config";
 import { timeline } from "./data/timeline";
+import { IntroScene } from "./scenes/IntroScene";
+import { Verse1Scene } from "./scenes/Verse1Scene";
+import { PreChorusScene } from "./scenes/PreChorusScene";
 
 export const MV: React.FC = () => {
   const { fps, width, height } = useVideoConfig();
@@ -28,6 +31,22 @@ export const MV: React.FC = () => {
           Math.round((sec.end - sec.start) * fps)
         );
 
+        let sceneNode: React.ReactNode;
+        if (idx === 0 && sec.kind === "intro") {
+          sceneNode = <IntroScene section={sec} />;
+        } else if (idx === 1 && sec.kind === "verse") {
+          sceneNode = <Verse1Scene section={sec} />;
+        } else if (idx === 2 && sec.kind === "pre") {
+          sceneNode = <PreChorusScene section={sec} />;
+        } else {
+          sceneNode = (
+            <SectionPlaceholder
+              section={sec}
+              durationInFrames={durationInFrames}
+            />
+          );
+        }
+
         return (
           <Sequence
             key={`sec-${idx}-${sec.kind}`}
@@ -35,10 +54,7 @@ export const MV: React.FC = () => {
             durationInFrames={durationInFrames}
             name={`${idx + 1}. ${sec.name}`}
           >
-            <SectionPlaceholder
-              section={sec}
-              durationInFrames={durationInFrames}
-            />
+            {sceneNode}
           </Sequence>
         );
       })}

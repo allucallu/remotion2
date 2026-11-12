@@ -14,3 +14,4 @@ export interface DoodleProps {
   /** Rotasi tambahan dalam derajat */
   rotate?: number;
 }
+

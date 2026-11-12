@@ -222,3 +222,4 @@ export const NonaSilhouette: React.FC<NonaSilhouetteProps> = ({
     </svg>
   );
 };
+

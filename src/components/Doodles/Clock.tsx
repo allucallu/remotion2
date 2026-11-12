@@ -83,3 +83,4 @@ export const Clock: React.FC<ClockProps> = ({
     </svg>
   );
 };
+

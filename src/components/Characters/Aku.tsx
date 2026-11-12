@@ -369,3 +369,4 @@ export const Aku: React.FC<AkuProps> = ({
     </svg>
   );
 };
+

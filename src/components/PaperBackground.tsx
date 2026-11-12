@@ -172,3 +172,4 @@ export const PaperBackground: React.FC<PaperBackgroundProps> = ({
     </div>
   );
 };
+

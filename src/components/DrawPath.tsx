@@ -70,3 +70,4 @@ export const DrawPath: React.FC<DrawPathProps> = ({
     />
   );
 };
+

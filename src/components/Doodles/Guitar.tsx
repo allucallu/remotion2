@@ -87,3 +87,4 @@ export const Guitar: React.FC<DoodleProps> = ({
     </svg>
   );
 };
+

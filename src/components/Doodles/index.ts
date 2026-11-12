@@ -11,3 +11,4 @@ export { Lamp } from "./Lamp";
 export { WashiTape } from "./WashiTape";
 export { StickyNote } from "./StickyNote";
 export type { DoodleProps } from "./types";
+

@@ -78,3 +78,4 @@ export const Cup: React.FC<DoodleProps> = ({
     </svg>
   );
 };
+

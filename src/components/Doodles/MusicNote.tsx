@@ -92,3 +92,4 @@ export const MusicNote: React.FC<MusicNoteProps> = ({
     </svg>
   );
 };
+
