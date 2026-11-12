@@ -10,7 +10,7 @@ export const SongOutro: React.FC<SongOutroProps> = ({ durationInFrames }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Animasi masuk kartu penutup
+  // Animasi masuk
   const enterSpring = spring({
     frame,
     fps,
@@ -21,7 +21,7 @@ export const SongOutro: React.FC<SongOutroProps> = ({ durationInFrames }) => {
   const scale = interpolate(enterSpring, [0, 1], [0.94, 1]);
   const floatY = Math.sin((frame / 45) * Math.PI) * 5;
 
-  // Fade out ke hitam pekat di akhir lagu (30 frame terakhir)
+  // Fade out ke hitam pekat di ujung lagu
   const fadeOutStart = Math.max(1, durationInFrames - 35);
   const fadeOut = interpolate(
     frame,
@@ -42,66 +42,37 @@ export const SongOutro: React.FC<SongOutroProps> = ({ durationInFrames }) => {
         opacity: opacity * fadeOut,
         pointerEvents: "none",
         textAlign: "center",
+        zIndex: 50,
       }}
     >
-      {/* Kartu Senyum Terakhir Nona (Pose 1) */}
+      {/* Karakter Pose 1 Senyum Berdiri Mandiri (Tanpa Frame Bertumpuk) */}
       <div
         style={{
-          width: 220,
-          height: 250,
-          padding: "10px 10px 24px 10px",
-          backgroundColor: "rgba(24, 30, 44, 0.8)",
-          backdropFilter: "blur(14px)",
-          borderRadius: 20,
-          border: "1px solid rgba(243, 179, 83, 0.3)",
-          boxShadow: "0 20px 45px rgba(0, 0, 0, 0.7), 0 0 30px rgba(243, 179, 83, 0.15)",
+          width: 280,
+          height: 290,
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
           transform: `translateY(${floatY}px) scale(${scale})`,
+          filter: "drop-shadow(0 15px 35px rgba(0, 0, 0, 0.7)) drop-shadow(0 0 30px rgba(243, 179, 83, 0.25))",
         }}
       >
-        <div
-          style={{
-            width: "100%",
-            flex: 1,
-            borderRadius: 14,
-            overflow: "hidden",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "linear-gradient(180deg, rgba(32, 40, 58, 0.6) 0%, rgba(18, 22, 34, 0.8) 100%)",
-          }}
-        >
-          <Img
-            src={staticFile("art/1.png")}
-            style={{ width: "100%", height: "100%", objectFit: "contain" }}
-          />
-        </div>
-        <span
-          style={{
-            marginTop: 10,
-            color: mvConfig.theme.accentAmber,
-            fontSize: 13,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            fontWeight: 600,
-          }}
-        >
-          ✦ Senyummu ✦
-        </span>
+        <Img
+          src={staticFile("art/1.png")}
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
       </div>
 
-      {/* Teks Penutup Manis */}
+      {/* Teks Penutup Elegan */}
       <h2
         style={{
           fontFamily: "'Segoe UI', 'Inter', -apple-system, sans-serif",
-          fontSize: 36,
+          fontSize: 38,
           fontWeight: 700,
           color: mvConfig.theme.textPrimary,
           margin: "24px 0 8px 0",
           letterSpacing: "-0.01em",
-          textShadow: "0 2px 15px rgba(0, 0, 0, 0.8)",
+          textShadow: "0 2px 20px rgba(0, 0, 0, 0.8)",
         }}
       >
         Terima Kasih Sudah Mendengarkan
@@ -122,4 +93,3 @@ export const SongOutro: React.FC<SongOutroProps> = ({ durationInFrames }) => {
     </div>
   );
 };
-

@@ -85,8 +85,8 @@ export const lyricLayoutMap: Record<number, LineLayoutConfig> = {
   // === OUTRO ===
   45: { lineIndex: 45, group: 23, layout: "left-block" }, // Dompet kosong, pikiran berisik
   46: { lineIndex: 46, group: 23, layout: "left-block" }, // Punggung sakit, hati pun terusik
-  47: { lineIndex: 47, group: 24, layout: "center" }, // Belum jadi kekasih, sudah begini
-  48: { lineIndex: 48, group: 24, layout: "center", emphasis: "KASIHAN SEKALI", poseId: 1 }, // Nona, kasihan sekali pengagummu ini.
+  47: { lineIndex: 47, group: 24, layout: "left-block", poseId: 1 }, // Belum jadi kekasih, sudah begini (Teks di kiri, karakter di kanan)
+  48: { lineIndex: 48, group: 24, layout: "left-block", emphasis: "KASIHAN SEKALI", poseId: 1 }, // Nona, kasihan sekali pengagummu ini.
 };
 
 export interface PreparedGroup {

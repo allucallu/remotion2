@@ -4,7 +4,7 @@ import { mvConfig } from "../config";
 import { lyrics } from "../lyrics";
 import { getLyricGroups } from "../layout";
 import { MidnightRoomBackground } from "./MidnightRoomBackground";
-import { FloatingCharacterCard } from "./FloatingCharacterCard";
+import { StandaloneCharacter } from "./StandaloneCharacter";
 import { SceneAccents } from "./SceneAccents";
 import { LyricCardBlock } from "./LyricCardBlock";
 import { SongIntro } from "./SongIntro";
@@ -43,16 +43,16 @@ export const MV: React.FC = () => {
           Math.round((group.end - group.start) * fps)
         );
 
-        // Posisi kartu karakter berlawanan dengan letak teks:
-        // Jika teks di left-block -> kartu di kanan (right-card)
-        // Jika teks di right-block -> kartu di kiri (left-card)
-        // Jika center -> kartu di atas/tengah (center-card)
-        const cardLayout =
+        // Posisi karakter berdiri mandiri berlawanan dengan letak teks:
+        // Jika teks di left-block -> karakter di kanan (right-character)
+        // Jika teks di right-block -> karakter di kiri (left-character)
+        // Jika center -> karakter di tengah (center-character)
+        const characterLayout =
           group.layout === "left-block"
-            ? "right-card"
+            ? "right-character"
             : group.layout === "right-block"
-            ? "left-card"
-            : "center-card";
+            ? "left-character"
+            : "center-character";
 
         return (
           <Sequence
@@ -61,11 +61,11 @@ export const MV: React.FC = () => {
             durationInFrames={durationInFrames}
             name={`Group-${group.groupId}-${group.layout}`}
           >
-            {/* Kartu Karakter Nona Berhijab (Pose 1 s/d 6) */}
+            {/* Karakter Nona Berhijab Berdiri Mandiri Tanpa Bingkai (Pose 1 s/d 6) */}
             {group.poseId && (
-              <FloatingCharacterCard
+              <StandaloneCharacter
                 poseId={group.poseId}
-                layout={cardLayout}
+                layout={characterLayout}
               />
             )}
 
