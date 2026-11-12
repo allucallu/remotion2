@@ -10,6 +10,8 @@
     "@remotion/google-fonts": "4.0.465",
     "@remotion/media-utils": "4.0.465",
     "@remotion/noise": "4.0.465",
+    "@remotion/paths": "4.0.465",
+    "@remotion/shapes": "4.0.465",
     "@remotion/tailwind-v4": "4.0.465",
     "@remotion/zod-types": "4.0.465",
     "lucide-react": "^1.25.0",

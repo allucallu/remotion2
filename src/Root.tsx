@@ -1,6 +1,6 @@
 import { Composition } from "remotion";
 import { getAudioDurationInSeconds } from "@remotion/media-utils";
-import { MV } from "./components/MV";
+import { MV } from "./MV";
 import { mvConfig } from "./config";
 import "./index.css";
 
@@ -8,7 +8,7 @@ export const RemotionRoot = () => (
   <Composition
     id="MV"
     component={MV}
-    durationInFrames={mvConfig.durationInFrames}
+    durationInFrames={mvConfig.defaultDurationInFrames}
     fps={mvConfig.fps}
     width={mvConfig.width}
     height={mvConfig.height}
@@ -22,7 +22,7 @@ export const RemotionRoot = () => (
         };
       } catch {
         return {
-          durationInFrames: mvConfig.durationInFrames,
+          durationInFrames: mvConfig.defaultDurationInFrames,
         };
       }
     }}
