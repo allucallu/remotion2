@@ -14,9 +14,12 @@ export type AkuExpression =
 
 export type AkuPose =
   | "standing"
+  | "sitting"
   | "holdingGuitar"
   | "holdingPhone"
-  | "sitting";
+  | "waving"
+  | "scratchingHead"
+  | "pattingHead";
 
 interface AkuProps {
   /** Ekspresi wajah doodle */
@@ -30,6 +33,237 @@ interface AkuProps {
   /** Putar menghadap kiri/kanan */
   flipX?: boolean;
 }
+
+/**
+ * Komponen Tangan Kiri Tunggal (Mutually Exclusive)
+ * Menjamin karakter hanya pernah me-render tepat 1 tangan kiri di pose apa pun.
+ */
+const LeftArm: React.FC<{
+  pose: AkuPose;
+  outline: string;
+}> = ({ pose, outline }) => {
+  switch (pose) {
+    case "sitting":
+      return (
+        <path
+          d="M 66 116 C 54 140, 62 165, 82 172"
+          stroke={outline}
+          strokeWidth={3.5}
+          strokeLinecap="round"
+          fill="none"
+        />
+      );
+    case "holdingGuitar":
+      return (
+        <path
+          d="M 65 116 C 50 135, 65 155, 92 152"
+          stroke={outline}
+          strokeWidth={3.5}
+          strokeLinecap="round"
+          fill="none"
+        />
+      );
+    case "standing":
+    case "holdingPhone":
+    case "waving":
+    case "scratchingHead":
+    case "pattingHead":
+    default:
+      return (
+        <path
+          d="M 64 115 C 52 135, 58 158, 72 162"
+          stroke={outline}
+          strokeWidth={3.5}
+          strokeLinecap="round"
+          fill="none"
+        />
+      );
+  }
+};
+
+/**
+ * Komponen Tangan Kanan Tunggal (Mutually Exclusive + Animasi Dinamis)
+ * Menjamin karakter hanya pernah me-render tepat 1 tangan kanan beserta aksesorinya.
+ */
+const RightArm: React.FC<{
+  pose: AkuPose;
+  frame: number;
+  outline: string;
+  skinFill: string;
+  isNight: boolean;
+}> = ({ pose, frame, outline, skinFill, isNight }) => {
+  switch (pose) {
+    case "sitting":
+      return (
+        <path
+          d="M 134 116 C 146 140, 138 165, 118 172"
+          stroke={outline}
+          strokeWidth={3.5}
+          strokeLinecap="round"
+          fill="none"
+        />
+      );
+
+    case "holdingGuitar":
+      return (
+        <path
+          d="M 135 116 C 145 130, 130 148, 118 145"
+          stroke={outline}
+          strokeWidth={3.5}
+          strokeLinecap="round"
+          fill="none"
+        />
+      );
+
+    case "holdingPhone":
+      return (
+        <g>
+          {/* Lengan kanan memegang HP */}
+          <path
+            d="M 136 115 C 154 130, 160 112, 152 96"
+            stroke={outline}
+            strokeWidth={3.5}
+            strokeLinecap="round"
+            fill="none"
+          />
+          {/* Doodle HP kecil di tangan */}
+          <rect
+            x="144"
+            y="72"
+            width="22"
+            height="36"
+            rx="4"
+            transform="rotate(10 155 90)"
+            fill={isNight ? "#ffe66d" : "#FFFFFF"}
+            stroke={outline}
+            strokeWidth={2.5}
+          />
+          <circle
+            cx="155"
+            cy="88"
+            r="5"
+            fill={mvConfig.palette.highlighterPink}
+            opacity={0.7}
+          />
+        </g>
+      );
+
+    case "waving": {
+      // Gerakan melambai berporos langsung pada pangkal bahu kanan (136, 115)
+      const waveAngle = Math.sin(frame * 0.35) * 16;
+      return (
+        <g
+          style={{
+            transform: `rotate(${waveAngle}deg)`,
+            transformOrigin: "136px 115px",
+          }}
+        >
+          <path
+            d="M 136 115 Q 162 88 172 68"
+            stroke={outline}
+            strokeWidth={3.8}
+            strokeLinecap="round"
+            fill="none"
+          />
+          <circle
+            cx="174"
+            cy="65"
+            r="7"
+            fill={skinFill}
+            stroke={outline}
+            strokeWidth={3.2}
+          />
+          {/* Garis aksen gerak lambai */}
+          <path
+            d="M 186 60 Q 194 68 190 76 M 194 64 Q 202 72 196 82"
+            stroke={mvConfig.palette.highlighterPink}
+            strokeWidth={2.3}
+            strokeLinecap="round"
+            fill="none"
+          />
+        </g>
+      );
+    }
+
+    case "scratchingHead": {
+      // Gerakan menggaruk kepala dari bahu kanan (136, 115) menuju belakang kepala
+      const scratchOffset = Math.sin(frame * 0.45) * 3.5;
+      return (
+        <g>
+          <path
+            d={`M 136 115 C 165 92, 162 55, 136 ${42 + scratchOffset}`}
+            stroke={outline}
+            strokeWidth={3.8}
+            strokeLinecap="round"
+            fill="none"
+          />
+          <circle
+            cx="134"
+            cy={40 + scratchOffset}
+            r="7"
+            fill={skinFill}
+            stroke={outline}
+            strokeWidth={3.2}
+          />
+          {/* Garis aksen gerak garuk */}
+          <path
+            d={`M 142 ${24 + scratchOffset} Q 150 ${20 + scratchOffset} 154 ${28 + scratchOffset} M 148 ${32 + scratchOffset} Q 155 ${29 + scratchOffset} 158 ${36 + scratchOffset}`}
+            stroke={mvConfig.palette.highlighterPink}
+            strokeWidth={2.2}
+            strokeLinecap="round"
+            fill="none"
+          />
+        </g>
+      );
+    }
+
+    case "pattingHead": {
+      // Gerakan menepuk puncak kepala sendiri sambil tertawa dari bahu kanan (136, 115)
+      const patBounce = Math.abs(Math.sin(frame * 0.28)) * 8;
+      return (
+        <g>
+          <path
+            d={`M 136 115 C 174 82, 155 24, 112 ${18 + patBounce}`}
+            stroke={outline}
+            strokeWidth={3.8}
+            strokeLinecap="round"
+            fill="none"
+          />
+          <ellipse
+            cx="105"
+            cy={18 + patBounce}
+            rx="12"
+            ry="6.5"
+            transform={`rotate(-10 105 ${18 + patBounce})`}
+            fill={skinFill}
+            stroke={outline}
+            strokeWidth={3.2}
+          />
+          {/* Efek tepuk kecil ("pok!") */}
+          <path
+            d={`M 86 ${6 + patBounce} L 92 ${12 + patBounce} M 105 ${0 + patBounce} L 105 ${8 + patBounce} M 124 ${6 + patBounce} L 118 ${12 + patBounce}`}
+            stroke={mvConfig.palette.highlighterPink}
+            strokeWidth={2.5}
+            strokeLinecap="round"
+            fill="none"
+          />
+        </g>
+      );
+    }
+
+    case "standing":
+    default:
+      return (
+        <path
+          d="M 136 115 C 148 135, 142 158, 128 162"
+          stroke={outline}
+          strokeWidth={3.5}
+          strokeLinecap="round"
+          fill="none"
+        />
+      );
+  }
+};
 
 /**
  * Karakter doodle utama "Aku" (si pengagum diam-diam):
@@ -68,7 +302,8 @@ export const Aku: React.FC<AkuProps> = ({
   const isBlinking = blinkMod >= 84 && blinkMod <= 87;
 
   const renderFace = () => {
-    const headTilt = expression === "confused" ? -6 : 0;
+    const headTilt =
+      expression === "confused" || pose === "scratchingHead" ? -6 : 0;
 
     return (
       <g transform={`rotate(${headTilt} 100 68)`}>
@@ -196,19 +431,17 @@ export const Aku: React.FC<AkuProps> = ({
       {/* Kaki */}
       {pose === "sitting" ? (
         <g stroke={outline} strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round" fill="none">
-          {/* Kaki ditekuk santai */}
           <path d="M 78 180 L 65 210 L 88 212" />
           <path d="M 118 180 L 138 208 L 116 212" />
         </g>
       ) : (
         <g stroke={outline} strokeWidth={3.5} strokeLinecap="round" strokeLinejoin="round" fill="none">
-          {/* Kaki berdiri */}
           <path d="M 85 185 L 85 228 L 76 230" />
           <path d="M 115 185 L 115 228 L 125 230" />
         </g>
       )}
 
-      {/* Badan Hoodie */}
+      {/* Badan Hoodie Statis (Tanpa Tangan Bawaan) */}
       <path
         d={
           pose === "sitting"
@@ -236,6 +469,7 @@ export const Aku: React.FC<AkuProps> = ({
         strokeWidth={2.5}
         strokeLinecap="round"
       />
+
       {/* Kantong Depan Hoodie */}
       {pose !== "holdingGuitar" && (
         <path
@@ -266,7 +500,6 @@ export const Aku: React.FC<AkuProps> = ({
         strokeWidth={2.5}
         strokeLinejoin="round"
       />
-      {/* Helai rambut mencuat lucu */}
       <path
         d="M 98 25 C 95 14, 108 10, 112 22"
         fill="none"
@@ -278,95 +511,37 @@ export const Aku: React.FC<AkuProps> = ({
       {/* Wajah & Ekspresi */}
       {renderFace()}
 
-      {/* Lengan & Aksesori Berdasarkan Pose */}
-      {pose === "standing" && (
-        <g stroke={outline} strokeWidth={3.5} strokeLinecap="round" fill="none">
-          <path d="M 64 115 C 52 135, 58 158, 72 162" />
-          <path d="M 136 115 C 148 135, 142 158, 128 162" />
-        </g>
-      )}
-
-      {pose === "sitting" && (
-        <g stroke={outline} strokeWidth={3.5} strokeLinecap="round" fill="none">
-          <path d="M 66 116 C 54 140, 62 165, 82 172" />
-          <path d="M 134 116 C 146 140, 138 165, 118 172" />
-        </g>
-      )}
-
-      {pose === "holdingPhone" && (
-        <g>
-          {/* Tangan kiri di saku */}
+      {/* Properti Gitar (Dirender di antara badan dan kedua tangan) */}
+      {pose === "holdingGuitar" && (
+        <g transform="translate(105, 148) rotate(-25)">
           <path
-            d="M 64 115 C 52 135, 58 158, 72 162"
+            d="M -28 -25 C -38 -25, -42 -10, -32 0 C -45 12, -45 36, -24 44 C -10 50, 10 50, 24 44 C 45 36, 45 12, 32 0 C 42 -10, 38 -25, 28 -25 Z"
+            fill={isNight ? "#4b3b2b" : "#F3D39C"}
             stroke={outline}
-            strokeWidth={3.5}
-            strokeLinecap="round"
-            fill="none"
+            strokeWidth={3}
           />
-          {/* Tangan kanan memegang HP */}
-          <path
-            d="M 136 115 C 154 130, 160 112, 152 96"
-            stroke={outline}
-            strokeWidth={3.5}
-            strokeLinecap="round"
-            fill="none"
-          />
-          {/* Doodle HP kecil di tangan */}
+          <circle cx="0" cy="14" r="9" fill={isNight ? "#1C2442" : "#33363D"} />
           <rect
-            x="144"
-            y="72"
-            width="22"
-            height="36"
-            rx="4"
-            transform="rotate(10 155 90)"
-            fill={isNight ? "#ffe66d" : "#FFFFFF"}
+            x="-5"
+            y="-75"
+            width="10"
+            height="52"
+            fill={isNight ? "#634c35" : "#D6A86E"}
             stroke={outline}
             strokeWidth={2.5}
           />
-          <circle cx="155" cy="88" r="5" fill={mvConfig.palette.highlighterPink} opacity={0.7} />
         </g>
       )}
 
-      {pose === "holdingGuitar" && (
-        <g>
-          {/* Gitar Akustik Miring di Pangkuan/Dada */}
-          <g transform="translate(105, 148) rotate(-25)">
-            <path
-              d="M -28 -25 C -38 -25, -42 -10, -32 0 C -45 12, -45 36, -24 44 C -10 50, 10 50, 24 44 C 45 36, 45 12, 32 0 C 42 -10, 38 -25, 28 -25 Z"
-              fill={isNight ? "#4b3b2b" : "#F3D39C"}
-              stroke={outline}
-              strokeWidth={3}
-            />
-            <circle cx="0" cy="14" r="9" fill={isNight ? "#1C2442" : "#33363D"} />
-            {/* Neck Gitar */}
-            <rect
-              x="-5"
-              y="-75"
-              width="10"
-              height="52"
-              fill={isNight ? "#634c35" : "#D6A86E"}
-              stroke={outline}
-              strokeWidth={2.5}
-            />
-          </g>
-          {/* Tangan Memetik Gitar */}
-          <path
-            d="M 65 116 C 50 135, 65 155, 92 152"
-            stroke={outline}
-            strokeWidth={3.5}
-            strokeLinecap="round"
-            fill="none"
-          />
-          <path
-            d="M 135 116 C 145 130, 130 148, 118 145"
-            stroke={outline}
-            strokeWidth={3.5}
-            strokeLinecap="round"
-            fill="none"
-          />
-        </g>
-      )}
+      {/* Anatomi Tangan Tunggal: Selalu 1 Tangan Kiri & 1 Tangan Kanan */}
+      <LeftArm pose={pose} outline={outline} />
+      <RightArm
+        pose={pose}
+        frame={frame}
+        outline={outline}
+        skinFill={skinFill}
+        isNight={isNight}
+      />
     </svg>
   );
 };
-

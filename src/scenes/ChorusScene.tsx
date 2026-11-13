@@ -250,8 +250,6 @@ const ChorusPart1Visual: React.FC<{ variant: 1 | 2; beatPulse: number }> = ({
     config: { damping: 12, stiffness: 120, mass: 0.7 },
   });
 
-  // Lambaian tangan ceria Aku dari tepi HP (±90 BPM)
-  const waveAngle = Math.sin(frame * 0.35) * 18;
   const ringScale = interpolate(beatPulse, [0, 1], [0.97, 1.04]);
 
   return (
@@ -355,46 +353,7 @@ const ChorusPart1Visual: React.FC<{ variant: 1 | 2; beatPulse: number }> = ({
           zIndex: 5,
         }}
       >
-        <Aku pose="standing" expression="happy" scale={1.06} />
-        {/* Lengan melambai doodle di bahu Aku */}
-        <svg
-          width="90"
-          height="90"
-          viewBox="0 0 90 90"
-          style={{
-            position: "absolute",
-            left: 132,
-            top: 86,
-            overflow: "visible",
-            transformOrigin: "10px 60px",
-            transform: `rotate(${waveAngle}deg)`,
-            filter: `url(#${HAND_FILTER_ID})`,
-          }}
-        >
-          <path
-            d="M 8 62 Q 36 30 48 16"
-            stroke={mvConfig.palette.graphite}
-            strokeWidth={4.5}
-            strokeLinecap="round"
-            fill="none"
-          />
-          <circle
-            cx="50"
-            cy="14"
-            r="8"
-            fill="#FFFFFF"
-            stroke={mvConfig.palette.graphite}
-            strokeWidth={3.5}
-          />
-          {/* Garis gerak lambai */}
-          <path
-            d="M 64 12 Q 72 20 68 28 M 74 16 Q 82 24 76 34"
-            stroke={mvConfig.palette.highlighterPink}
-            strokeWidth={2.5}
-            strokeLinecap="round"
-            fill="none"
-          />
-        </svg>
+        <Aku pose="waving" expression="happy" scale={1.06} />
       </div>
 
       {/* Hati & Not Musik Berkilau Berdenyut Mengikuti ±90 BPM */}

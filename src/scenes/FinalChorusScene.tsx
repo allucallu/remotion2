@@ -276,8 +276,6 @@ const FinalPart2PatHeadAndLaugh: React.FC<{ partStartSec: number }> = ({
     config: { damping: 12, stiffness: 120, mass: 0.7 },
   });
 
-  // Gerakan menepuk puncak kepala pelan 2-3 kali sambil tertawa
-  const patBounce = isPatting ? Math.abs(Math.sin((frame - patStartFrame) * 0.28)) * 10 : 0;
   const laughHeadBounce = isPatting ? Math.sin((frame - patStartFrame) * 0.35) * 4 : 0;
 
   return (
@@ -305,51 +303,11 @@ const FinalPart2PatHeadAndLaugh: React.FC<{ partStartSec: number }> = ({
           transform: `translateY(${laughHeadBounce * 0.4}px)`,
         }}
       >
-        <Aku pose="standing" expression="happy" scale={1.12} />
-
-        {/* Tangan Menepuk Kepala Sendiri Saat Lirik "Dasar aku, ada-ada saja tingkahku" */}
-        {isPatting && (
-          <svg
-            width="120"
-            height="120"
-            viewBox="0 0 120 120"
-            style={{
-              position: "absolute",
-              left: 72,
-              top: -34 + patBounce,
-              opacity: patSpring,
-              overflow: "visible",
-              filter: `url(#${HAND_FILTER_ID})`,
-            }}
-          >
-            {/* Lengan terangkat ke atas kepala */}
-            <path
-              d="M 88 122 Q 112 72 68 38"
-              stroke={mvConfig.palette.graphite}
-              strokeWidth={4.5}
-              strokeLinecap="round"
-              fill="none"
-            />
-            {/* Telapak tangan menepuk puncak kepala */}
-            <ellipse
-              cx="60"
-              cy="38"
-              rx="14"
-              ry="8"
-              transform="rotate(-12 60 38)"
-              fill="#FFFFFF"
-              stroke={mvConfig.palette.graphite}
-              strokeWidth={3.5}
-            />
-            {/* Efek tepuk kecil ("pok!") */}
-            <path
-              d="M 38 24 L 44 30 M 60 16 L 60 24 M 80 24 L 74 30"
-              stroke={mvConfig.palette.highlighterPink}
-              strokeWidth={3}
-              strokeLinecap="round"
-            />
-          </svg>
-        )}
+        <Aku
+          pose={isPatting ? "pattingHead" : "standing"}
+          expression="happy"
+          scale={1.12}
+        />
       </div>
 
       {/* Balon Tawa Hangat saat "Dasar aku..." */}

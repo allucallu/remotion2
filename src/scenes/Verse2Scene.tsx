@@ -403,8 +403,6 @@ const Verse2Sub3ScratchHead: React.FC = () => {
 
   // Kepala / tubuh sedikit miring bolak-balik seakan bingung membaca ulang
   const headTilt = Math.sin(frame * 0.08) * 6 - 4;
-  // Gerakan tangan menggaruk kepala berulang
-  const scratchOffset = Math.sin(frame * 0.45) * 4;
 
   const qMarks = [
     { x: 60, y: 70, size: 58, rot: -15, start: 6 },
@@ -445,7 +443,7 @@ const Verse2Sub3ScratchHead: React.FC = () => {
         </StickyNote>
       </div>
 
-      {/* Karakter Aku: Kepala Miring + Tangan Garuk Kepala */}
+      {/* Karakter Aku: Kepala Miring + Pose Garuk Kepala Terintegrasi */}
       <div
         style={{
           position: "absolute",
@@ -455,45 +453,7 @@ const Verse2Sub3ScratchHead: React.FC = () => {
           transform: `rotate(${headTilt}deg)`,
         }}
       >
-        <Aku pose="standing" expression="confused" scale={1.08} />
-
-        {/* Tangan Doodle Menggaruk Bagian Atas/Belakang Kepala */}
-        <svg
-          width="95"
-          height="95"
-          viewBox="0 0 95 95"
-          style={{
-            position: "absolute",
-            left: 118,
-            top: 20 + scratchOffset,
-            overflow: "visible",
-            filter: `url(#${HAND_FILTER_ID})`,
-          }}
-        >
-          <path
-            d="M 24 72 Q 52 50 38 22"
-            stroke={mvConfig.palette.graphite}
-            strokeWidth={4.5}
-            strokeLinecap="round"
-            fill="none"
-          />
-          <circle
-            cx="36"
-            cy="19"
-            r="8"
-            fill="#FFFFFF"
-            stroke={mvConfig.palette.graphite}
-            strokeWidth={3.5}
-          />
-          {/* Garis gerak garuk kecil */}
-          <path
-            d="M 18 12 Q 24 6 32 10 M 15 20 Q 20 14 26 17"
-            stroke={mvConfig.palette.highlighterPink}
-            strokeWidth={2.5}
-            strokeLinecap="round"
-            fill="none"
-          />
-        </svg>
+        <Aku pose="scratchingHead" expression="confused" scale={1.08} />
       </div>
 
       {/* Tanda Tanya Bertebaran di Sekitar Kepala */}
