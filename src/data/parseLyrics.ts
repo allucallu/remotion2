@@ -4,66 +4,113 @@ export type SectionKind =
   | "pre"
   | "chorus"
   | "bridge"
-  | "final"
-  | "outro";
+  | "outro"
+  | "interlude";
 
-export interface ParsedRawSection {
-  name: string;
-  kind: SectionKind;
-  lines: string[];
+export interface ParsedWordToken {
+  text: string;
+  isAdlib: boolean;
 }
 
-export function detectSectionKind(header: string): SectionKind {
-  const h = header.toLowerCase();
-  if (h.includes("intro")) return "intro";
-  if (h.includes("final") && h.includes("chorus")) return "final";
-  if (h.includes("pre-chorus") || h.includes("pre chorus") || h.includes("pre")) return "pre";
-  if (h.includes("chorus")) return "chorus";
-  if (h.includes("bridge")) return "bridge";
-  if (h.includes("outro")) return "outro";
-  if (h.includes("verse")) return "verse";
+export interface ParsedLyricLine {
+  text: string;
+  words: ParsedWordToken[];
+  singers: string[];
+}
+
+export interface ParsedLyricSection {
+  name: string;
+  kind: SectionKind;
+  index: number;
+  singers: string[];
+  lines: ParsedLyricLine[];
+}
+
+export function detectSectionKind(name: string): SectionKind {
+  const n = name.toLowerCase();
+  if (n.includes("intro")) return "intro";
+  if (n.includes("pre-chorus") || n.includes("pre chorus") || n.includes("pre")) return "pre";
+  if (n.includes("chorus")) return "chorus";
+  if (n.includes("bridge")) return "bridge";
+  if (n.includes("outro")) return "outro";
+  if (n.includes("interlude")) return "interlude";
   return "verse";
 }
 
-export function parseLyricsFile(content: string): ParsedRawSection[] {
-  const rawLines = content.split(/\r?\n/).map((l) => l.trim());
-  const sections: ParsedRawSection[] = [];
-  let currentSection: ParsedRawSection | null = null;
+/**
+ * Parsing lirik teks sesuai PRD Bagian 11:
+ * - Toleran kurung buka hilang di baris pertama (misal: "Verse 1: Jonah Marais]")
+ * - Menandai kata ad-lib di dalam tanda kurung "(...)" dengan isAdlib: true
+ * - Memberi nomor indeks (index) untuk seksi berulang (Chorus 1, 2, 3; Pre-Chorus 1, 2, dst.)
+ */
+export function parseLyrics(content: string): ParsedLyricSection[] {
+  const rawLines = content.split(/\r?\n/);
+  const sections: ParsedLyricSection[] = [];
+  let currentSection: ParsedLyricSection | null = null;
+  const kindCounts: Partial<Record<SectionKind, number>> = {};
 
-  for (const line of rawLines) {
+  for (const rawLine of rawLines) {
+    let line = rawLine.trim();
     if (!line) continue;
 
-    // Deteksi Tag Seksi, misal [Verse 1] atau [Intro – Acoustic Guitar Only]
-    if (line.startsWith("[") && line.endsWith("]")) {
-      const headerName = line.slice(1, -1).trim();
+    // Toleransi baris pertama yang kehilangan kurung buka '[' (contoh: "Verse 1: Jonah Marais]")
+    if (!line.startsWith("[") && line.endsWith("]") && line.includes(":")) {
+      line = "[" + line;
+    }
+
+    // Deteksi header seksi: [Nama Seksi: Penyanyi1 & Penyanyi2]
+    const headerMatch = line.match(/^\[([^:]+):\s*([^\]]+)\]$/);
+    if (headerMatch) {
+      const name = headerMatch[1].trim();
+      const rawSingers = headerMatch[2].trim();
+      const singers = rawSingers
+        .split(/\s*&\s*/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+
+      const kind = detectSectionKind(name);
+      const currentIndex = (kindCounts[kind] ?? 0) + 1;
+      kindCounts[kind] = currentIndex;
+
       currentSection = {
-        name: headerName,
-        kind: detectSectionKind(headerName),
+        name,
+        kind,
+        index: currentIndex,
+        singers,
         lines: [],
       };
       sections.push(currentSection);
       continue;
     }
 
-    // Abaikan catatan panggung/arah instrumental misal: (Instrumental guitar ending)
-    if (line.startsWith("(") && line.endsWith(")")) {
-      continue;
+    if (!currentSection) continue;
+
+    // Parsing kata dan deteksi ad-lib di dalam tanda kurung
+    const tokens = line.split(/\s+/).filter(Boolean);
+    const lineWords: ParsedWordToken[] = [];
+    let insideAdlib = false;
+
+    for (const token of tokens) {
+      if (token.startsWith("(")) {
+        insideAdlib = true;
+      }
+
+      lineWords.push({
+        text: token,
+        isAdlib: insideAdlib,
+      });
+
+      if (token.endsWith(")")) {
+        insideAdlib = false;
+      }
     }
 
-    // Baris lirik
-    if (currentSection) {
-      currentSection.lines.push(line);
-    } else {
-      // Jika lirik muncul sebelum tag seksi apa pun
-      currentSection = {
-        name: "Verse 1",
-        kind: "verse",
-        lines: [line],
-      };
-      sections.push(currentSection);
-    }
+    currentSection.lines.push({
+      text: line,
+      words: lineWords,
+      singers: [...currentSection.singers],
+    });
   }
 
   return sections;
 }
-

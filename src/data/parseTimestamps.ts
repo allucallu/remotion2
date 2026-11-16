@@ -2,17 +2,14 @@ export interface RawTimestampWord {
   word: string;
   start: number; // detik
   end: number;   // detik
+  probability?: number;
 }
 
-export interface RawTimestampLine {
+export interface RawTimestampSegment {
   text: string;
   start: number; // detik
   end: number;   // detik
   words: RawTimestampWord[];
-}
-
-export function normalizeTimeToSeconds(val: number, isMilliseconds: boolean): number {
-  return isMilliseconds ? val / 1000 : val;
 }
 
 export function detectIsMilliseconds(timestamps: number[]): boolean {
@@ -20,6 +17,10 @@ export function detectIsMilliseconds(timestamps: number[]): boolean {
   const maxVal = Math.max(...timestamps);
   // Lagu berdurasi umumnya di bawah 900 detik (15 menit). Jika nilai > 1500, pasti milidetik.
   return maxVal > 1500;
+}
+
+export function normalizeTimeToSeconds(val: number, isMilliseconds: boolean): number {
+  return isMilliseconds ? val / 1000 : val;
 }
 
 export function distributeWordsByLetterCount(
@@ -38,10 +39,11 @@ export function distributeWordsByLetterCount(
   let currentStart = lineStart;
 
   return words.map((w, idx) => {
-    const charWeight = w.length / totalChars;
-    const wordDuration = idx === words.length - 1
-      ? lineEnd - currentStart
-      : totalDuration * charWeight;
+    const charWeight = w.length / Math.max(1, totalChars);
+    const wordDuration =
+      idx === words.length - 1
+        ? lineEnd - currentStart
+        : totalDuration * charWeight;
     const start = currentStart;
     const end = Math.min(lineEnd, start + wordDuration);
     currentStart = end;
@@ -49,7 +51,15 @@ export function distributeWordsByLetterCount(
   });
 }
 
-export function parseTimestampData(jsonInput: unknown): RawTimestampLine[] {
+/**
+ * Parsing data timestamp JSON dari Whisper atau sistem ASR lainnya:
+ * - Deteksi otomatis detik vs milidetik
+ * - Ekstraksi segmen per-baris dan kata per-kata
+ */
+export function parseTimestampData(jsonInput: unknown): {
+  segments: RawTimestampSegment[];
+  words: RawTimestampWord[];
+} {
   if (!jsonInput || typeof jsonInput !== "object") {
     throw new Error("Format JSON timestamp tidak valid: bukan objek/array");
   }
@@ -57,96 +67,91 @@ export function parseTimestampData(jsonInput: unknown): RawTimestampLine[] {
   const data = jsonInput as Record<string, unknown>;
   const sampleTimes: number[] = [];
 
-  // Format 1: Format Whisper dengan properti `segments`
+  // Kasus 1: Output Whisper standar (memiliki properti `segments`)
   if (Array.isArray(data.segments)) {
-    const segments = data.segments as Array<Record<string, unknown>>;
-    for (const seg of segments) {
+    const rawSegments = data.segments as Array<Record<string, unknown>>;
+    for (const seg of rawSegments) {
       if (typeof seg.start === "number") sampleTimes.push(seg.start);
       if (typeof seg.end === "number") sampleTimes.push(seg.end);
     }
     const isMs = detectIsMilliseconds(sampleTimes);
 
-    return segments.map((seg) => {
-      const start = normalizeTimeToSeconds(Number(seg.start || 0), isMs);
-      const end = normalizeTimeToSeconds(Number(seg.end || 0), isMs);
-      const text = String(seg.text || "").trim();
+    const segments: RawTimestampSegment[] = rawSegments
+      .map((seg) => {
+        const start = normalizeTimeToSeconds(Number(seg.start ?? 0), isMs);
+        const end = normalizeTimeToSeconds(Number(seg.end ?? 0), isMs);
+        const text = String(seg.text ?? "").trim();
 
-      let words: RawTimestampWord[] = [];
-      if (Array.isArray(seg.words) && seg.words.length > 0) {
-        words = (seg.words as Array<Record<string, unknown>>).map((w) => {
-          const wStart = normalizeTimeToSeconds(Number(w.start ?? start), isMs);
-          const wEnd = normalizeTimeToSeconds(Number(w.end ?? end), isMs);
-          const wordText = String(w.word ?? w.text ?? "").trim();
-          return { word: wordText, start: wStart, end: wEnd };
-        });
-      } else {
-        words = distributeWordsByLetterCount(text, start, end);
-      }
+        let words: RawTimestampWord[] = [];
+        if (Array.isArray(seg.words) && seg.words.length > 0) {
+          words = (seg.words as Array<Record<string, unknown>>).map((w) => {
+            const wStart = normalizeTimeToSeconds(Number(w.start ?? start), isMs);
+            const wEnd = normalizeTimeToSeconds(Number(w.end ?? end), isMs);
+            const rawWord = String(w.word ?? w.text ?? "").trim();
+            const prob = typeof w.probability === "number" ? w.probability : undefined;
+            return { word: rawWord, start: wStart, end: wEnd, probability: prob };
+          });
+        } else if (text.length > 0) {
+          words = distributeWordsByLetterCount(text, start, end);
+        }
 
-      return { text, start, end, words };
-    });
+        return { text, start, end, words };
+      })
+      .filter((s) => s.text.length > 0 || s.words.length > 0);
+
+    const words = segments.flatMap((s) => s.words);
+    return { segments, words };
   }
 
-  // Format 2: Array langsung (bisa array baris atau array kata)
+  // Kasus 2: Array langsung (bisa daftar kata atau segmen)
   const list = (Array.isArray(jsonInput) ? jsonInput : []) as Array<Record<string, unknown>>;
-  if (list.length === 0) {
-    return [];
-  }
-
   for (const item of list) {
     if (typeof item.start === "number") sampleTimes.push(item.start);
-    if (typeof item.startS === "number") sampleTimes.push(item.startS);
     if (typeof item.end === "number") sampleTimes.push(item.end);
-    if (typeof item.endS === "number") sampleTimes.push(item.endS);
   }
   const isMs = detectIsMilliseconds(sampleTimes);
 
-  // Periksa apakah format per-kata Suno aligned lyrics: { word, startS, endS }
-  const isDirectWordFormat = list.every((item) => item.word !== undefined || (item.text && String(item.text).split(/\s+/).length === 1));
+  // Jika item berupa per-kata langsung
+  const isWordList = list.every((item) => !Array.isArray(item.words) && (item.word || item.text));
+  if (isWordList) {
+    const words: RawTimestampWord[] = list.map((item) => ({
+      word: String(item.word ?? item.text ?? "").trim(),
+      start: normalizeTimeToSeconds(Number(item.start ?? 0), isMs),
+      end: normalizeTimeToSeconds(Number(item.end ?? 0), isMs),
+      probability: typeof item.probability === "number" ? item.probability : undefined,
+    }));
 
-  if (isDirectWordFormat) {
-    // Kumpulkan per kata lalu kelompokkan atau return baris tunggal
-    const words: RawTimestampWord[] = list.map((item) => {
-      const rawStart = Number(item.start ?? item.startS ?? 0);
-      const rawEnd = Number(item.end ?? item.endS ?? rawStart + 0.5);
-      const word = String(item.word ?? item.text ?? "").trim();
-      return {
-        word,
-        start: normalizeTimeToSeconds(rawStart, isMs),
-        end: normalizeTimeToSeconds(rawEnd, isMs),
-      };
-    });
-
-    const overallStart = words[0]?.start ?? 0;
-    const overallEnd = words[words.length - 1]?.end ?? 0;
-    return [{
-      text: words.map((w) => w.word).join(" "),
-      start: overallStart,
-      end: overallEnd,
+    return {
+      segments: [
+        {
+          text: words.map((w) => w.word).join(" "),
+          start: words[0]?.start ?? 0,
+          end: words[words.length - 1]?.end ?? 0,
+          words,
+        },
+      ],
       words,
-    }];
+    };
   }
 
-  // Format per baris: { text, start, end, words?: [...] }
-  return list.map((item) => {
-    const rawStart = Number(item.start ?? item.startS ?? 0);
-    const rawEnd = Number(item.end ?? item.endS ?? rawStart + 2);
-    const start = normalizeTimeToSeconds(rawStart, isMs);
-    const end = normalizeTimeToSeconds(rawEnd, isMs);
+  // Segmen biasa
+  const segments: RawTimestampSegment[] = list.map((item) => {
+    const start = normalizeTimeToSeconds(Number(item.start ?? 0), isMs);
+    const end = normalizeTimeToSeconds(Number(item.end ?? 0), isMs);
     const text = String(item.text ?? item.line ?? "").trim();
-
-    let words: RawTimestampWord[] = [];
-    if (Array.isArray(item.words) && item.words.length > 0) {
-      words = (item.words as Array<Record<string, unknown>>).map((w) => ({
-        word: String(w.word ?? w.text ?? "").trim(),
-        start: normalizeTimeToSeconds(Number(w.start ?? start), isMs),
-        end: normalizeTimeToSeconds(Number(w.end ?? end), isMs),
-      }));
-    } else {
-      words = distributeWordsByLetterCount(text, start, end);
-    }
+    const rawWords = Array.isArray(item.words) ? (item.words as Array<Record<string, unknown>>) : [];
+    const words =
+      rawWords.length > 0
+        ? rawWords.map((w) => ({
+            word: String(w.word ?? w.text ?? "").trim(),
+            start: normalizeTimeToSeconds(Number(w.start ?? start), isMs),
+            end: normalizeTimeToSeconds(Number(w.end ?? end), isMs),
+            probability: typeof w.probability === "number" ? w.probability : undefined,
+          }))
+        : distributeWordsByLetterCount(text, start, end);
 
     return { text, start, end, words };
   });
-}
 
+  return { segments, words: segments.flatMap((s) => s.words) };
+}

@@ -37,7 +37,8 @@ jobs:
       - name: Render Music Video (MV)
         run: |
           mkdir -p out
-          npx remotion render MV out/Krisis_Hati_dan_Ekonomi_MV.mp4 \
+          npx remotion render MV out/mv.mp4 \
+            --codec=h264 \
             --crf=${{ github.event.inputs.crf || '18' }} \
             --concurrency=${{ github.event.inputs.concurrency || '100%' }} \
             --gl=angle
@@ -45,7 +46,7 @@ jobs:
       - name: Upload Rendered Video Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Krisis-Hati-dan-Ekonomi-MV
-          path: out/Krisis_Hati_dan_Ekonomi_MV.mp4
+          name: 8-Letters-MV
+          path: out/mv.mp4
           retention-days: 14
 
