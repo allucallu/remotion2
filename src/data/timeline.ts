@@ -1,6 +1,6 @@
 import { Section, buildTimeline } from "./buildTimeline";
 import { RAW_LYRICS } from "./rawLyrics";
-import whisperJson from "../../calon/whisper-raw2.json";
+import whisperJson from "./whisper-raw2.json";
 import { mvConfig } from "../config";
 
 export const timeline: Section[] = buildTimeline(

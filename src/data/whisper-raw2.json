@@ -1,0 +1,3546 @@
+{
+  "text": " You know me the best, you know my worst See me hurt but you don't judge That right there is the scariest feeling Opening and closing up again I've been hurt so I don't trust Now here we are staring at the ceiling I've said those words before but it wasn't life And you deserve to hear them a thousand times If all it is to say that it's why is it so hard to say If all it is to say that it's why am I in my own way Why do I pull you closer then ask you For space If all it is to say that it's why is it so hard to say Isn't it amazing how almost every lie On our hands align when your hands are mine It's like I'm whole again Isn't that a sign I should speak my mind I've said those words before but it wasn't life I've said those words before but it wasn't life And you deserve to hear them a thousand times If all it is to say that it's why is it so hard to say If all it is to say that it's why am I in my own way Why do I pull you closer then ask you For space If all it is to say that it's why is it so hard to say If all it is to say that it's why is it so hard to say Woah, oh yeah When I close my eyes It's you there in my mind When I close my eyes If all it is to say that it's why is it so hard to say If all it is to say that it's why is it so hard to say Why am I in my own way? Why do I pull you close and then ask you for space? If all it is to say that is Why is it so hard to say? If all it is to say that is When I close my eyes It's you there, it's only you When I close my eyes If all it is to say that is When I close my eyes It's you there, my, my, you When I close my eyes If all it is to say that is",
+  "segments": [
+    {
+      "id": 0,
+      "seek": 0,
+      "start": 11.479999999999997,
+      "end": 14.8,
+      "text": " You know me the best, you know my worst",
+      "tokens": [
+        50365,
+        509,
+        458,
+        385,
+        264,
+        1151,
+        11,
+        291,
+        458,
+        452,
+        5855,
+        51112
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1530909444771561,
+      "compression_ratio": 1.3515625,
+      "no_speech_prob": 0.2225746512413025,
+      "words": [
+        {
+          "word": " You",
+          "start": 11.479999999999997,
+          "end": 12.059999999999999,
+          "probability": 0.6097896695137024
+        },
+        {
+          "word": " know",
+          "start": 12.059999999999999,
+          "end": 12.64,
+          "probability": 0.971756100654602
+        },
+        {
+          "word": " me",
+          "start": 12.64,
+          "end": 12.92,
+          "probability": 0.979842483997345
+        },
+        {
+          "word": " the",
+          "start": 12.92,
+          "end": 13.08,
+          "probability": 0.9676006436347961
+        },
+        {
+          "word": " best,",
+          "start": 13.08,
+          "end": 13.66,
+          "probability": 0.9940313696861267
+        },
+        {
+          "word": " you",
+          "start": 13.88,
+          "end": 14.0,
+          "probability": 0.9667600393295288
+        },
+        {
+          "word": " know",
+          "start": 14.0,
+          "end": 14.2,
+          "probability": 0.9994537234306335
+        },
+        {
+          "word": " my",
+          "start": 14.2,
+          "end": 14.42,
+          "probability": 0.9940142035484314
+        },
+        {
+          "word": " worst",
+          "start": 14.42,
+          "end": 14.8,
+          "probability": 0.9585433602333069
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "seek": 0,
+      "start": 14.8,
+      "end": 16.52,
+      "text": " See me hurt but you don't judge",
+      "tokens": [
+        51112,
+        3008,
+        385,
+        4607,
+        457,
+        291,
+        500,
+        380,
+        6995,
+        51203
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1530909444771561,
+      "compression_ratio": 1.3515625,
+      "no_speech_prob": 0.2225746512413025,
+      "words": [
+        {
+          "word": " See",
+          "start": 14.8,
+          "end": 15.04,
+          "probability": 0.6465186476707458
+        },
+        {
+          "word": " me",
+          "start": 15.04,
+          "end": 15.2,
+          "probability": 0.9996695518493652
+        },
+        {
+          "word": " hurt",
+          "start": 15.2,
+          "end": 15.48,
+          "probability": 0.9996572732925415
+        },
+        {
+          "word": " but",
+          "start": 15.48,
+          "end": 15.72,
+          "probability": 0.5221874117851257
+        },
+        {
+          "word": " you",
+          "start": 15.72,
+          "end": 15.88,
+          "probability": 0.9845923781394958
+        },
+        {
+          "word": " don't",
+          "start": 15.88,
+          "end": 16.24,
+          "probability": 0.993831068277359
+        },
+        {
+          "word": " judge",
+          "start": 16.24,
+          "end": 16.52,
+          "probability": 0.9979711174964905
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "seek": 0,
+      "start": 16.52,
+      "end": 20.28,
+      "text": " That right there is the scariest feeling",
+      "tokens": [
+        51203,
+        663,
+        558,
+        456,
+        307,
+        264,
+        47755,
+        2633,
+        51390
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1530909444771561,
+      "compression_ratio": 1.3515625,
+      "no_speech_prob": 0.2225746512413025,
+      "words": [
+        {
+          "word": " That",
+          "start": 16.52,
+          "end": 17.44,
+          "probability": 0.9855877161026001
+        },
+        {
+          "word": " right",
+          "start": 17.44,
+          "end": 18.0,
+          "probability": 0.9857403635978699
+        },
+        {
+          "word": " there",
+          "start": 18.0,
+          "end": 18.32,
+          "probability": 0.9989961981773376
+        },
+        {
+          "word": " is",
+          "start": 18.32,
+          "end": 18.56,
+          "probability": 0.9896535277366638
+        },
+        {
+          "word": " the",
+          "start": 18.56,
+          "end": 18.74,
+          "probability": 0.9991858601570129
+        },
+        {
+          "word": " scariest",
+          "start": 18.74,
+          "end": 19.6,
+          "probability": 0.9956663846969604
+        },
+        {
+          "word": " feeling",
+          "start": 19.6,
+          "end": 20.28,
+          "probability": 0.9226824641227722
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "seek": 0,
+      "start": 22.819999999999997,
+      "end": 25.44,
+      "text": " Opening and closing up again",
+      "tokens": [
+        51390,
+        41137,
+        293,
+        10377,
+        493,
+        797,
+        51647
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1530909444771561,
+      "compression_ratio": 1.3515625,
+      "no_speech_prob": 0.2225746512413025,
+      "words": [
+        {
+          "word": " Opening",
+          "start": 22.819999999999997,
+          "end": 23.4,
+          "probability": 0.8435932993888855
+        },
+        {
+          "word": " and",
+          "start": 23.4,
+          "end": 23.84,
+          "probability": 0.9944682121276855
+        },
+        {
+          "word": " closing",
+          "start": 23.84,
+          "end": 24.34,
+          "probability": 0.9990693926811218
+        },
+        {
+          "word": " up",
+          "start": 24.34,
+          "end": 25.06,
+          "probability": 0.998681366443634
+        },
+        {
+          "word": " again",
+          "start": 25.06,
+          "end": 25.44,
+          "probability": 0.9962700605392456
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "seek": 0,
+      "start": 25.44,
+      "end": 27.34,
+      "text": " I've been hurt so I don't trust",
+      "tokens": [
+        51647,
+        286,
+        600,
+        668,
+        4607,
+        370,
+        286,
+        500,
+        380,
+        3361,
+        51743
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1530909444771561,
+      "compression_ratio": 1.3515625,
+      "no_speech_prob": 0.2225746512413025,
+      "words": [
+        {
+          "word": " I've",
+          "start": 25.44,
+          "end": 25.88,
+          "probability": 0.9575376808643341
+        },
+        {
+          "word": " been",
+          "start": 25.88,
+          "end": 26.02,
+          "probability": 0.9989612102508545
+        },
+        {
+          "word": " hurt",
+          "start": 26.02,
+          "end": 26.28,
+          "probability": 0.9986887574195862
+        },
+        {
+          "word": " so",
+          "start": 26.28,
+          "end": 26.5,
+          "probability": 0.9455912709236145
+        },
+        {
+          "word": " I",
+          "start": 26.5,
+          "end": 26.7,
+          "probability": 0.9940447211265564
+        },
+        {
+          "word": " don't",
+          "start": 26.7,
+          "end": 27.04,
+          "probability": 0.9990723133087158
+        },
+        {
+          "word": " trust",
+          "start": 27.04,
+          "end": 27.34,
+          "probability": 0.9995625615119934
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "seek": 2734,
+      "start": 27.34,
+      "end": 31.04,
+      "text": " Now here we are staring at the ceiling",
+      "tokens": [
+        50365,
+        823,
+        510,
+        321,
+        366,
+        18043,
+        412,
+        264,
+        13655,
+        50561
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1930593467620482,
+      "compression_ratio": 1.6547619047619047,
+      "no_speech_prob": 0.002785268472507596,
+      "words": [
+        {
+          "word": " Now",
+          "start": 27.34,
+          "end": 28.3,
+          "probability": 0.4065384566783905
+        },
+        {
+          "word": " here",
+          "start": 28.3,
+          "end": 28.78,
+          "probability": 0.8321273922920227
+        },
+        {
+          "word": " we",
+          "start": 28.78,
+          "end": 28.98,
+          "probability": 0.9662222266197205
+        },
+        {
+          "word": " are",
+          "start": 28.98,
+          "end": 29.24,
+          "probability": 0.9728403687477112
+        },
+        {
+          "word": " staring",
+          "start": 29.24,
+          "end": 29.78,
+          "probability": 0.8343740105628967
+        },
+        {
+          "word": " at",
+          "start": 29.78,
+          "end": 30.46,
+          "probability": 0.9901812076568604
+        },
+        {
+          "word": " the",
+          "start": 30.46,
+          "end": 30.56,
+          "probability": 0.9907611012458801
+        },
+        {
+          "word": " ceiling",
+          "start": 30.56,
+          "end": 31.04,
+          "probability": 0.9822662472724915
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "seek": 2734,
+      "start": 31.04,
+      "end": 36.18,
+      "text": " I've said those words before but it wasn't life",
+      "tokens": [
+        50561,
+        286,
+        600,
+        848,
+        729,
+        2283,
+        949,
+        457,
+        309,
+        2067,
+        380,
+        993,
+        50831
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1930593467620482,
+      "compression_ratio": 1.6547619047619047,
+      "no_speech_prob": 0.002785268472507596,
+      "words": [
+        {
+          "word": " I've",
+          "start": 31.04,
+          "end": 31.96,
+          "probability": 0.7862837910652161
+        },
+        {
+          "word": " said",
+          "start": 31.96,
+          "end": 32.24,
+          "probability": 0.9944907426834106
+        },
+        {
+          "word": " those",
+          "start": 32.24,
+          "end": 32.6,
+          "probability": 0.9936322569847107
+        },
+        {
+          "word": " words",
+          "start": 32.6,
+          "end": 32.9,
+          "probability": 0.9862136244773865
+        },
+        {
+          "word": " before",
+          "start": 32.9,
+          "end": 33.5,
+          "probability": 0.9946803450584412
+        },
+        {
+          "word": " but",
+          "start": 33.5,
+          "end": 34.24,
+          "probability": 0.5991829633712769
+        },
+        {
+          "word": " it",
+          "start": 34.24,
+          "end": 34.68,
+          "probability": 0.9349488615989685
+        },
+        {
+          "word": " wasn't",
+          "start": 34.68,
+          "end": 35.66,
+          "probability": 0.7711614072322845
+        },
+        {
+          "word": " life",
+          "start": 35.66,
+          "end": 36.18,
+          "probability": 0.24739143252372742
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "seek": 2734,
+      "start": 36.18,
+      "end": 41.56,
+      "text": " And you deserve to hear them a thousand times",
+      "tokens": [
+        50831,
+        400,
+        291,
+        9948,
+        281,
+        1568,
+        552,
+        257,
+        4714,
+        1413,
+        51116
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1930593467620482,
+      "compression_ratio": 1.6547619047619047,
+      "no_speech_prob": 0.002785268472507596,
+      "words": [
+        {
+          "word": " And",
+          "start": 36.18,
+          "end": 37.28,
+          "probability": 0.845853328704834
+        },
+        {
+          "word": " you",
+          "start": 37.28,
+          "end": 37.52,
+          "probability": 0.9926024079322815
+        },
+        {
+          "word": " deserve",
+          "start": 37.52,
+          "end": 38.18,
+          "probability": 0.9605193138122559
+        },
+        {
+          "word": " to",
+          "start": 38.18,
+          "end": 38.64,
+          "probability": 0.9982238411903381
+        },
+        {
+          "word": " hear",
+          "start": 38.64,
+          "end": 39.14,
+          "probability": 0.99594646692276
+        },
+        {
+          "word": " them",
+          "start": 39.14,
+          "end": 39.66,
+          "probability": 0.8749337792396545
+        },
+        {
+          "word": " a",
+          "start": 39.66,
+          "end": 39.98,
+          "probability": 0.9922388792037964
+        },
+        {
+          "word": " thousand",
+          "start": 39.98,
+          "end": 40.78,
+          "probability": 0.9355335235595703
+        },
+        {
+          "word": " times",
+          "start": 40.78,
+          "end": 41.56,
+          "probability": 0.9960238933563232
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "seek": 2734,
+      "start": 42.36,
+      "end": 47.14,
+      "text": " If all it is to say that it's why is it so hard to say",
+      "tokens": [
+        51116,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        309,
+        311,
+        983,
+        307,
+        309,
+        370,
+        1152,
+        281,
+        584,
+        51363
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1930593467620482,
+      "compression_ratio": 1.6547619047619047,
+      "no_speech_prob": 0.002785268472507596,
+      "words": [
+        {
+          "word": " If",
+          "start": 42.36,
+          "end": 42.8,
+          "probability": 0.9692531824111938
+        },
+        {
+          "word": " all",
+          "start": 42.8,
+          "end": 43.04,
+          "probability": 0.9962085485458374
+        },
+        {
+          "word": " it",
+          "start": 43.04,
+          "end": 43.38,
+          "probability": 0.9946645498275757
+        },
+        {
+          "word": " is",
+          "start": 43.38,
+          "end": 43.6,
+          "probability": 0.9985392093658447
+        },
+        {
+          "word": " to",
+          "start": 43.6,
+          "end": 43.8,
+          "probability": 0.9847081899642944
+        },
+        {
+          "word": " say",
+          "start": 43.8,
+          "end": 44.14,
+          "probability": 0.9978848099708557
+        },
+        {
+          "word": " that",
+          "start": 44.14,
+          "end": 44.42,
+          "probability": 0.9845765829086304
+        },
+        {
+          "word": " it's",
+          "start": 44.42,
+          "end": 44.72,
+          "probability": 0.7840693891048431
+        },
+        {
+          "word": " why",
+          "start": 44.72,
+          "end": 44.96,
+          "probability": 0.6153503656387329
+        },
+        {
+          "word": " is",
+          "start": 44.96,
+          "end": 45.52,
+          "probability": 0.7581446170806885
+        },
+        {
+          "word": " it",
+          "start": 45.52,
+          "end": 45.68,
+          "probability": 0.9957719445228577
+        },
+        {
+          "word": " so",
+          "start": 45.68,
+          "end": 46.02,
+          "probability": 0.995726466178894
+        },
+        {
+          "word": " hard",
+          "start": 46.02,
+          "end": 46.36,
+          "probability": 0.9966074228286743
+        },
+        {
+          "word": " to",
+          "start": 46.36,
+          "end": 46.72,
+          "probability": 0.9990085959434509
+        },
+        {
+          "word": " say",
+          "start": 46.72,
+          "end": 47.14,
+          "probability": 0.9911301136016846
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "seek": 2734,
+      "start": 47.14,
+      "end": 52.5,
+      "text": " If all it is to say that it's why am I in my own way",
+      "tokens": [
+        51363,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        309,
+        311,
+        983,
+        669,
+        286,
+        294,
+        452,
+        1065,
+        636,
+        51637
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1930593467620482,
+      "compression_ratio": 1.6547619047619047,
+      "no_speech_prob": 0.002785268472507596,
+      "words": [
+        {
+          "word": " If",
+          "start": 47.14,
+          "end": 48.26,
+          "probability": 0.4932166635990143
+        },
+        {
+          "word": " all",
+          "start": 48.26,
+          "end": 48.48,
+          "probability": 0.9993867874145508
+        },
+        {
+          "word": " it",
+          "start": 48.48,
+          "end": 48.76,
+          "probability": 0.9980039000511169
+        },
+        {
+          "word": " is",
+          "start": 48.76,
+          "end": 49.02,
+          "probability": 0.9993925094604492
+        },
+        {
+          "word": " to",
+          "start": 49.02,
+          "end": 49.18,
+          "probability": 0.9988055229187012
+        },
+        {
+          "word": " say",
+          "start": 49.18,
+          "end": 49.48,
+          "probability": 0.9995297193527222
+        },
+        {
+          "word": " that",
+          "start": 49.48,
+          "end": 49.8,
+          "probability": 0.9977739453315735
+        },
+        {
+          "word": " it's",
+          "start": 49.8,
+          "end": 50.1,
+          "probability": 0.9958204627037048
+        },
+        {
+          "word": " why",
+          "start": 50.1,
+          "end": 50.42,
+          "probability": 0.9962410926818848
+        },
+        {
+          "word": " am",
+          "start": 50.42,
+          "end": 50.94,
+          "probability": 0.987230122089386
+        },
+        {
+          "word": " I",
+          "start": 50.94,
+          "end": 51.12,
+          "probability": 0.9938777089118958
+        },
+        {
+          "word": " in",
+          "start": 51.12,
+          "end": 51.44,
+          "probability": 0.9668224453926086
+        },
+        {
+          "word": " my",
+          "start": 51.44,
+          "end": 51.74,
+          "probability": 0.9997254014015198
+        },
+        {
+          "word": " own",
+          "start": 51.74,
+          "end": 52.1,
+          "probability": 0.9986554384231567
+        },
+        {
+          "word": " way",
+          "start": 52.1,
+          "end": 52.5,
+          "probability": 0.9989963173866272
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "seek": 2734,
+      "start": 53.42,
+      "end": 57.18,
+      "text": " Why do I pull you closer then ask you",
+      "tokens": [
+        51672,
+        1545,
+        360,
+        286,
+        2235,
+        291,
+        4966,
+        550,
+        1029,
+        291,
+        51864
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1930593467620482,
+      "compression_ratio": 1.6547619047619047,
+      "no_speech_prob": 0.002785268472507596,
+      "words": [
+        {
+          "word": " Why",
+          "start": 53.42,
+          "end": 54.14,
+          "probability": 0.8239704966545105
+        },
+        {
+          "word": " do",
+          "start": 54.14,
+          "end": 54.4,
+          "probability": 0.9897702932357788
+        },
+        {
+          "word": " I",
+          "start": 54.4,
+          "end": 54.76,
+          "probability": 0.9939372539520264
+        },
+        {
+          "word": " pull",
+          "start": 54.76,
+          "end": 55.18,
+          "probability": 0.9981672763824463
+        },
+        {
+          "word": " you",
+          "start": 55.18,
+          "end": 55.58,
+          "probability": 0.9945371747016907
+        },
+        {
+          "word": " closer",
+          "start": 55.58,
+          "end": 56.16,
+          "probability": 0.7300981283187866
+        },
+        {
+          "word": " then",
+          "start": 56.16,
+          "end": 56.4,
+          "probability": 0.45308393239974976
+        },
+        {
+          "word": " ask",
+          "start": 56.4,
+          "end": 56.92,
+          "probability": 0.9430243372917175
+        },
+        {
+          "word": " you",
+          "start": 56.92,
+          "end": 57.18,
+          "probability": 0.99883633852005
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "seek": 5718,
+      "start": 57.18,
+      "end": 57.96,
+      "text": " For space",
+      "tokens": [
+        50365,
+        1171,
+        1901,
+        50428
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1344086490099943,
+      "compression_ratio": 1.5174418604651163,
+      "no_speech_prob": 0.002783746225759387,
+      "words": [
+        {
+          "word": " For",
+          "start": 57.18,
+          "end": 57.4,
+          "probability": 0.07746103405952454
+        },
+        {
+          "word": " space",
+          "start": 57.4,
+          "end": 57.96,
+          "probability": 0.839992105960846
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "seek": 5718,
+      "start": 57.96,
+      "end": 63.36,
+      "text": " If all it is to say that it's why is it so hard to say",
+      "tokens": [
+        50428,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        309,
+        311,
+        983,
+        307,
+        309,
+        370,
+        1152,
+        281,
+        584,
+        50695
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1344086490099943,
+      "compression_ratio": 1.5174418604651163,
+      "no_speech_prob": 0.002783746225759387,
+      "words": [
+        {
+          "word": " If",
+          "start": 57.96,
+          "end": 58.98,
+          "probability": 0.3330515921115875
+        },
+        {
+          "word": " all",
+          "start": 58.98,
+          "end": 59.28,
+          "probability": 0.9790482521057129
+        },
+        {
+          "word": " it",
+          "start": 59.28,
+          "end": 59.6,
+          "probability": 0.8082208037376404
+        },
+        {
+          "word": " is",
+          "start": 59.6,
+          "end": 59.76,
+          "probability": 0.9094228148460388
+        },
+        {
+          "word": " to",
+          "start": 59.76,
+          "end": 59.98,
+          "probability": 0.9276664853096008
+        },
+        {
+          "word": " say",
+          "start": 59.98,
+          "end": 60.24,
+          "probability": 0.9975855350494385
+        },
+        {
+          "word": " that",
+          "start": 60.24,
+          "end": 60.5,
+          "probability": 0.6339380741119385
+        },
+        {
+          "word": " it's",
+          "start": 60.5,
+          "end": 61.0,
+          "probability": 0.7221903800964355
+        },
+        {
+          "word": " why",
+          "start": 61.0,
+          "end": 61.26,
+          "probability": 0.034435026347637177
+        },
+        {
+          "word": " is",
+          "start": 61.26,
+          "end": 61.8,
+          "probability": 0.25573912262916565
+        },
+        {
+          "word": " it",
+          "start": 61.8,
+          "end": 61.86,
+          "probability": 0.9853986501693726
+        },
+        {
+          "word": " so",
+          "start": 61.86,
+          "end": 62.22,
+          "probability": 0.9856228232383728
+        },
+        {
+          "word": " hard",
+          "start": 62.22,
+          "end": 62.54,
+          "probability": 0.9875403046607971
+        },
+        {
+          "word": " to",
+          "start": 62.54,
+          "end": 62.9,
+          "probability": 0.9895071387290955
+        },
+        {
+          "word": " say",
+          "start": 62.9,
+          "end": 63.36,
+          "probability": 0.997229278087616
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "seek": 5718,
+      "start": 75.62,
+      "end": 78.66,
+      "text": " Isn't it amazing how almost every lie",
+      "tokens": [
+        50695,
+        6998,
+        380,
+        309,
+        2243,
+        577,
+        1920,
+        633,
+        4544,
+        51448
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1344086490099943,
+      "compression_ratio": 1.5174418604651163,
+      "no_speech_prob": 0.002783746225759387,
+      "words": [
+        {
+          "word": " Isn't",
+          "start": 75.62,
+          "end": 76.26,
+          "probability": 0.6460824757814407
+        },
+        {
+          "word": " it",
+          "start": 76.26,
+          "end": 76.36,
+          "probability": 0.9917325973510742
+        },
+        {
+          "word": " amazing",
+          "start": 76.36,
+          "end": 76.8,
+          "probability": 0.9974798560142517
+        },
+        {
+          "word": " how",
+          "start": 76.8,
+          "end": 77.5,
+          "probability": 0.3814125657081604
+        },
+        {
+          "word": " almost",
+          "start": 77.5,
+          "end": 77.84,
+          "probability": 0.9850901365280151
+        },
+        {
+          "word": " every",
+          "start": 77.84,
+          "end": 78.16,
+          "probability": 0.9829845428466797
+        },
+        {
+          "word": " lie",
+          "start": 78.16,
+          "end": 78.66,
+          "probability": 0.651576042175293
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "seek": 5718,
+      "start": 78.66,
+      "end": 81.32,
+      "text": " On our hands align when your hands are mine",
+      "tokens": [
+        51448,
+        1282,
+        527,
+        2377,
+        7975,
+        562,
+        428,
+        2377,
+        366,
+        3892,
+        51583
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1344086490099943,
+      "compression_ratio": 1.5174418604651163,
+      "no_speech_prob": 0.002783746225759387,
+      "words": [
+        {
+          "word": " On",
+          "start": 78.66,
+          "end": 79.12,
+          "probability": 0.19423575699329376
+        },
+        {
+          "word": " our",
+          "start": 79.12,
+          "end": 79.22,
+          "probability": 0.9776462912559509
+        },
+        {
+          "word": " hands",
+          "start": 79.22,
+          "end": 79.56,
+          "probability": 0.990349531173706
+        },
+        {
+          "word": " align",
+          "start": 79.56,
+          "end": 79.88,
+          "probability": 0.8842973113059998
+        },
+        {
+          "word": " when",
+          "start": 79.88,
+          "end": 80.4,
+          "probability": 0.5510572791099548
+        },
+        {
+          "word": " your",
+          "start": 80.4,
+          "end": 80.58,
+          "probability": 0.9792166352272034
+        },
+        {
+          "word": " hands",
+          "start": 80.58,
+          "end": 80.92,
+          "probability": 0.9310870170593262
+        },
+        {
+          "word": " are",
+          "start": 80.92,
+          "end": 81.12,
+          "probability": 0.9897374510765076
+        },
+        {
+          "word": " mine",
+          "start": 81.12,
+          "end": 81.32,
+          "probability": 0.9981478452682495
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "seek": 5718,
+      "start": 81.32,
+      "end": 82.56,
+      "text": " It's like I'm whole again",
+      "tokens": [
+        51583,
+        467,
+        311,
+        411,
+        286,
+        478,
+        1379,
+        797,
+        51644
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1344086490099943,
+      "compression_ratio": 1.5174418604651163,
+      "no_speech_prob": 0.002783746225759387,
+      "words": [
+        {
+          "word": " It's",
+          "start": 81.32,
+          "end": 81.66,
+          "probability": 0.9710391163825989
+        },
+        {
+          "word": " like",
+          "start": 81.66,
+          "end": 81.84,
+          "probability": 0.999099850654602
+        },
+        {
+          "word": " I'm",
+          "start": 81.84,
+          "end": 82.04,
+          "probability": 0.9815225601196289
+        },
+        {
+          "word": " whole",
+          "start": 82.04,
+          "end": 82.22,
+          "probability": 0.9743412137031555
+        },
+        {
+          "word": " again",
+          "start": 82.22,
+          "end": 82.56,
+          "probability": 0.9989169836044312
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "seek": 5718,
+      "start": 82.56,
+      "end": 85.56,
+      "text": " Isn't that a sign I should speak my mind",
+      "tokens": [
+        51644,
+        6998,
+        380,
+        300,
+        257,
+        1465,
+        286,
+        820,
+        1710,
+        452,
+        1575,
+        51789
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1344086490099943,
+      "compression_ratio": 1.5174418604651163,
+      "no_speech_prob": 0.002783746225759387,
+      "words": [
+        {
+          "word": " Isn't",
+          "start": 82.56,
+          "end": 83.26,
+          "probability": 0.8796657621860504
+        },
+        {
+          "word": " that",
+          "start": 83.26,
+          "end": 83.56,
+          "probability": 0.9989394545555115
+        },
+        {
+          "word": " a",
+          "start": 83.56,
+          "end": 83.74,
+          "probability": 0.9976392984390259
+        },
+        {
+          "word": " sign",
+          "start": 83.74,
+          "end": 84.04,
+          "probability": 0.9993537068367004
+        },
+        {
+          "word": " I",
+          "start": 84.04,
+          "end": 84.46,
+          "probability": 0.7092257142066956
+        },
+        {
+          "word": " should",
+          "start": 84.46,
+          "end": 84.58,
+          "probability": 0.9912592768669128
+        },
+        {
+          "word": " speak",
+          "start": 84.58,
+          "end": 84.78,
+          "probability": 0.9984164237976074
+        },
+        {
+          "word": " my",
+          "start": 84.78,
+          "end": 85.12,
+          "probability": 0.9989527463912964
+        },
+        {
+          "word": " mind",
+          "start": 85.12,
+          "end": 85.56,
+          "probability": 0.9997772574424744
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "seek": 5718,
+      "start": 85.56,
+      "end": 87.16,
+      "text": " I've said those words before but it wasn't life",
+      "tokens": [
+        51789,
+        286,
+        600,
+        848,
+        729,
+        2283,
+        949,
+        457,
+        309,
+        2067,
+        380,
+        993,
+        51864
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.1344086490099943,
+      "compression_ratio": 1.5174418604651163,
+      "no_speech_prob": 0.002783746225759387,
+      "words": [
+        {
+          "word": " I've",
+          "start": 85.56,
+          "end": 85.9,
+          "probability": 0.662853330373764
+        },
+        {
+          "word": " said",
+          "start": 85.9,
+          "end": 86.16,
+          "probability": 0.9972104430198669
+        },
+        {
+          "word": " those",
+          "start": 86.16,
+          "end": 86.54,
+          "probability": 0.9962105751037598
+        },
+        {
+          "word": " words",
+          "start": 86.54,
+          "end": 86.94,
+          "probability": 0.9817836880683899
+        },
+        {
+          "word": " before",
+          "start": 86.94,
+          "end": 87.16,
+          "probability": 0.37790095806121826
+        },
+        {
+          "word": " but",
+          "start": 87.16,
+          "end": 87.16,
+          "probability": 0.11009125411510468
+        },
+        {
+          "word": " it",
+          "start": 87.16,
+          "end": 87.16,
+          "probability": 0.0830700471997261
+        },
+        {
+          "word": " wasn't",
+          "start": 87.16,
+          "end": 87.16,
+          "probability": 0.501629343489185
+        },
+        {
+          "word": " life",
+          "start": 87.16,
+          "end": 87.16,
+          "probability": 0.00047454822924919426
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "seek": 8716,
+      "start": 87.16,
+      "end": 90.12,
+      "text": " I've said those words before but it wasn't life",
+      "tokens": [
+        50365,
+        286,
+        600,
+        848,
+        729,
+        2283,
+        949,
+        457,
+        309,
+        2067,
+        380,
+        993,
+        50557
+      ],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": [
+        {
+          "word": " I've",
+          "start": 87.16,
+          "end": 87.74,
+          "probability": 0.03905873000621796
+        },
+        {
+          "word": " said",
+          "start": 87.74,
+          "end": 87.74,
+          "probability": 0.012104029767215252
+        },
+        {
+          "word": " those",
+          "start": 87.74,
+          "end": 87.74,
+          "probability": 0.001143180881626904
+        },
+        {
+          "word": " words",
+          "start": 87.74,
+          "end": 87.74,
+          "probability": 0.6552726030349731
+        },
+        {
+          "word": " before",
+          "start": 87.74,
+          "end": 87.74,
+          "probability": 0.9348461031913757
+        },
+        {
+          "word": " but",
+          "start": 87.74,
+          "end": 88.18,
+          "probability": 0.46250319480895996
+        },
+        {
+          "word": " it",
+          "start": 88.18,
+          "end": 88.5,
+          "probability": 0.6411092281341553
+        },
+        {
+          "word": " wasn't",
+          "start": 88.5,
+          "end": 89.6,
+          "probability": 0.7056655138731003
+        },
+        {
+          "word": " life",
+          "start": 89.6,
+          "end": 90.12,
+          "probability": 0.11901488900184631
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "seek": 8716,
+      "start": 91.0,
+      "end": 95.48,
+      "text": " And you deserve to hear them a thousand times",
+      "tokens": [
+        50557,
+        400,
+        291,
+        9948,
+        281,
+        1568,
+        552,
+        257,
+        4714,
+        1413,
+        50825
+      ],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": [
+        {
+          "word": " And",
+          "start": 90.83000000000001,
+          "end": 91.18,
+          "probability": 0.12531240284442902
+        },
+        {
+          "word": " you",
+          "start": 91.18,
+          "end": 91.52,
+          "probability": 0.5377891659736633
+        },
+        {
+          "word": " deserve",
+          "start": 91.52,
+          "end": 92.14,
+          "probability": 0.11644718050956726
+        },
+        {
+          "word": " to",
+          "start": 92.14,
+          "end": 92.62,
+          "probability": 0.9978973865509033
+        },
+        {
+          "word": " hear",
+          "start": 92.62,
+          "end": 93.12,
+          "probability": 0.9968985319137573
+        },
+        {
+          "word": " them",
+          "start": 93.12,
+          "end": 93.56,
+          "probability": 0.3690843880176544
+        },
+        {
+          "word": " a",
+          "start": 93.56,
+          "end": 93.94,
+          "probability": 0.9869933128356934
+        },
+        {
+          "word": " thousand",
+          "start": 93.94,
+          "end": 94.68,
+          "probability": 0.9977995753288269
+        },
+        {
+          "word": " times",
+          "start": 94.68,
+          "end": 95.48,
+          "probability": 0.9888237118721008
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "seek": 8716,
+      "start": 96.36,
+      "end": 101.08,
+      "text": " If all it is to say that it's why is it so hard to say",
+      "tokens": [
+        50825,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        309,
+        311,
+        983,
+        307,
+        309,
+        370,
+        1152,
+        281,
+        584,
+        51089
+      ],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": [
+        {
+          "word": " If",
+          "start": 96.36,
+          "end": 96.76,
+          "probability": 0.9528088569641113
+        },
+        {
+          "word": " all",
+          "start": 96.76,
+          "end": 96.94,
+          "probability": 0.9931362867355347
+        },
+        {
+          "word": " it",
+          "start": 96.94,
+          "end": 97.3,
+          "probability": 0.9901772141456604
+        },
+        {
+          "word": " is",
+          "start": 97.3,
+          "end": 97.54,
+          "probability": 0.9985247254371643
+        },
+        {
+          "word": " to",
+          "start": 97.54,
+          "end": 97.72,
+          "probability": 0.9808701872825623
+        },
+        {
+          "word": " say",
+          "start": 97.72,
+          "end": 98.06,
+          "probability": 0.9960159659385681
+        },
+        {
+          "word": " that",
+          "start": 98.06,
+          "end": 98.36,
+          "probability": 0.9767212867736816
+        },
+        {
+          "word": " it's",
+          "start": 98.36,
+          "end": 98.66,
+          "probability": 0.6771398633718491
+        },
+        {
+          "word": " why",
+          "start": 98.66,
+          "end": 98.92,
+          "probability": 0.3817335069179535
+        },
+        {
+          "word": " is",
+          "start": 98.92,
+          "end": 99.44,
+          "probability": 0.6467036604881287
+        },
+        {
+          "word": " it",
+          "start": 99.44,
+          "end": 99.6,
+          "probability": 0.9888750314712524
+        },
+        {
+          "word": " so",
+          "start": 99.6,
+          "end": 99.94,
+          "probability": 0.990341305732727
+        },
+        {
+          "word": " hard",
+          "start": 99.94,
+          "end": 100.3,
+          "probability": 0.998175859451294
+        },
+        {
+          "word": " to",
+          "start": 100.3,
+          "end": 100.66,
+          "probability": 0.9983686804771423
+        },
+        {
+          "word": " say",
+          "start": 100.66,
+          "end": 101.08,
+          "probability": 0.9783279895782471
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "seek": 8716,
+      "start": 101.64,
+      "end": 106.48,
+      "text": " If all it is to say that it's why am I in my own way",
+      "tokens": [
+        51089,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        309,
+        311,
+        983,
+        669,
+        286,
+        294,
+        452,
+        1065,
+        636,
+        51353
+      ],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": [
+        {
+          "word": " If",
+          "start": 101.64,
+          "end": 102.14,
+          "probability": 0.4727880656719208
+        },
+        {
+          "word": " all",
+          "start": 102.14,
+          "end": 102.38,
+          "probability": 0.9988412261009216
+        },
+        {
+          "word": " it",
+          "start": 102.38,
+          "end": 102.68,
+          "probability": 0.996684730052948
+        },
+        {
+          "word": " is",
+          "start": 102.68,
+          "end": 102.94,
+          "probability": 0.9986312985420227
+        },
+        {
+          "word": " to",
+          "start": 102.94,
+          "end": 103.1,
+          "probability": 0.9984084963798523
+        },
+        {
+          "word": " say",
+          "start": 103.1,
+          "end": 103.38,
+          "probability": 0.9994742274284363
+        },
+        {
+          "word": " that",
+          "start": 103.38,
+          "end": 103.7,
+          "probability": 0.9972620010375977
+        },
+        {
+          "word": " it's",
+          "start": 103.7,
+          "end": 104.06,
+          "probability": 0.9928698241710663
+        },
+        {
+          "word": " why",
+          "start": 104.06,
+          "end": 104.36,
+          "probability": 0.9918113946914673
+        },
+        {
+          "word": " am",
+          "start": 104.36,
+          "end": 104.86,
+          "probability": 0.9533783197402954
+        },
+        {
+          "word": " I",
+          "start": 104.86,
+          "end": 105.04,
+          "probability": 0.9858754277229309
+        },
+        {
+          "word": " in",
+          "start": 105.04,
+          "end": 105.36,
+          "probability": 0.9131730198860168
+        },
+        {
+          "word": " my",
+          "start": 105.36,
+          "end": 105.66,
+          "probability": 0.9995367527008057
+        },
+        {
+          "word": " own",
+          "start": 105.66,
+          "end": 106.04,
+          "probability": 0.9978208541870117
+        },
+        {
+          "word": " way",
+          "start": 106.04,
+          "end": 106.48,
+          "probability": 0.9957336783409119
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "seek": 8716,
+      "start": 107.38,
+      "end": 111.08,
+      "text": " Why do I pull you closer then ask you",
+      "tokens": [
+        51353,
+        1545,
+        360,
+        286,
+        2235,
+        291,
+        4966,
+        550,
+        1029,
+        291,
+        51571
+      ],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": [
+        {
+          "word": " Why",
+          "start": 107.38,
+          "end": 108.08,
+          "probability": 0.9544095396995544
+        },
+        {
+          "word": " do",
+          "start": 108.08,
+          "end": 108.32,
+          "probability": 0.985443651676178
+        },
+        {
+          "word": " I",
+          "start": 108.32,
+          "end": 108.7,
+          "probability": 0.9908624887466431
+        },
+        {
+          "word": " pull",
+          "start": 108.7,
+          "end": 109.1,
+          "probability": 0.998153030872345
+        },
+        {
+          "word": " you",
+          "start": 109.1,
+          "end": 109.52,
+          "probability": 0.9345763921737671
+        },
+        {
+          "word": " closer",
+          "start": 109.52,
+          "end": 110.08,
+          "probability": 0.5023354291915894
+        },
+        {
+          "word": " then",
+          "start": 110.08,
+          "end": 110.32,
+          "probability": 0.7300076484680176
+        },
+        {
+          "word": " ask",
+          "start": 110.32,
+          "end": 110.84,
+          "probability": 0.9847179055213928
+        },
+        {
+          "word": " you",
+          "start": 110.84,
+          "end": 111.08,
+          "probability": 0.9958599209785461
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "seek": 8716,
+      "start": 111.08,
+      "end": 111.7,
+      "text": " For space",
+      "tokens": [
+        51571,
+        1171,
+        1901,
+        51640
+      ],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": [
+        {
+          "word": " For",
+          "start": 111.08,
+          "end": 111.34,
+          "probability": 4.032330252812244e-05
+        },
+        {
+          "word": " space",
+          "start": 111.34,
+          "end": 111.7,
+          "probability": 0.9799849987030029
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "seek": 8716,
+      "start": 112.66,
+      "end": 117.14,
+      "text": " If all it is to say that it's why is it so hard to say",
+      "tokens": [
+        51640,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        309,
+        311,
+        983,
+        307,
+        309,
+        370,
+        1152,
+        281,
+        584,
+        51678
+      ],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": [
+        {
+          "word": " If",
+          "start": 112.53,
+          "end": 112.88,
+          "probability": 0.5420571565628052
+        },
+        {
+          "word": " all",
+          "start": 112.88,
+          "end": 113.18,
+          "probability": 0.9972942471504211
+        },
+        {
+          "word": " it",
+          "start": 113.18,
+          "end": 113.48,
+          "probability": 0.9918679594993591
+        },
+        {
+          "word": " is",
+          "start": 113.48,
+          "end": 113.74,
+          "probability": 0.9973969459533691
+        },
+        {
+          "word": " to",
+          "start": 113.74,
+          "end": 113.84,
+          "probability": 0.9970580339431763
+        },
+        {
+          "word": " say",
+          "start": 113.84,
+          "end": 114.16,
+          "probability": 0.9989487528800964
+        },
+        {
+          "word": " that",
+          "start": 114.16,
+          "end": 114.44,
+          "probability": 0.9947130084037781
+        },
+        {
+          "word": " it's",
+          "start": 114.44,
+          "end": 114.92,
+          "probability": 0.9906845390796661
+        },
+        {
+          "word": " why",
+          "start": 114.92,
+          "end": 115.28,
+          "probability": 0.9858995079994202
+        },
+        {
+          "word": " is",
+          "start": 115.28,
+          "end": 115.66,
+          "probability": 0.96632319688797
+        },
+        {
+          "word": " it",
+          "start": 115.66,
+          "end": 115.78,
+          "probability": 0.9901449680328369
+        },
+        {
+          "word": " so",
+          "start": 115.78,
+          "end": 116.12,
+          "probability": 0.986903190612793
+        },
+        {
+          "word": " hard",
+          "start": 116.12,
+          "end": 116.44,
+          "probability": 0.3098030984401703
+        },
+        {
+          "word": " to",
+          "start": 116.44,
+          "end": 116.78,
+          "probability": 0.9727039933204651
+        },
+        {
+          "word": " say",
+          "start": 116.78,
+          "end": 117.14,
+          "probability": 0.9913637638092041
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "seek": 8716,
+      "start": 117.14,
+      "end": 117.14,
+      "text": "",
+      "tokens": [],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": []
+    },
+    {
+      "id": 26,
+      "seek": 8716,
+      "start": 117.14,
+      "end": 117.14,
+      "text": "",
+      "tokens": [],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": []
+    },
+    {
+      "id": 27,
+      "seek": 8716,
+      "start": 117.14,
+      "end": 117.14,
+      "text": "",
+      "tokens": [],
+      "temperature": 0.2,
+      "avg_logprob": -0.3329761962890625,
+      "compression_ratio": 1.9074074074074074,
+      "no_speech_prob": 0.004800101276487112,
+      "words": []
+    },
+    {
+      "id": 28,
+      "seek": 11714,
+      "start": 117.14,
+      "end": 118.44,
+      "text": " If all it is to say that it's why is it so hard to say",
+      "tokens": [
+        50388,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        309,
+        311,
+        983,
+        307,
+        309,
+        370,
+        1152,
+        281,
+        584,
+        51088
+      ],
+      "temperature": 1.0,
+      "avg_logprob": -0.559878043758059,
+      "compression_ratio": 2.839622641509434,
+      "no_speech_prob": 0.008716350421309471,
+      "words": [
+        {
+          "word": " If",
+          "start": 117.14,
+          "end": 118.44,
+          "probability": 0.05084947124123573
+        },
+        {
+          "word": " all",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.7961373329162598
+        },
+        {
+          "word": " it",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.9179822206497192
+        },
+        {
+          "word": " is",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.9969601631164551
+        },
+        {
+          "word": " to",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.009060628712177277
+        },
+        {
+          "word": " say",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.8989240527153015
+        },
+        {
+          "word": " that",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.3055553138256073
+        },
+        {
+          "word": " it's",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.6939805150032043
+        },
+        {
+          "word": " why",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.19784420728683472
+        },
+        {
+          "word": " is",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.960801362991333
+        },
+        {
+          "word": " it",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.9865458011627197
+        },
+        {
+          "word": " so",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.9237187504768372
+        },
+        {
+          "word": " hard",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.9876527786254883
+        },
+        {
+          "word": " to",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.997134804725647
+        },
+        {
+          "word": " say",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 0.9571229219436646
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "seek": 11714,
+      "start": 118.44,
+      "end": 119.8,
+      "text": " Woah, oh yeah",
+      "tokens": [
+        51088,
+        19668,
+        11,
+        1954,
+        1338,
+        51288
+      ],
+      "temperature": 1.0,
+      "avg_logprob": -0.559878043758059,
+      "compression_ratio": 2.839622641509434,
+      "no_speech_prob": 0.008716350421309471,
+      "words": [
+        {
+          "word": " Woah,",
+          "start": 118.44,
+          "end": 118.44,
+          "probability": 4.77165087886533e-07
+        },
+        {
+          "word": " oh",
+          "start": 118.74,
+          "end": 119.22,
+          "probability": 0.44376999139785767
+        },
+        {
+          "word": " yeah",
+          "start": 119.22,
+          "end": 119.8,
+          "probability": 0.6197938919067383
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "seek": 11714,
+      "start": 129.9,
+      "end": 133.32,
+      "text": " When I close my eyes",
+      "tokens": [
+        51288,
+        1133,
+        286,
+        1998,
+        452,
+        2575,
+        51702
+      ],
+      "temperature": 1.0,
+      "avg_logprob": -0.559878043758059,
+      "compression_ratio": 2.839622641509434,
+      "no_speech_prob": 0.008716350421309471,
+      "words": [
+        {
+          "word": " When",
+          "start": 129.9,
+          "end": 130.78,
+          "probability": 0.5488304495811462
+        },
+        {
+          "word": " I",
+          "start": 130.78,
+          "end": 131.34,
+          "probability": 0.9955775737762451
+        },
+        {
+          "word": " close",
+          "start": 131.34,
+          "end": 131.8,
+          "probability": 0.9976125955581665
+        },
+        {
+          "word": " my",
+          "start": 131.8,
+          "end": 132.6,
+          "probability": 0.9980744123458862
+        },
+        {
+          "word": " eyes",
+          "start": 132.6,
+          "end": 133.32,
+          "probability": 0.9995511174201965
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "seek": 11714,
+      "start": 133.32,
+      "end": 135.78,
+      "text": " It's you there in my mind",
+      "tokens": [
+        51702,
+        467,
+        311,
+        291,
+        456,
+        294,
+        452,
+        1575,
+        51758
+      ],
+      "temperature": 1.0,
+      "avg_logprob": -0.559878043758059,
+      "compression_ratio": 2.839622641509434,
+      "no_speech_prob": 0.008716350421309471,
+      "words": [
+        {
+          "word": " It's",
+          "start": 133.32,
+          "end": 133.88,
+          "probability": 0.7708604335784912
+        },
+        {
+          "word": " you",
+          "start": 133.88,
+          "end": 133.96,
+          "probability": 0.9972193241119385
+        },
+        {
+          "word": " there",
+          "start": 133.96,
+          "end": 134.56,
+          "probability": 0.9884828925132751
+        },
+        {
+          "word": " in",
+          "start": 134.56,
+          "end": 134.96,
+          "probability": 0.911180853843689
+        },
+        {
+          "word": " my",
+          "start": 134.96,
+          "end": 135.32,
+          "probability": 0.9996320009231567
+        },
+        {
+          "word": " mind",
+          "start": 135.32,
+          "end": 135.78,
+          "probability": 0.9784325361251831
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "seek": 11714,
+      "start": 135.78,
+      "end": 138.9,
+      "text": " When I close my eyes",
+      "tokens": [
+        51758,
+        1133,
+        286,
+        1998,
+        452,
+        2575,
+        51795
+      ],
+      "temperature": 1.0,
+      "avg_logprob": -0.559878043758059,
+      "compression_ratio": 2.839622641509434,
+      "no_speech_prob": 0.008716350421309471,
+      "words": [
+        {
+          "word": " When",
+          "start": 135.78,
+          "end": 136.42,
+          "probability": 0.9863128066062927
+        },
+        {
+          "word": " I",
+          "start": 136.42,
+          "end": 136.72,
+          "probability": 0.9990376234054565
+        },
+        {
+          "word": " close",
+          "start": 136.72,
+          "end": 137.3,
+          "probability": 0.999799907207489
+        },
+        {
+          "word": " my",
+          "start": 137.3,
+          "end": 138.02,
+          "probability": 0.9993175268173218
+        },
+        {
+          "word": " eyes",
+          "start": 138.02,
+          "end": 138.9,
+          "probability": 0.999887228012085
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "seek": 11714,
+      "start": 138.9,
+      "end": 144.28,
+      "text": " If all it is to say that it's why is it so hard to say",
+      "tokens": [
+        51795,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        309,
+        311,
+        983,
+        307,
+        309,
+        370,
+        1152,
+        281,
+        584,
+        51830
+      ],
+      "temperature": 1.0,
+      "avg_logprob": -0.559878043758059,
+      "compression_ratio": 2.839622641509434,
+      "no_speech_prob": 0.008716350421309471,
+      "words": [
+        {
+          "word": " If",
+          "start": 138.9,
+          "end": 139.7,
+          "probability": 0.9232232570648193
+        },
+        {
+          "word": " all",
+          "start": 139.7,
+          "end": 140.16,
+          "probability": 0.9991351962089539
+        },
+        {
+          "word": " it",
+          "start": 140.16,
+          "end": 140.48,
+          "probability": 0.9981778860092163
+        },
+        {
+          "word": " is",
+          "start": 140.48,
+          "end": 140.8,
+          "probability": 0.999794065952301
+        },
+        {
+          "word": " to",
+          "start": 140.8,
+          "end": 140.9,
+          "probability": 0.9009204506874084
+        },
+        {
+          "word": " say",
+          "start": 140.9,
+          "end": 141.14,
+          "probability": 0.9937646389007568
+        },
+        {
+          "word": " that",
+          "start": 141.14,
+          "end": 141.42,
+          "probability": 0.9933338761329651
+        },
+        {
+          "word": " it's",
+          "start": 141.42,
+          "end": 141.88,
+          "probability": 0.9982665479183197
+        },
+        {
+          "word": " why",
+          "start": 141.88,
+          "end": 142.1,
+          "probability": 0.8847017884254456
+        },
+        {
+          "word": " is",
+          "start": 142.1,
+          "end": 142.64,
+          "probability": 0.9777669906616211
+        },
+        {
+          "word": " it",
+          "start": 142.64,
+          "end": 142.92,
+          "probability": 0.9990193843841553
+        },
+        {
+          "word": " so",
+          "start": 142.92,
+          "end": 143.1,
+          "probability": 0.998239278793335
+        },
+        {
+          "word": " hard",
+          "start": 143.1,
+          "end": 143.52,
+          "probability": 0.9998959302902222
+        },
+        {
+          "word": " to",
+          "start": 143.52,
+          "end": 143.8,
+          "probability": 0.9997456669807434
+        },
+        {
+          "word": " say",
+          "start": 143.8,
+          "end": 144.28,
+          "probability": 0.9996967315673828
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "seek": 11714,
+      "start": 144.28,
+      "end": 147.12,
+      "text": " If all it is to say that it's why is it so hard to say",
+      "tokens": [
+        51830,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        309,
+        311,
+        983,
+        307,
+        309,
+        370,
+        1152,
+        281,
+        584,
+        51846
+      ],
+      "temperature": 1.0,
+      "avg_logprob": -0.559878043758059,
+      "compression_ratio": 2.839622641509434,
+      "no_speech_prob": 0.008716350421309471,
+      "words": [
+        {
+          "word": " If",
+          "start": 144.28,
+          "end": 145.16,
+          "probability": 0.9654882550239563
+        },
+        {
+          "word": " all",
+          "start": 145.16,
+          "end": 145.6,
+          "probability": 0.9997448325157166
+        },
+        {
+          "word": " it",
+          "start": 145.6,
+          "end": 145.84,
+          "probability": 0.9996299743652344
+        },
+        {
+          "word": " is",
+          "start": 145.84,
+          "end": 146.16,
+          "probability": 0.9998290538787842
+        },
+        {
+          "word": " to",
+          "start": 146.16,
+          "end": 146.26,
+          "probability": 0.9955711960792542
+        },
+        {
+          "word": " say",
+          "start": 146.26,
+          "end": 146.44,
+          "probability": 0.9998036026954651
+        },
+        {
+          "word": " that",
+          "start": 146.44,
+          "end": 146.78,
+          "probability": 0.9962974190711975
+        },
+        {
+          "word": " it's",
+          "start": 146.78,
+          "end": 147.12,
+          "probability": 0.9986266493797302
+        },
+        {
+          "word": " why",
+          "start": 147.12,
+          "end": 147.12,
+          "probability": 0.9788728952407837
+        },
+        {
+          "word": " is",
+          "start": 147.12,
+          "end": 147.12,
+          "probability": 0.9267460703849792
+        },
+        {
+          "word": " it",
+          "start": 147.12,
+          "end": 147.12,
+          "probability": 0.9955421090126038
+        },
+        {
+          "word": " so",
+          "start": 147.12,
+          "end": 147.12,
+          "probability": 0.9950242638587952
+        },
+        {
+          "word": " hard",
+          "start": 147.12,
+          "end": 147.12,
+          "probability": 0.9987412095069885
+        },
+        {
+          "word": " to",
+          "start": 147.12,
+          "end": 147.12,
+          "probability": 0.9990116357803345
+        },
+        {
+          "word": " say",
+          "start": 147.12,
+          "end": 147.12,
+          "probability": 0.9978994131088257
+        }
+      ]
+    },
+    {
+      "id": 35,
+      "seek": 11714,
+      "start": 147.12,
+      "end": 147.12,
+      "text": "",
+      "tokens": [],
+      "temperature": 1.0,
+      "avg_logprob": -0.559878043758059,
+      "compression_ratio": 2.839622641509434,
+      "no_speech_prob": 0.008716350421309471,
+      "words": []
+    },
+    {
+      "id": 36,
+      "seek": 14712,
+      "start": 147.12,
+      "end": 149.62,
+      "text": " Why am I in my own way?",
+      "tokens": [
+        50365,
+        1545,
+        669,
+        286,
+        294,
+        452,
+        1065,
+        636,
+        30,
+        50502
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " Why",
+          "start": 147.12,
+          "end": 147.5,
+          "probability": 0.574113130569458
+        },
+        {
+          "word": " am",
+          "start": 147.5,
+          "end": 148.02,
+          "probability": 0.9621828198432922
+        },
+        {
+          "word": " I",
+          "start": 148.02,
+          "end": 148.2,
+          "probability": 0.9885876178741455
+        },
+        {
+          "word": " in",
+          "start": 148.2,
+          "end": 148.54,
+          "probability": 0.9709996581077576
+        },
+        {
+          "word": " my",
+          "start": 148.54,
+          "end": 148.84,
+          "probability": 0.9976669549942017
+        },
+        {
+          "word": " own",
+          "start": 148.84,
+          "end": 149.16,
+          "probability": 0.995729386806488
+        },
+        {
+          "word": " way?",
+          "start": 149.16,
+          "end": 149.62,
+          "probability": 0.9845811724662781
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "seek": 14712,
+      "start": 151.08,
+      "end": 154.92,
+      "text": " Why do I pull you close and then ask you for space?",
+      "tokens": [
+        50563,
+        1545,
+        360,
+        286,
+        2235,
+        291,
+        1998,
+        293,
+        550,
+        1029,
+        291,
+        337,
+        1901,
+        30,
+        50787
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " Why",
+          "start": 150.79999999999998,
+          "end": 151.14,
+          "probability": 0.993654727935791
+        },
+        {
+          "word": " do",
+          "start": 151.14,
+          "end": 151.48,
+          "probability": 0.9921112060546875
+        },
+        {
+          "word": " I",
+          "start": 151.48,
+          "end": 151.84,
+          "probability": 0.9986566305160522
+        },
+        {
+          "word": " pull",
+          "start": 151.84,
+          "end": 152.24,
+          "probability": 0.9978698492050171
+        },
+        {
+          "word": " you",
+          "start": 152.24,
+          "end": 152.64,
+          "probability": 0.9584859609603882
+        },
+        {
+          "word": " close",
+          "start": 152.64,
+          "end": 153.1,
+          "probability": 0.7516292929649353
+        },
+        {
+          "word": " and",
+          "start": 153.1,
+          "end": 153.32,
+          "probability": 0.8082361817359924
+        },
+        {
+          "word": " then",
+          "start": 153.32,
+          "end": 153.5,
+          "probability": 0.9968061447143555
+        },
+        {
+          "word": " ask",
+          "start": 153.5,
+          "end": 154.0,
+          "probability": 0.9972732663154602
+        },
+        {
+          "word": " you",
+          "start": 154.0,
+          "end": 154.28,
+          "probability": 0.9994434714317322
+        },
+        {
+          "word": " for",
+          "start": 154.28,
+          "end": 154.5,
+          "probability": 0.9996602535247803
+        },
+        {
+          "word": " space?",
+          "start": 154.5,
+          "end": 154.92,
+          "probability": 0.9982191920280457
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "seek": 14712,
+      "start": 155.66,
+      "end": 157.96,
+      "text": " If all it is to say that is",
+      "tokens": [
+        50808,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        307,
+        50914
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " If",
+          "start": 155.66,
+          "end": 156.08,
+          "probability": 0.9872215390205383
+        },
+        {
+          "word": " all",
+          "start": 156.08,
+          "end": 156.32,
+          "probability": 0.9988425970077515
+        },
+        {
+          "word": " it",
+          "start": 156.32,
+          "end": 156.64,
+          "probability": 0.9374107122421265
+        },
+        {
+          "word": " is",
+          "start": 156.64,
+          "end": 156.86,
+          "probability": 0.9996943473815918
+        },
+        {
+          "word": " to",
+          "start": 156.86,
+          "end": 157.06,
+          "probability": 0.9066778421401978
+        },
+        {
+          "word": " say",
+          "start": 157.06,
+          "end": 157.3,
+          "probability": 0.9990554451942444
+        },
+        {
+          "word": " that",
+          "start": 157.3,
+          "end": 157.56,
+          "probability": 0.9244266748428345
+        },
+        {
+          "word": " is",
+          "start": 157.56,
+          "end": 157.96,
+          "probability": 0.7158768773078918
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "seek": 14712,
+      "start": 157.96,
+      "end": 160.44,
+      "text": " Why is it so hard to say?",
+      "tokens": [
+        50914,
+        1545,
+        307,
+        309,
+        370,
+        1152,
+        281,
+        584,
+        30,
+        51048
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " Why",
+          "start": 157.96,
+          "end": 158.24,
+          "probability": 0.3914943039417267
+        },
+        {
+          "word": " is",
+          "start": 158.24,
+          "end": 158.78,
+          "probability": 0.998096764087677
+        },
+        {
+          "word": " it",
+          "start": 158.78,
+          "end": 158.94,
+          "probability": 0.999119222164154
+        },
+        {
+          "word": " so",
+          "start": 158.94,
+          "end": 159.26,
+          "probability": 0.9996985197067261
+        },
+        {
+          "word": " hard",
+          "start": 159.26,
+          "end": 159.64,
+          "probability": 0.9920591115951538
+        },
+        {
+          "word": " to",
+          "start": 159.64,
+          "end": 160.0,
+          "probability": 0.999568521976471
+        },
+        {
+          "word": " say?",
+          "start": 160.0,
+          "end": 160.44,
+          "probability": 0.9952622652053833
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "seek": 14712,
+      "start": 161.36,
+      "end": 163.1,
+      "text": " If all it is to say that is",
+      "tokens": [
+        51077,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        307,
+        51186
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " If",
+          "start": 161.18,
+          "end": 161.52,
+          "probability": 0.993594229221344
+        },
+        {
+          "word": " all",
+          "start": 161.52,
+          "end": 161.74,
+          "probability": 0.9998051524162292
+        },
+        {
+          "word": " it",
+          "start": 161.74,
+          "end": 162.0,
+          "probability": 0.9973058700561523
+        },
+        {
+          "word": " is",
+          "start": 162.0,
+          "end": 162.36,
+          "probability": 0.9999309778213501
+        },
+        {
+          "word": " to",
+          "start": 162.36,
+          "end": 162.46,
+          "probability": 0.9979098439216614
+        },
+        {
+          "word": " say",
+          "start": 162.46,
+          "end": 162.7,
+          "probability": 0.9994834661483765
+        },
+        {
+          "word": " that",
+          "start": 162.7,
+          "end": 163.0,
+          "probability": 0.9336544275283813
+        },
+        {
+          "word": " is",
+          "start": 163.0,
+          "end": 163.1,
+          "probability": 0.7421866655349731
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "seek": 14712,
+      "start": 163.1,
+      "end": 165.66,
+      "text": " When I close my eyes",
+      "tokens": [
+        51186,
+        1133,
+        286,
+        1998,
+        452,
+        2575,
+        51304
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " When",
+          "start": 163.1,
+          "end": 163.56,
+          "probability": 0.39622312784194946
+        },
+        {
+          "word": " I",
+          "start": 163.56,
+          "end": 163.68,
+          "probability": 0.9596148729324341
+        },
+        {
+          "word": " close",
+          "start": 163.68,
+          "end": 164.22,
+          "probability": 0.997581958770752
+        },
+        {
+          "word": " my",
+          "start": 164.22,
+          "end": 164.96,
+          "probability": 0.9994609951972961
+        },
+        {
+          "word": " eyes",
+          "start": 164.96,
+          "end": 165.66,
+          "probability": 0.9996492862701416
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "seek": 14712,
+      "start": 165.66,
+      "end": 168.46,
+      "text": " It's you there, it's only you",
+      "tokens": [
+        51304,
+        467,
+        311,
+        291,
+        456,
+        11,
+        309,
+        311,
+        787,
+        291,
+        51442
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " It's",
+          "start": 165.66,
+          "end": 166.16,
+          "probability": 0.8529027104377747
+        },
+        {
+          "word": " you",
+          "start": 166.16,
+          "end": 166.36,
+          "probability": 0.9938149452209473
+        },
+        {
+          "word": " there,",
+          "start": 166.36,
+          "end": 166.84,
+          "probability": 0.6726918816566467
+        },
+        {
+          "word": " it's",
+          "start": 167.14,
+          "end": 167.62,
+          "probability": 0.8823916614055634
+        },
+        {
+          "word": " only",
+          "start": 167.62,
+          "end": 167.88,
+          "probability": 0.9119200110435486
+        },
+        {
+          "word": " you",
+          "start": 167.88,
+          "end": 168.46,
+          "probability": 0.9981080293655396
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "seek": 14712,
+      "start": 168.46,
+      "end": 171.16,
+      "text": " When I close my eyes",
+      "tokens": [
+        51442,
+        1133,
+        286,
+        1998,
+        452,
+        2575,
+        51593
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " When",
+          "start": 168.46,
+          "end": 168.86,
+          "probability": 0.9930469393730164
+        },
+        {
+          "word": " I",
+          "start": 168.86,
+          "end": 169.08,
+          "probability": 0.9998630285263062
+        },
+        {
+          "word": " close",
+          "start": 169.08,
+          "end": 169.64,
+          "probability": 0.9999328851699829
+        },
+        {
+          "word": " my",
+          "start": 169.64,
+          "end": 170.38,
+          "probability": 0.9999325275421143
+        },
+        {
+          "word": " eyes",
+          "start": 170.38,
+          "end": 171.16,
+          "probability": 0.9999874830245972
+        }
+      ]
+    },
+    {
+      "id": 44,
+      "seek": 14712,
+      "start": 171.68,
+      "end": 174.04,
+      "text": " If all it is to say that is",
+      "tokens": [
+        51593,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        307,
+        51712
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " If",
+          "start": 171.68,
+          "end": 172.08,
+          "probability": 0.9160116314888
+        },
+        {
+          "word": " all",
+          "start": 172.08,
+          "end": 172.56,
+          "probability": 0.9999300241470337
+        },
+        {
+          "word": " it",
+          "start": 172.56,
+          "end": 172.8,
+          "probability": 0.9998823404312134
+        },
+        {
+          "word": " is",
+          "start": 172.8,
+          "end": 173.08,
+          "probability": 0.9999878406524658
+        },
+        {
+          "word": " to",
+          "start": 173.08,
+          "end": 173.22,
+          "probability": 0.9999567270278931
+        },
+        {
+          "word": " say",
+          "start": 173.22,
+          "end": 173.5,
+          "probability": 0.9999762773513794
+        },
+        {
+          "word": " that",
+          "start": 173.5,
+          "end": 173.84,
+          "probability": 0.9997785687446594
+        },
+        {
+          "word": " is",
+          "start": 173.84,
+          "end": 174.04,
+          "probability": 0.9650063514709473
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "seek": 14712,
+      "start": 174.04,
+      "end": 176.4,
+      "text": " When I close my eyes",
+      "tokens": [
+        51712,
+        1133,
+        286,
+        1998,
+        452,
+        2575,
+        51844
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.21424002599234532,
+      "compression_ratio": 2.0441176470588234,
+      "no_speech_prob": 0.4212670624256134,
+      "words": [
+        {
+          "word": " When",
+          "start": 174.04,
+          "end": 174.2,
+          "probability": 0.9977387189865112
+        },
+        {
+          "word": " I",
+          "start": 174.2,
+          "end": 174.5,
+          "probability": 0.9998513460159302
+        },
+        {
+          "word": " close",
+          "start": 174.5,
+          "end": 175.08,
+          "probability": 0.9999257326126099
+        },
+        {
+          "word": " my",
+          "start": 175.08,
+          "end": 175.78,
+          "probability": 0.9999632835388184
+        },
+        {
+          "word": " eyes",
+          "start": 175.78,
+          "end": 176.4,
+          "probability": 0.9999635219573975
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "seek": 17640,
+      "start": 176.4,
+      "end": 179.2,
+      "text": " It's you there, my, my, you",
+      "tokens": [
+        50365,
+        467,
+        311,
+        291,
+        456,
+        11,
+        452,
+        11,
+        452,
+        11,
+        291,
+        50515
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.20295395851135253,
+      "compression_ratio": 1.0410958904109588,
+      "no_speech_prob": 0.005891456734389067,
+      "words": [
+        {
+          "word": " It's",
+          "start": 176.4,
+          "end": 176.96,
+          "probability": 0.590484693646431
+        },
+        {
+          "word": " you",
+          "start": 176.96,
+          "end": 177.12,
+          "probability": 0.9868532419204712
+        },
+        {
+          "word": " there,",
+          "start": 177.12,
+          "end": 177.6,
+          "probability": 0.5580256581306458
+        },
+        {
+          "word": " my,",
+          "start": 177.86,
+          "end": 178.42,
+          "probability": 0.399651437997818
+        },
+        {
+          "word": " my,",
+          "start": 178.64,
+          "end": 178.94,
+          "probability": 0.9980940222740173
+        },
+        {
+          "word": " you",
+          "start": 178.94,
+          "end": 179.2,
+          "probability": 0.8945121765136719
+        }
+      ]
+    },
+    {
+      "id": 47,
+      "seek": 17640,
+      "start": 179.2,
+      "end": 182.2,
+      "text": " When I close my eyes",
+      "tokens": [
+        50515,
+        1133,
+        286,
+        1998,
+        452,
+        2575,
+        50669
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.20295395851135253,
+      "compression_ratio": 1.0410958904109588,
+      "no_speech_prob": 0.005891456734389067,
+      "words": [
+        {
+          "word": " When",
+          "start": 179.2,
+          "end": 179.56,
+          "probability": 0.0043335226364433765
+        },
+        {
+          "word": " I",
+          "start": 179.56,
+          "end": 179.9,
+          "probability": 0.9375061392784119
+        },
+        {
+          "word": " close",
+          "start": 179.9,
+          "end": 180.26,
+          "probability": 0.9954481720924377
+        },
+        {
+          "word": " my",
+          "start": 180.26,
+          "end": 181.14,
+          "probability": 0.9931769371032715
+        },
+        {
+          "word": " eyes",
+          "start": 181.14,
+          "end": 182.2,
+          "probability": 0.9999598264694214
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "seek": 17640,
+      "start": 182.2,
+      "end": 185.06,
+      "text": " If all it is to say that is",
+      "tokens": [
+        50669,
+        759,
+        439,
+        309,
+        307,
+        281,
+        584,
+        300,
+        307,
+        50800
+      ],
+      "temperature": 0.0,
+      "avg_logprob": -0.20295395851135253,
+      "compression_ratio": 1.0410958904109588,
+      "no_speech_prob": 0.005891456734389067,
+      "words": [
+        {
+          "word": " If",
+          "start": 182.2,
+          "end": 182.84,
+          "probability": 0.005279536824673414
+        },
+        {
+          "word": " all",
+          "start": 182.84,
+          "end": 183.32,
+          "probability": 0.5551642179489136
+        },
+        {
+          "word": " it",
+          "start": 183.32,
+          "end": 183.6,
+          "probability": 0.4319322109222412
+        },
+        {
+          "word": " is",
+          "start": 183.6,
+          "end": 183.9,
+          "probability": 0.9924209713935852
+        },
+        {
+          "word": " to",
+          "start": 183.9,
+          "end": 184.02,
+          "probability": 0.2484404295682907
+        },
+        {
+          "word": " say",
+          "start": 184.02,
+          "end": 184.26,
+          "probability": 0.7936561107635498
+        },
+        {
+          "word": " that",
+          "start": 184.26,
+          "end": 184.56,
+          "probability": 0.751233696937561
+        },
+        {
+          "word": " is",
+          "start": 184.56,
+          "end": 185.06,
+          "probability": 0.0009950895328074694
+        }
+      ]
+    }
+  ],
+  "language": "en"
+}
